@@ -1,0 +1,246 @@
+/* Base Styles */
+body {
+    font-family: monospace, sans-serif;
+    line-height: 1.3;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+}
+
+.resume-container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.resume-content {
+    padding: 40px;
+}
+
+h1 {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+h2 {
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+h3 {
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+
+.contact-info {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contact-info a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.education-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: baseline;
+}
+
+.education-details {
+    flex: 1;
+    padding-right: 20px;
+    margin-bottom: 5px;
+}
+
+.education-date {
+    min-width: 100px;
+    text-align: right;
+}
+
+.project {
+    margin-bottom: 15px;
+}
+
+ul {
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    display: block;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #007BFF;
+}
+
+.toggle-checkbox:checked + .toggle-label::after {
+    transform: translateX(20px);
+}
+
+/* Chat Dialog */
+.chat-dialog {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.chat-header {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-input {
+    padding: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.chat-input input[type="text"] {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chat-input button {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+}
+
+body.dark-mode .resume-container {
+    background-color: #333;
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    border-bottom: 1px solid #fff;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode p,
+body.dark-mode a, body.dark-mode ul {
+    color: #fff;
+}
+body.dark-mode h2{
+border-bottom: 1px solid #fff;
+}
+
+body.dark-mode .contact-info {
+    color: #fff;
+}
+
+body.dark-mode .education-date {
+    color: #bbb;
+}
+
+body.dark-mode .chat-dialog {
+    background-color: #444;
+}
+
+body.dark-mode .chat-header {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-mode .chat-input {
+    background-color: #555;
+    border-top: 1px solid #444;
+}
+
+body.dark-mode .chat-input input[type="text"] {
+    background-color: #666;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+body.dark-mode .chat-input button {
+    background-color: #008CFF;
+}
+
+body.dark-mode .chat-input button:hover {
+    background-color: #006bb3;
+}

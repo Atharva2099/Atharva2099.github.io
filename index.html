@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atharva Walawalkar - Resume</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="resume-container">
+        <div class="dark-mode-toggle">
+            <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
+            <label for="darkModeToggle" class="toggle-label"></label>
+        </div>
+        <div class="resume-content">
+            <h1>ATHARVA WALAWALKAR</h1>
+            <div class="contact-info">
+                +1(123) 456-7890 ⋄ San Francisco, CA<br>
+                <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a> ⋄ 
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a> ⋄ 
+                <a href="https://leetcode.com" target="_blank">Leetcode</a> ⋄ 
+                <a href="https://github.com" target="_blank">GitHub</a>
+            </div>
+
+            <div class="section">
+                <h2>OBJECTIVE <span class="text-bubble" onclick="openDialog('objective')">💬</span></h2>
+                <p>Pursuing a Master's in Data Science and AI at San Francisco State University. Seeking Summer 2025 internships in Data Science and Applied AI.</p>
+            </div>
+
+            <div class="section">
+                <h2>EDUCATION <span class="text-bubble" onclick="openDialog('education')">💬</span></h2>
+                <div class="education-item">
+                    <div class="education-details">
+                        <h3>Master of Data Science and AI</h3>
+                        <p>San Francisco State University</p>
+                        <p>Relevant Coursework: Probabilty and Statistics, Statistical Learning and Data Mining, Deep Learning, Natural Language Technologies.</p>
+                    </div>
+                    <div class="education-date"><strong>Expected 2026</strong></div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-details">
+                        <h3>Bachelors of Technology, Electronics Engineering</h3>
+                        <p>Pimpri Chinchwad college of Engineering, Pune University, India</p>
+                        <p>Relevant Coursework: Signal Processing, Computer Networking, Applied AI, Data Structure and Algorithm.</p>
+                    </div>
+                    <div class="education-date"><strong>2020 - 2024</strong></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>SKILLS <span class="text-bubble" onclick="openDialog('skills')">💬</span></h2>
+                <p><strong>Programming:</strong> Python, R, SQL, Javascript, Java, C++</p>
+                <p><strong>Tools and Skills:</strong> Deep learning, LLM, Data Visualization, Statistical Analysis, TensorFlow, Keras, PyTorch, Pandas, Scikit-learn, Langchain, Streamlit.</p>
+                <p><strong>Databases:</strong> MySQL, ChromaDB, MongoDB.</p>
+            </div>
+
+            <div class="section">
+                <h2>PROJECTS <span class="text-bubble" onclick="openDialog('projects')">💬</span></h2>
+                <div class="project">
+                    <h3>Deep Learning Flood Alert System with IoT</h3>
+                    <ul>
+                        <li>Built a tool to predict and alert users about flood forecasts using LSTM, Pandas, Numpy, and IoT.</li>
+                        <li>Achieved an RMSE of 0.7253 mm, MSE of 0.5261 mm, and MAE of 0.1709mm.</li>
+                        <li>LSTM model predicts floods up to 120 hours in advance.</li>
+                        <li>Developed a Flutter app for the same, hosted on a Raspberry Pi for a low-cost solution.</li>
+                        <li>Project is under patent app no. 202421045867 and paper review.</li>
+                    </ul>
+                </div>
+                <div class="project">
+                    <h3>BSE/NSE Stocks dashboard</h3>
+                    <ul>
+                        <li>Developed an interactive web application using Streamlit for visualizing historical stock data from the Indian Stock Exchange.</li>
+                        <li>Fetched and processed stock data for major automobile companies from the NSE and BSE using yfinance.</li>
+                        <li>Visualized closing prices and trading volumes with customized line charts to facilitate clear data analysis.</li>
+                        <li>Implemented a dynamic and user-friendly interface that updates with the latest available stock data.</li>
+                    </ul>
+                </div>
+                <div class="project">
+                    <h3>WikiGPT</h3>
+                    <ul>
+                        <li>Developed dynamic user interactions for scraping Wikipedia pages and generating LLM-based responses to custom prompts.</li>
+                        <li>Implemented a web scraping function with requests and BeautifulSoup to extract and save Wikipedia page content.</li>
+                        <li>Integrated the Mistral 7B instruct model via Ollama for function calling.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatDialog" class="chat-dialog">
+        <div class="chat-header">
+            <h3>Chat</h3>
+            <button onclick="closeDialog()">Close</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your question...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
