@@ -3,102 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atharva Walawalkar - Resume</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Atharva Walawalkar</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            background-color: #2e2e2e;
+            color: #3f91e3;
+            padding: 3rem;
+            max-width: 740px;
+            margin: 0 auto;
+            font-size: 15px;
+        }
+        
+        h1, h2, h3 {
+            color: #3f91e3;
+        }
+        
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        a {
+            color: #5fb0ff;
+            text-decoration: none;
+            border-bottom: 1px dashed #5fb0ff;
+            padding-bottom: 1px;
+        }
+        
+        a:hover {
+            border-bottom: 1px solid #5fb0ff;
+        }
+        
+        .links {
+            margin: 1.5rem 0;
+        }
+        
+        .links a {
+            margin-right: 1.5rem;
+        }
+        
+        .section {
+            margin: 2.5rem 0;
+        }
+        
+        .project {
+            margin-bottom: 2rem;
+        }
+        
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-desc {
+            margin-left: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .talk {
+            margin-bottom: 1.5rem;
+        }
+        
+        .date {
+            color: #80b7e8;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            color: #98FB98;
+            font-weight: bold;
+        }
+        
+        .separator {
+            margin: 0 0.5rem;
+            color: #5fb0ff;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 1.5rem;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="resume-container">
-        <div class="dark-mode-toggle">
-            <input type="checkbox" id="darkModeToggle" class="toggle-checkbox">
-            <label for="darkModeToggle" class="toggle-label"></label>
+    <h1>atharva walawalkar</h1>
+    <p>
+        Electronics engineer specializing in NLP and LLMs. Currently pursuing my Master's in Data Science and AI at 
+        San Francisco State University.I focus on building end-to-end AI solutions, building smart-hardware solutions for everyday problems.
+    </p>
+    
+    <div class="links">
+        <a href="mailto:atharvawal27@gmail.com">email</a>
+        <a href="https://github.com/Atharva2099/" target="_blank">github</a>
+        <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank">linkedin</a>
+        <a href="https://huggingface.co/atharva2099" target="_blank">huggingface</a>
+    </div>
+    
+    <div class="section">
+        <h2>// projects</h2>
+        
+        <div class="project">
+            <div class="project-title">
+                Trip.AI <span class="date">[2024]</span>
+            </div>
+            <div class="project-desc">
+                LLM-powered travel itinerary generator using <span class="highlight">Groq API</span>. Features include: 
+                strict JSON schema validation, dynamic itinerary modifications, cross-checking against Google and 
+                Wikipedia data, Leaflet maps integration, and per-person budget breakdown.
+                <br>
+                <a href="https://github.com/Atharva2099/Trip.AI" target="_blank">github</a>
+            </div>
         </div>
-        <div class="resume-content">
-            <h1>ATHARVA WALAWALKAR</h1>
-            <div class="contact-info">
-                +1(415) 672-9204 ⋄ San Francisco, CA<br>
-                <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a> ⋄ 
-                <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank">LinkedIn</a> ⋄ 
-                <a href="https://leetcode.com/u/Atharva_walawalkar/" target="_blank">Leetcode</a> ⋄ 
-                <a href="https://github.com/Atharva2099/" target="_blank">GitHub</a>
+
+        <div class="project">
+            <div class="project-title">
+                Cover Letter Generation with LLaMA <span class="date">[2024]</span>
             </div>
-
-            <div class="section">
-                <h2>Education</h2>
-                <div class="education-item">
-                    <div class="education-details">
-                        <h3>Master of Data Science and AI</h3>
-                        <p>San Francisco State University</p>
-                        <p>Relevant Coursework: Probability and Statistics, Statistical Learning and Data Mining, Deep Learning, Natural Language Technologies, Operating Systems, Artificial Intelligence.</p>
-                    </div>
-                    <div class="education-date"><strong>Expected 2026</strong></div>
-                </div>
-
-                <div class="education-item">
-                    <div class="education-details">
-                        <h3>Bachelors of Technology, Electronics and Communication Engineering</h3>
-                        <p>PCCOE, Pune University, India</p>
-                        <p>Relevant Coursework: Machine Learning, Signal Processing, Computer Networking, Applied AI, Data Structure and Algorithm, Web and Mobile Development, IoT.</p>
-                    </div>
-                    <div class="education-date"><strong>2020 - 2024</strong></div>
-                </div>
+            <div class="project-desc">
+                Fine-tuned <span class="highlight">LLaMA 3.2-3B</span> for specialized cover letter generation using 
+                <span class="highlight">LoRA</span>. Implemented efficient 4-bit quantized training 
+                pipeline using unsloth. Available on HuggingFace.
+                <br>
+                <a href="https://huggingface.co/atharva2099" target="_blank">huggingface</a>
             </div>
-
-            <div class="section">
-                <h2>Skills</h2>
-                <p><strong>Programming Languages:</strong> Python, R, SQL, JavaScript, Java, C++, C</p>
-                <p><strong>Machine Learning Frameworks:</strong> TensorFlow, PyTorch, Keras</p>
-                <p><strong>Tools:</strong> LangChain, FastAPI, NumPy, Pandas, Scikit-learn, Streamlit</p>
-                <p><strong>Databases:</strong> MySQL, ChromaDB, MongoDB</p>
+        </div>
+        
+        <div class="project">
+            <div class="project-title">
+                EasyQuizzes <span class="date">[Cal Hacks 11.0]</span>
             </div>
-
-            <div class="section">
-                <h2>Hackathons</h2>
-                <ul>
-                    <li><strong>COEP NLP Hackathon:</strong> Developed an English-to-Hinglish translator leveraging NLP techniques.</li>
-                    <li><strong>CalHacks 11.0:</strong> Created <strong>EasyQuizzes</strong>, an AI-powered flashcard generator using RAG architecture with Groq APIs and ChromaDB.</li>
-                </ul>
+            <div class="project-desc">
+                An AI-powered study assistant built in-under 36 hours. Integrated <span class="highlight">OCR</span> with 
+                <span class="highlight">LLaMA 3.2-11B-vision</span> for document understanding. Built a sophisticated 
+                <span class="highlight">RAG system</span> with ChromaDB vector embeddings for question generation.
+                <br>
+                <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">github</a>
             </div>
-
-            <div class="section">
-                <h2>Certifications</h2>
-                <ul>
-                    <li>Google Advanced Data Analytics (Coursera)</li>
-                    <li>AWS Academy Graduate - AWS Academy Cloud Foundations</li>
-                    <li>Linear Algebra for Machine Learning and Data Science (DeepLearning.AI)</li>
-                </ul>
+        </div>
+        
+        <div class="project">
+            <div class="project-title">
+                Deep Learning Flood Alert System <span class="date">[Patent Pending, 2024]</span>
             </div>
-
-            <div class="section">
-                <h2>Projects</h2>
-                <div class="project">
-                    <h3>EasyQuizzes: An AI-powered flashcard generator <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">GitHub</a></h3>
-                    <ul>
-                        <li>Engineered a production-ready ML system using <strong>Llama 3.2-3B</strong> hosted on Groq's API for efficient inference and generation.</li>
-                        <li>Implemented <strong>RAG architecture</strong> with ChromaDB for semantic search and context retrieval, improving response relevance.</li>
-                        <li>Built scalable backend with <strong>FastAPI</strong>, optimizing API response times and handling concurrent requests effectively.</li>
-                        <li>Developed frontend using vanilla JavaScript, achieving lightweight deployment and seamless user experience.</li>
-                    </ul>
-                </div>
-                <div class="project">
-                    <h3>Deep Learning Flood Alert System with IoT (Patent Pending)</h3>
-                    <ul>
-                        <li>Architected an end-to-end ML pipeline using LSTM networks for flood prediction with <strong>120-hour advance forecasting</strong>.</li>
-                        <li>Achieved an RMSE of <strong>0.7253 mm</strong>, MSE of <strong>0.5261 mm</strong>, and MAE of <strong>0.1709mm</strong>, demonstrating high prediction accuracy.</li>
-                        <li>Deployed model on edge device (Raspberry Pi) with Flutter mobile app integration for real-time alerts.</li>
-                    </ul>
-                </div>
-                <div class="project">
-                    <h3>Trip.AI <a href="https://github.com/Atharva2099/Trip.AI" target="_blank">GitHub</a></h3>
-                    <ul>
-                        <li>Designed a Groq AI-powered travel itinerary generator leveraging <strong>OpenStreetMap</strong> data for accurate geolocation and mapping functionalities, enabling users to create personalized trip plans.</li>
-                        <li>Implemented a robust validation pipeline to cross-check LLM-generated itineraries against real-world data from Wikipedia and Google, ensuring accuracy in pricing and location details.</li>
-                        <li>Integrated dynamic editing features, allowing users to customize or replace specific itinerary items, fostering interactive planning.</li>
-                    </ul>
-                </div>
+            <div class="project-desc">
+                TensorFlow-based flood prediction with <span class="highlight">120-hour advance forecasting</span>. 
+                Achieved <span class="highlight">RMSE of 0.7253 mm, MSE of 0.5261 mm, and MAE of 0.1709 mm</span>. Used Haversine formula 
+                to dynamically select the closest regional model based on user location. Deployed on 
+                <span class="highlight">Raspberry Pi</span> with a Flutter mobile app for real-time alerts.
+            </div>
+        </div>
+        
+        <div class="project">
+            <div class="project-title">
+                Linux Systems Programming <span class="date">[2023]</span>
+            </div>
+            <div class="project-desc">
+                Developed a kernel-level <span class="highlight">RLE compression driver</span> with custom IOCTL interface.
+                Implemented comprehensive error handling and memory management for enhanced kernel stability.
+                Optimized read/write operations and designed system call hooks for seamless interaction.
+                <br>
+                <a href="https://github.com/Atharva2099/" target="_blank">github</a>
             </div>
         </div>
     </div>
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    
+    <div class="section">
+        <h2>// research</h2>
+        <div class="project">
+            <div class="project-title">
+                Deep Learning Flood Alert System <span class="date">[Patent Pending, 2024]</span>
+            </div>
+            <div class="project-desc">
+                This flood prediction system using IoT and deep learning techniques is currently patent pending.
+                The system combines LSTM networks with edge computing over Raspberry Pi for real-world environmental monitoring.
+            </div>
+        </div>
+        
+        <div class="project">
+            <div class="project-title">
+                Credit Card Fraud Detection <span class="date">[Publication, 2023]</span>
+            </div>
+            <div class="project-desc">
+                Published "A Comparative Analysis of Machine Learning Techniques for Credit Card Fraud Detection."
+                Evaluated ensemble methods (XGBoost, Random Forest), traditional ML (SVM, Logistic Regression), 
+                and anomaly detection techniques. Implemented a comprehensive model comparison framework using 
+                scikit-learn and Python.
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>// hackathons</h2>
+        
+        <div class="talk">
+            <div class="project-title">
+                Cal Hacks 11.0 <span class="date">[36 Hours, 2024]</span>
+            </div>
+            <div class="project-desc">
+                Created <span class="highlight">EasyQuizzes</span>, an AI-powered flashcard generator. Built ReactJS frontend
+                with ShadCN UI and FastAPI backend. Leveraged Groq, ChromaDB, and Gemini APIs for LLM-based
+                question retrieval and summarization.
+            </div>
+        </div>
+        
+        <div class="talk">
+            <div class="project-title">
+                COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
+            </div>
+            <div class="project-desc">
+                Built an English-to-Hinglish translator using PyTorch-based NLP pipeline. Optimized for hackathon
+                time constraints by avoiding computationally expensive models like LSTMs and Transformers.
+                Implemented a lightweight Gradio UI and efficient PyTorch inference pipeline.
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>// technical stack</h2>
+        <p>
+            <span class="highlight">ML/AI:</span> PyTorch, TensorFlow, Hugging Face, ChromaDB, LLMs, RAG, TTS/STT Models
+        </p>
+        <p>
+            <span class="highlight">Programming:</span> Python (NumPy, Pandas, Matplotlib, FastAPI), C++, MATLAB, SQL, JavaScript (React, ShadCN)
+        </p>
+        <p>
+            <span class="highlight">Tools & Platforms:</span> Linux, Git, AWS (Basic), Google Coral, Raspberry Pi
+        </p>
+    </div>
+    
+    <div class="section">
+        <h2>// interests</h2>
+        <p>
+            I'm fascinated by the intersection of AI and practical applications. Current interests include:
+        </p>
+        <p>
+            → <span class="highlight">NLP:</span> Fine-tuning LLMs, multilingual translation, document understanding<br>
+            → <span class="highlight">AI Hardware:</span> Edge deployment, model quantization, TFLite optimizations<br>
+            → <span class="highlight">RAG Systems:</span> Vector embeddings, efficient context retrieval, hybrid search<br>
+            → <span class="highlight">Time Series:</span> Predictive modeling for environmental applications<br>
+            → <span class="highlight">ML Systems:</span> End-to-end AI product development, scaling ML pipelines
+        </p>
+    </div>
+    
+    <div class="section">
+        <h2>// education</h2>
+        <p>
+            <span class="highlight">MS in Data Science and AI</span> <span class="separator">|</span> San Francisco State University <span class="separator">|</span> <span class="date">Expected July 2026</span>
+        </p>
+        <p class="project-desc">
+            GPA: 4.0/4.0<br>
+            Relevant coursework: Operating Systems, Natural Language Processing, Probability and Statistics, Pattern Analysis, Analysis of Algorithms
+        </p>
+        
+        <p>
+            <span class="highlight">BTech in Electronics and Communication</span> <span class="separator">|</span> Pune University <span class="separator">|</span> <span class="date">2020-2024</span>
+        </p>
+        <p class="project-desc">
+            GPA: 8.2/10.0 (US Equivalent: 3.7/4.0)<br>
+            Relevant coursework: Data Structures and Algorithms, Embedded Systems, Signal Processing, IoT Development
+        </p>
+    </div>
+    
+    <div class="section">
+        <h2>// contact</h2>
+        <p>
+            Looking for Summer 2025 internships in the ML/AI domain. Feel free to reach out if you want to discuss AI, 
+            collaborate on projects, or talk about internship opportunities.
+        </p>
+        <p>
+            <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a> <span class="separator">|</span> <span class="date">San Francisco, CA</span>
+        </p>
+    </div>
 </body>
 </html>
