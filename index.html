@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +83,38 @@
             margin-bottom: 0.75rem;
         }
         
+        .experience-item {
+            margin-bottom: 2rem;
+        }
+        
+        .experience-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-details {
+            margin-left: 1rem;
+        }
+        
+        .experience-details ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .experience-details li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .experience-details li:before {
+            content: '•';
+            color: #5fb0ff;
+            position: absolute;
+            left: 0;
+        }
+        
         .talk {
             margin-bottom: 1.5rem;
         }
@@ -101,22 +134,109 @@
             color: #5fb0ff;
         }
         
+        .subtitle {
+            color: #80b7e8;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
         @media (max-width: 600px) {
             body {
                 padding: 1.5rem;
                 font-size: 14px;
             }
         }
-    </style>
-    <link rel="stylesheet" href="terminal-effect.css">
-    <script src="terminal-effect.js" defer></script>
 
+        /* Matrix background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+              linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        /* Text glow effect for all text */
+        body {
+            text-shadow: 0 0 3px currentColor;
+        }
+        
+        /* Stronger glow for headings */
+        h1, h2, h3 {
+            text-shadow: 0 0 5px currentColor;
+        }
+        
+        /* Even stronger glow for highlighted elements */
+        .highlight {
+            text-shadow: 0 0 8px currentColor;
+        }
+        
+        /* Subtle text blur for more authentic terminal feel */
+        body {
+            letter-spacing: 0.02em;
+        }
+        
+        /* Subtle scan lines for CRT effect (static, not animated) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+              0deg,
+              rgba(0, 0, 0, 0.1),
+              rgba(0, 0, 0, 0.1) 1px,
+              transparent 1px,
+              transparent 2px
+            );
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.2;
+        }
+        
+        /* Slight RGB bleeding effect for text */
+        @supports (-webkit-text-stroke: 1px) {
+            h1, h2 {
+                position: relative;
+            }
+            
+            h1::before, h2::before {
+                content: attr(data-text);
+                position: absolute;
+                left: -1px;
+                text-shadow: 1px 0 2px rgba(255, 0, 0, 0.3);
+                -webkit-text-stroke: 0.3px rgba(255, 0, 0, 0.3);
+                color: transparent;
+                z-index: -1;
+            }
+            
+            h1::after, h2::after {
+                content: attr(data-text);
+                position: absolute;
+                left: 1px;
+                text-shadow: -1px 0 2px rgba(0, 255, 255, 0.3);
+                -webkit-text-stroke: 0.3px rgba(0, 255, 255, 0.3);
+                color: transparent;
+                z-index: -1;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>atharva walawalkar</h1>
+    <h1 data-text="atharva walawalkar">atharva walawalkar</h1>
+    <div class="subtitle">AI Engineer specializing in NLP and LLMs</div>
     <p>
-        Electronics engineer specializing in NLP and LLMs. Currently pursuing my Master's in Data Science and AI at 
-        San Francisco State University.I focus on building end-to-end AI solutions, building smart-hardware solutions for everyday problems.
+        shipping ai that works; open to work full-time across
+        <span class="highlight">robotics/physical ai → applied ai and research</span> roles.
     </p>
     
     <div class="links">
@@ -127,16 +247,35 @@
     </div>
     
     <div class="section">
-        <h2>// projects</h2>
+        <h2 data-text="// experience">// experience</h2>
+        
+        <div class="experience-item">
+            <div class="experience-header">
+                Chewy Inc., Bellevue, WA — AI Engineering Intern <span class="date">(Jun 2025 – Aug 2025)</span>
+            </div>
+            <div class="experience-details">
+                <ul>
+                    <li>Architected an <span class="highlight">LLM-powered intent inference system</span> analyzing <span class="highlight">5M+ daily events</span>, mapping user shopping journeys into structured behavioral states; recognized as <span class="highlight">Runner-up & "Most Innovative Use of AI"</span> by leadership.</li>
+                    <li>Designed a <span class="highlight">memory store with billions of entries</span> persisting user intents and behavioral context, enabling downstream agents to deliver <span class="highlight">personalized experiences</span>.</li>
+                    <li>Built <span class="highlight">real-time behavioral pattern detection</span> to classify journey stages with confidence scoring, replacing aggregate analytics with <span class="highlight">user-level insights</span>.</li>
+                    <li>Developed an <span class="highlight">autonomous campaign analysis agent</span> leveraging stored intents for root-cause analysis; reduced <span class="highlight">manual analysis time by ~80%</span> via Slack/Jira integration.</li>
+                    <li>Cut <span class="highlight">inference costs ~60%</span> by batching requests and mixing optimized <span class="highlight">open-source and vendor models</span>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2 data-text="// projects">// projects</h2>
         
         <div class="project">
             <div class="project-title">
                 Trip.AI <span class="date">[2024]</span>
             </div>
             <div class="project-desc">
-                LLM-powered travel itinerary generator using <span class="highlight">Groq API</span>. Features include: 
-                strict JSON schema validation, dynamic itinerary modifications, cross-checking against Google and 
-                Wikipedia data, Leaflet maps integration, and per-person budget breakdown.
+                LLM-powered travel itinerary generator using <span class="highlight">Groq API</span>. Strict JSON schema validation, 
+                dynamic itinerary modifications, cross-checking against Google and Wikipedia data, Leaflet maps integration, 
+                and per-person budget breakdown.
                 <br>
                 <a href="https://github.com/Atharva2099/Trip.AI" target="_blank">github</a>
             </div>
@@ -148,8 +287,8 @@
             </div>
             <div class="project-desc">
                 Fine-tuned <span class="highlight">LLaMA 3.2-3B</span> for specialized cover letter generation using 
-                <span class="highlight">LoRA</span>. Implemented efficient 4-bit quantized training 
-                pipeline using unsloth. Available on HuggingFace.
+                <span class="highlight">LoRA</span>. Implemented efficient 4-bit quantized training pipeline using unsloth. 
+                Available on Hugging Face.
                 <br>
                 <a href="https://huggingface.co/atharva2099" target="_blank">huggingface</a>
             </div>
@@ -157,11 +296,11 @@
         
         <div class="project">
             <div class="project-title">
-                EasyQuizzes <span class="date">[Cal Hacks 11.0]</span>
+                EasyQuizzes <span class="date">[Cal Hacks 11.0, 2025]</span>
             </div>
             <div class="project-desc">
-                An AI-powered study assistant built in-under 36 hours. Integrated <span class="highlight">OCR</span> with 
-                <span class="highlight">LLaMA 3.2-11B-vision</span> for document understanding. Built a sophisticated 
+                AI-powered study assistant built in under 36 hours. Integrated <span class="highlight">OCR</span> with 
+                <span class="highlight">LLaMA 3.2-11B-vision</span> for document understanding. Built a 
                 <span class="highlight">RAG system</span> with ChromaDB vector embeddings for question generation.
                 <br>
                 <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">github</a>
@@ -174,9 +313,23 @@
             </div>
             <div class="project-desc">
                 TensorFlow-based flood prediction with <span class="highlight">120-hour advance forecasting</span>. 
-                Achieved <span class="highlight">RMSE of 0.7253 mm, MSE of 0.5261 mm, and MAE of 0.1709 mm</span>. Used Haversine formula 
-                to dynamically select the closest regional model based on user location. Deployed on 
+                Achieved <span class="highlight">RMSE 0.7253 mm, MSE 0.5261 mm, MAE 0.1709 mm</span>. Used Haversine formula 
+                to select the closest regional model based on user location. Deployed on 
                 <span class="highlight">Raspberry Pi</span> with a Flutter mobile app for real-time alerts.
+            </div>
+        </div>
+
+        <div class="project">
+            <div class="project-title">
+                Isaac Gym Robotic Manipulation <span class="date">[2024]</span>
+            </div>
+            <div class="project-desc">
+                Trained <span class="highlight">LeRobot SO-100</span> robotic arm in NVIDIA Isaac Gym using imitation learning 
+                from its paired arm for autonomous pick-and-place tasks. Combined learned policies with 
+                <span class="highlight">ROS-based fallback heuristics</span> to ensure task completion under uncertainty. 
+                Integrated Gemini Vision API for real-time object detection and built a Flask + React dashboard for live monitoring.
+                <br>
+                <a href="https://github.com/Atharva2099/" target="_blank">github</a>
             </div>
         </div>
         
@@ -186,8 +339,8 @@
             </div>
             <div class="project-desc">
                 Developed a kernel-level <span class="highlight">RLE compression driver</span> with custom IOCTL interface.
-                Implemented comprehensive error handling and memory management for enhanced kernel stability.
-                Optimized read/write operations and designed system call hooks for seamless interaction.
+                Implemented comprehensive error handling and memory management. Optimized read/write operations and 
+                designed system call hooks for seamless interaction.
                 <br>
                 <a href="https://github.com/Atharva2099/" target="_blank">github</a>
             </div>
@@ -195,14 +348,14 @@
     </div>
     
     <div class="section">
-        <h2>// research</h2>
+        <h2 data-text="// research">// research</h2>
         <div class="project">
             <div class="project-title">
                 Deep Learning Flood Alert System <span class="date">[Patent Pending, 2024]</span>
             </div>
             <div class="project-desc">
-                This flood prediction system using IoT and deep learning techniques is currently patent pending.
-                The system combines LSTM networks with edge computing over Raspberry Pi for real-world environmental monitoring.
+                IoT and deep learning system combining LSTM networks with edge computing over Raspberry Pi for 
+                real-world environmental monitoring.
             </div>
         </div>
         
@@ -211,25 +364,35 @@
                 Credit Card Fraud Detection <span class="date">[Publication, 2023]</span>
             </div>
             <div class="project-desc">
-                Published "A Comparative Analysis of Machine Learning Techniques for Credit Card Fraud Detection."
+                "A Comparative Analysis of Machine Learning Techniques for Credit Card Fraud Detection."
                 Evaluated ensemble methods (XGBoost, Random Forest), traditional ML (SVM, Logistic Regression), 
-                and anomaly detection techniques. Implemented a comprehensive model comparison framework using 
-                scikit-learn and Python.
+                and anomaly detection techniques. Implemented a comparison framework using scikit-learn and Python.
             </div>
         </div>
     </div>
     
     <div class="section">
-        <h2>// hackathons</h2>
+        <h2 data-text="// hackathons & competitions">// hackathons & competitions</h2>
         
         <div class="talk">
             <div class="project-title">
-                Cal Hacks 11.0 <span class="date">[36 Hours, 2024]</span>
+                Llama Hackathon — Cerebral Valley × Meta <span class="date">[2025]</span>
             </div>
             <div class="project-desc">
-                Created <span class="highlight">EasyQuizzes</span>, an AI-powered flashcard generator. Built ReactJS frontend
-                with ShadCN UI and FastAPI backend. Leveraged Groq, ChromaDB, and Gemini APIs for LLM-based
-                question retrieval and summarization.
+                Team project: <span class="highlight">WikiFace</span>, an open-source platform inspired by DeepWiki and 
+                tailored for Hugging Face. Uses Llama's extended context window to present fine-grained information 
+                about models (papers, architecture trees, tokenization and implementation notes) with a 
+                Llama-powered chatbot interface.
+            </div>
+        </div>
+        
+        <div class="talk">
+            <div class="project-title">
+                Cal Hacks 11.0 <span class="date">[36 Hours, 2025]</span>
+            </div>
+            <div class="project-desc">
+                Built <span class="highlight">EasyQuizzes</span>: ReactJS frontend with ShadCN UI and FastAPI backend. 
+                Leveraged Groq, ChromaDB, and Gemini APIs for LLM-based question retrieval and summarization.
             </div>
         </div>
         
@@ -238,15 +401,21 @@
                 COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
             </div>
             <div class="project-desc">
-                Built an English-to-Hinglish translator using PyTorch-based NLP pipeline. Optimized for hackathon
-                time constraints by avoiding computationally expensive models like LSTMs and Transformers.
-                Implemented a lightweight Gradio UI and efficient PyTorch inference pipeline.
+                English-to-Hinglish translator using a PyTorch-based NLP pipeline. Lightweight Gradio UI and efficient 
+                CPU inference optimized for hackathon constraints.
             </div>
         </div>
     </div>
+
+    <div class="section">
+        <h2 data-text="// robotics & edge">// robotics & edge</h2>
+        <p>
+            • <span class="highlight">Isaac Gym → ROS:</span> imitation-learning policies for SO-100 with fallback heuristics for reliability<br>
+            • <span class="highlight">Edge deployment and quantization:</span> TensorFlow Lite on Raspberry Pi; on-device alerts and monitoring<br>        </p>
+    </div>
     
     <div class="section">
-        <h2>// technical stack</h2>
+        <h2 data-text="// technical stack">// technical stack</h2>
         <p>
             <span class="highlight">ML/AI:</span> PyTorch, TensorFlow, Hugging Face, ChromaDB, LLMs, RAG, TTS/STT Models
         </p>
@@ -259,47 +428,45 @@
     </div>
     
     <div class="section">
-        <h2>// interests</h2>
+        <h2 data-text="// education">// education</h2>
         <p>
-            I'm fascinated by the intersection of AI and practical applications. Current interests include:
-        </p>
-        <p>
-            → <span class="highlight">NLP:</span> Fine-tuning LLMs, multilingual translation, document understanding<br>
-            → <span class="highlight">AI Hardware:</span> Edge deployment, model quantization, TFLite optimizations<br>
-            → <span class="highlight">RAG Systems:</span> Vector embeddings, efficient context retrieval, hybrid search<br>
-            → <span class="highlight">Time Series:</span> Predictive modeling for environmental applications<br>
-            → <span class="highlight">ML Systems:</span> End-to-end AI product development, scaling ML pipelines
-        </p>
-    </div>
-    
-    <div class="section">
-        <h2>// education</h2>
-        <p>
-            <span class="highlight">MS in Data Science and AI</span> <span class="separator">|</span> San Francisco State University <span class="separator">|</span> <span class="date">Expected July 2026</span>
+            <span class="highlight">M.S., Data Science & AI</span> <span class="separator">|</span> San Francisco State University <span class="separator">|</span> <span class="date">Expected Jul 2026</span>
         </p>
         <p class="project-desc">
             GPA: 4.0/4.0<br>
-            Relevant coursework: Operating Systems, Natural Language Processing, Probability and Statistics, Pattern Analysis, Analysis of Algorithms
+            Relevant coursework: Operating Systems, Natural Language Processing, Probability & Statistics, Pattern Analysis, Analysis of Algorithms
         </p>
         
         <p>
-            <span class="highlight">BTech in Electronics and Communication</span> <span class="separator">|</span> Pune University <span class="separator">|</span> <span class="date">2020-2024</span>
+            <span class="highlight">B.Tech., Electronics & Communication</span> <span class="separator">|</span> Pune University <span class="separator">|</span> <span class="date">2020-2024</span>
         </p>
         <p class="project-desc">
-            GPA: 8.2/10.0 (US Equivalent: 3.7/4.0)<br>
-            Relevant coursework: Data Structures and Algorithms, Embedded Systems, Signal Processing, IoT Development
+            GPA: 8.2/10.0<br>
+            Relevant coursework: Data Structures & Algorithms, Embedded Systems, Signal Processing, IoT Development
         </p>
     </div>
     
     <div class="section">
-        <h2>// contact</h2>
+        <h2 data-text="// contact">// contact</h2>
         <p>
-            Looking for Summer 2025 internships in the ML/AI domain. Feel free to reach out if you want to discuss AI, 
-            collaborate on projects, or talk about internship opportunities.
+            Looking for full-time opportunities starting May 2026 in the ML/AI domain. Feel free to reach out if you want to discuss AI, 
+            collaborate on projects, or talk about opportunities.
         </p>
         <p>
             <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a> <span class="separator">|</span> <span class="date">San Francisco, CA</span>
         </p>
     </div>
+
+    <script>
+        // Add data-text attributes for RGB split effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const headings = document.querySelectorAll('h1, h2');
+            headings.forEach(heading => {
+                if (!heading.hasAttribute('data-text')) {
+                    heading.setAttribute('data-text', heading.textContent);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
