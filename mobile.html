@@ -1,222 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Atharva Walawalkar</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            line-height: 1.6;
-            background-color: hsl(48deg 33.33% 97.06%);
-            background-image: 
-              radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.03) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(255, 119, 48, 0.03) 0%, transparent 50%),
-              radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.02) 0%, transparent 50%),
-              linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%),
-              repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 0, 0, 0.005) 2px,
-                rgba(0, 0, 0, 0.005) 4px
-              );
-            color: hsl(60deg 5.26% 7.45%);
-            padding: 1.5rem;
-            font-size: 14px;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-              radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.02) 0%, transparent 25%),
-              radial-gradient(circle at 75% 75%, rgba(160, 82, 45, 0.015) 0%, transparent 30%),
-              radial-gradient(circle at 50% 10%, rgba(210, 180, 140, 0.02) 0%, transparent 20%);
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-              repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 80px,
-                rgba(0, 0, 0, 0.008) 80px,
-                rgba(0, 0, 0, 0.008) 81px
-              ),
-              repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 80px,
-                rgba(0, 0, 0, 0.005) 80px,
-                rgba(0, 0, 0, 0.005) 81px
-              );
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-        
-        .ascii-name {
-            font-size: 0.4rem;
-            line-height: 1;
-            margin-bottom: 1rem;
-            color: hsl(60deg 5.26% 7.45%);
-            font-weight: bold;
-            overflow-x: auto;
-            white-space: pre;
-            font-family: monospace;
-        }
-        
-        .subtitle {
-            color: hsl(60deg 5.26% 35%);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .tagline {
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .links a {
-            color: hsl(60deg 5.26% 7.45%);
-            text-decoration: underline;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-        
-        .links a:hover {
-            color: hsl(14.77deg 63.11% 59.61%);
-            text-decoration-color: hsl(14.77deg 63.11% 59.61%);
-            background-color: hsl(48deg 33.33% 94%);
-        }
-        
-        .section {
-            margin-bottom: 2rem;
-        }
-        
-        .section h2 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: hsl(60deg 5.26% 7.45%);
-        }
-        
-        .item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid hsl(48deg 33.33% 90%);
-        }
-        
-        .item:last-child {
-            border-bottom: none;
-        }
-        
-        .item-title {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            font-size: 1rem;
-        }
-        
-        .item-desc {
-            color: hsl(60deg 5.26% 25%);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        
-        .date {
-            color: hsl(60deg 5.26% 45%);
-            font-size: 0.8rem;
-        }
-        
-        .highlight {
-            color: hsl(14.77deg 63.11% 59.61%);
-            font-weight: 600;
-        }
-        
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        li {
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1rem;
-        }
-        
-        li:before {
-            content: '•';
-            color: hsl(60deg 5.26% 45%);
-            position: absolute;
-            left: 0;
-        }
-        
-        .desktop-link {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            background: hsl(48deg 33.33% 94%);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            text-decoration: none;
-            color: hsl(60deg 5.26% 7.45%);
-            border: 1px solid hsl(48deg 33.33% 88%);
-        }
-        
-        .desktop-link:hover {
-            background: hsl(48deg 33.33% 90%);
-        }
+      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "JetBrains Mono", monospace;
+        line-height: 1.6;
+        background-color: hsl(48deg 33.33% 97.06%);
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 48, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 119, 198, 0.02) 0%,
+            transparent 50%
+          ),
+          linear-gradient(
+            135deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.005) 2px,
+            rgba(0, 0, 0, 0.005) 4px
+          );
+        color: hsl(60deg 5.26% 7.45%);
+        padding: 1.5rem;
+        font-size: 14px;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+            circle at 25% 25%,
+            rgba(139, 69, 19, 0.02) 0%,
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(160, 82, 45, 0.015) 0%,
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 50% 10%,
+            rgba(210, 180, 140, 0.02) 0%,
+            transparent 20%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 80px,
+            rgba(0, 0, 0, 0.008) 80px,
+            rgba(0, 0, 0, 0.008) 81px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 80px,
+            rgba(0, 0, 0, 0.005) 80px,
+            rgba(0, 0, 0, 0.005) 81px
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .name {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.05em;
+      }
+
+      .ascii-name {
+        font-size: 0.4rem;
+        line-height: 1;
+        margin-bottom: 1rem;
+        color: hsl(60deg 5.26% 7.45%);
+        font-weight: bold;
+        overflow-x: auto;
+        white-space: pre;
+        font-family: monospace;
+      }
+
+      .subtitle {
+        color: hsl(60deg 5.26% 35%);
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .tagline {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .links a {
+        color: hsl(60deg 5.26% 7.45%);
+        text-decoration: underline;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+      }
+
+      .links a:hover {
+        color: hsl(14.77deg 63.11% 59.61%);
+        text-decoration-color: hsl(14.77deg 63.11% 59.61%);
+        background-color: hsl(48deg 33.33% 94%);
+      }
+
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: hsl(60deg 5.26% 7.45%);
+      }
+
+      .item {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid hsl(48deg 33.33% 90%);
+      }
+
+      .item:last-child {
+        border-bottom: none;
+      }
+
+      .item-title {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        font-size: 1rem;
+      }
+
+      .item-desc {
+        color: hsl(60deg 5.26% 25%);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .date {
+        color: hsl(60deg 5.26% 45%);
+        font-size: 0.8rem;
+      }
+
+      .highlight {
+        color: hsl(14.77deg 63.11% 59.61%);
+        font-weight: 600;
+      }
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1rem;
+      }
+
+      li:before {
+        content: "•";
+        color: hsl(60deg 5.26% 45%);
+        position: absolute;
+        left: 0;
+      }
+
+      .desktop-link {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        background: hsl(48deg 33.33% 94%);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        text-decoration: none;
+        color: hsl(60deg 5.26% 7.45%);
+        border: 1px solid hsl(48deg 33.33% 88%);
+      }
+
+      .desktop-link:hover {
+        background: hsl(48deg 33.33% 90%);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <a href="index.html" class="desktop-link">Desktop View</a>
-    
+
     <div class="header">
-        <pre class="ascii-name">
+      <pre class="ascii-name">
  ██████╗ ████████╗██╗  ██╗ ██████╗ ██████╗ ██╗   ██╗ ██████╗ 
 ██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗
 ███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║
@@ -230,103 +256,280 @@
 ██║╚██╔╝██║██╔══██║██║     ██╔══██║██║╚██╔╝██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
 ╚██╔╝ ██╔╝██║  ██║███████╗██║  ██║╚██╔╝ ██╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
  ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-        </pre>
-        <div class="subtitle">ai . robotics . research</div>
-        <div class="tagline">looking for full time roles in robotics and ai research</div>
+        </pre
+      >
+      <div class="subtitle">ai . robotics . research</div>
+      <div class="tagline">
+        looking for full time roles in robotics and ai research
+      </div>
     </div>
-    
+
     <div class="links">
-        <a href="mailto:atharvawal27@gmail.com">email</a>
-        <a href="https://github.com/Atharva2099/" target="_blank">github</a>
-        <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank">linkedin</a>
-        <a href="https://huggingface.co/atharva2099" target="_blank">huggingface</a>
+      <a href="mailto:atharvawal27@gmail.com">email</a>
+      <a href="https://github.com/Atharva2099/" target="_blank">github</a>
+      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank"
+        >linkedin</a
+      >
+      <a href="https://huggingface.co/atharva2099" target="_blank"
+        >huggingface</a
+      >
+      <a
+        href="https://atharva2099.github.io/280CharsArentEnough/"
+        target="_blank"
+        >blogs</a
+      >
     </div>
-    
+
     <div class="section">
-        <h2>Experience</h2>
-        <div class="item">
-            <div class="item-title">Chewy Inc. — AI Engineering Intern <span class="date">(Jun 2025 – Aug 2025)</span></div>
-            <div class="item-desc">
-                <ul>
-                    <li>Architected <span class="highlight">LLM-powered intent inference system</span> analyzing <span class="highlight">5M+ daily events</span></li>
-                    <li>Designed <span class="highlight">memory store with billions of entries</span> for personalized experiences</li>
-                    <li>Built <span class="highlight">real-time behavioral pattern detection</span> with confidence scoring</li>
-                    <li>Reduced <span class="highlight">manual analysis time by ~80%</span> via autonomous agents</li>
-                    <li>Cut <span class="highlight">inference costs ~60%</span> through optimized model mixing</li>
-                </ul>
-            </div>
+      <h2>Experience</h2>
+      <div class="item">
+        <div class="item-title">
+          Chewy Inc. — AI Engineering Intern
+          <span class="date">(Jun 2025 – Aug 2025)</span>
         </div>
-    </div>
-    
-    <div class="section">
-        <h2>Key Projects</h2>
-        
-        <div class="item">
-            <div class="item-title">Trip.AI <span class="date">[2024]</span></div>
-            <div class="item-desc">
-                LLM-powered travel itinerary generator using <span class="highlight">Groq API</span>. JSON schema validation, dynamic modifications, Google/Wikipedia integration.
-                <br><a href="https://github.com/Atharva2099/Trip.AI" target="_blank">github</a>
-            </div>
-        </div>
-        
-        <div class="item">
-            <div class="item-title">EasyQuizzes <span class="date">[Cal Hacks 11.0, 2025]</span></div>
-            <div class="item-desc">
-                AI study assistant with <span class="highlight">OCR + LLaMA 3.2-11B-vision</span> and <span class="highlight">RAG system</span> using ChromaDB.
-                <br><a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">github</a>
-            </div>
-        </div>
-        
-        <div class="item">
-            <div class="item-title">Isaac Gym Robotic Manipulation <span class="date">[2024]</span></div>
-            <div class="item-desc">
-                Trained <span class="highlight">LeRobot SO-100</span> using imitation learning with <span class="highlight">ROS-based fallback heuristics</span>. Gemini Vision API integration.
-            </div>
-        </div>
-        
-        <div class="item">
-            <div class="item-title">Flood Alert System <span class="date">[Patent Pending, 2024]</span></div>
-            <div class="item-desc">
-                TensorFlow-based <span class="highlight">120-hour advance forecasting</span>. Deployed on <span class="highlight">Raspberry Pi</span> with Flutter mobile app.
-            </div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Technical Stack</h2>
         <div class="item-desc">
-            <span class="highlight">ML/AI:</span> PyTorch, TensorFlow, Hugging Face, ChromaDB, LLMs, RAG<br>
-            <span class="highlight">Programming:</span> Python, C++, JavaScript (React), SQL<br>
-            <span class="highlight">Tools:</span> Linux, Git, AWS, Raspberry Pi, ROS
+          <ul>
+            <li>
+              Architected
+              <span class="highlight">LLM-powered intent inference system</span>
+              analyzing <span class="highlight">5M+ daily events</span>
+            </li>
+            <li>
+              Designed
+              <span class="highlight"
+                >memory store with billions of entries</span
+              >
+              for personalized experiences
+            </li>
+            <li>
+              Built
+              <span class="highlight"
+                >real-time behavioral pattern detection</span
+              >
+              with confidence scoring
+            </li>
+            <li>
+              Reduced
+              <span class="highlight">manual analysis time by ~80%</span> via
+              autonomous agents
+            </li>
+            <li>
+              Cut <span class="highlight">inference costs ~60%</span> through
+              optimized model mixing
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-    
+
     <div class="section">
-        <h2>Education</h2>
-        <div class="item">
-            <div class="item-title">M.S., Data Science & AI <span class="date">Expected Jul 2026</span></div>
-            <div class="item-desc">San Francisco State University | GPA: 4.0/4.0</div>
-        </div>
-        <div class="item">
-            <div class="item-title">B.Tech., Electronics & Communication <span class="date">2020-2024</span></div>
-            <div class="item-desc">Pune University | GPA: 8.2/10.0</div>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Contact</h2>
+      <h2>Key Projects</h2>
+
+      <div class="item">
+        <div class="item-title">Trip.AI <span class="date">[2024]</span></div>
         <div class="item-desc">
-            Looking for full-time opportunities starting May 2026 in ML/AI and robotics.<br><br>
-            <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a><br>
-            San Francisco, CA
+          LLM-powered travel itinerary generator using
+          <span class="highlight">Groq API</span>. JSON schema validation,
+          dynamic modifications, Google/Wikipedia integration. <br /><a
+            href="https://github.com/Atharva2099/Trip.AI"
+            target="_blank"
+            >github</a
+          >
         </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          EasyQuizzes <span class="date">[Cal Hacks 11.0, 2025]</span>
+        </div>
+        <div class="item-desc">
+          AI study assistant with
+          <span class="highlight">OCR + LLaMA 3.2-11B-vision</span> and
+          <span class="highlight">RAG system</span> using ChromaDB. <br /><a
+            href="https://github.com/Atharva2099/EasyQuizzes"
+            target="_blank"
+            >github</a
+          >
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Isaac Gym Robotic Manipulation <span class="date">[2024]</span>
+        </div>
+        <div class="item-desc">
+          Trained <span class="highlight">LeRobot SO-100</span> using imitation
+          learning with
+          <span class="highlight">ROS-based fallback heuristics</span>. Gemini
+          Vision API integration.
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Flood Alert System <span class="date">[Patent Pending, 2024]</span>
+        </div>
+        <div class="item-desc">
+          TensorFlow-based
+          <span class="highlight">120-hour advance forecasting</span>. Deployed
+          on <span class="highlight">Raspberry Pi</span> with Flutter mobile
+          app.
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Cover Letter Generation with LLaMA <span class="date">[2024]</span>
+        </div>
+        <div class="item-desc">
+          Fine-tuned <span class="highlight">LLaMA 3.2-3B</span> for specialized
+          cover letter generation using <span class="highlight">LoRA</span>.
+          Implemented efficient 4-bit quantized training pipeline using unsloth.
+          <br /><a href="https://huggingface.co/atharva2099" target="_blank"
+            >huggingface</a
+          >
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Linux Systems Programming <span class="date">[2023]</span>
+        </div>
+        <div class="item-desc">
+          Developed a kernel-level
+          <span class="highlight">RLE compression driver</span> with custom
+          IOCTL interface. Implemented comprehensive error handling and memory
+          management. <br /><a
+            href="https://github.com/Atharva2099/"
+            target="_blank"
+            >github</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Research</h2>
+      <div class="item">
+        <div class="item-title">
+          Deep Learning Flood Alert System
+          <span class="date">[Patent Pending, 2024]</span>
+        </div>
+        <div class="item-desc">
+          IoT and deep learning system combining LSTM networks with edge
+          computing over Raspberry Pi for real-world environmental monitoring.
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Credit Card Fraud Detection
+          <span class="date">[Publication, 2023]</span>
+        </div>
+        <div class="item-desc">
+          "A Comparative Analysis of Machine Learning Techniques for Credit Card
+          Fraud Detection." Evaluated ensemble methods (XGBoost, Random Forest),
+          traditional ML (SVM, Logistic Regression), and anomaly detection
+          techniques.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Hackathons & Competitions</h2>
+
+      <div class="item">
+        <div class="item-title">
+          Llama Hackathon — Cerebral Valley × Meta
+          <span class="date">[2025]</span>
+        </div>
+        <div class="item-desc">
+          Team project: <span class="highlight">WikiFace</span>, an open-source
+          platform inspired by DeepWiki and tailored for Hugging Face. Uses
+          Llama's extended context window to present fine-grained information
+          about models.
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          Cal Hacks 11.0 <span class="date">[36 Hours, 2025]</span>
+        </div>
+        <div class="item-desc">
+          Built <span class="highlight">EasyQuizzes</span>: ReactJS frontend
+          with ShadCN UI and FastAPI backend. Leveraged Groq, ChromaDB, and
+          Gemini APIs for LLM-based question retrieval and summarization.
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-title">
+          COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
+        </div>
+        <div class="item-desc">
+          English-to-Hinglish translator using a PyTorch-based NLP pipeline.
+          Lightweight Gradio UI and efficient CPU inference optimized for
+          hackathon constraints.
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Robotics & Edge</h2>
+      <div class="item-desc">
+        • <span class="highlight">Isaac Gym → ROS:</span> imitation-learning
+        policies for SO-100 with fallback heuristics for reliability<br />
+        •
+        <span class="highlight">Edge deployment and quantization:</span>
+        TensorFlow Lite on Raspberry Pi; on-device alerts and monitoring
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Technical Stack</h2>
+      <div class="item-desc">
+        <span class="highlight">ML/AI:</span> PyTorch, TensorFlow, Hugging Face,
+        ChromaDB, LLMs, RAG<br />
+        <span class="highlight">Programming:</span> Python, C++, JavaScript
+        (React), SQL<br />
+        <span class="highlight">Tools:</span> Linux, Git, AWS, Raspberry Pi, ROS
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Education</h2>
+      <div class="item">
+        <div class="item-title">
+          M.S., Data Science & AI <span class="date">Expected Jul 2026</span>
+        </div>
+        <div class="item-desc">
+          San Francisco State University | GPA: 4.0/4.0
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-title">
+          B.Tech., Electronics & Communication
+          <span class="date">2020-2024</span>
+        </div>
+        <div class="item-desc">Pune University | GPA: 8.2/10.0</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Contact</h2>
+      <div class="item-desc">
+        Looking for full-time opportunities starting May 2026 in ML/AI and
+        robotics.<br /><br />
+        <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a><br />
+        San Francisco, CA
+      </div>
     </div>
 
     <script>
-        // Auto-redirect desktop users
-        if (window.innerWidth > 768) {
-            window.location.href = 'index.html';
-        }
+      // Auto-redirect desktop users
+      if (window.innerWidth > 768) {
+        window.location.href = "index.html";
+      }
     </script>
-</body>
+  </body>
 </html>

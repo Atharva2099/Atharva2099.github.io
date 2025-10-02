@@ -18,11 +18,27 @@
         font-family: "JetBrains Mono", monospace;
         line-height: 1.7;
         background-color: hsl(48deg 33.33% 97.06%);
-        background-image: 
-          radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.03) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(255, 119, 48, 0.03) 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.02) 0%, transparent 50%),
-          linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%),
+        background-image: radial-gradient(
+            circle at 20% 80%,
+            rgba(120, 119, 198, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 119, 48, 0.03) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(120, 119, 198, 0.02) 0%,
+            transparent 50%
+          ),
+          linear-gradient(
+            135deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%
+          ),
           repeating-linear-gradient(
             45deg,
             transparent,
@@ -37,31 +53,41 @@
         font-size: 16px;
         position: relative;
       }
-      
+
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: 
-          radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.02) 0%, transparent 25%),
-          radial-gradient(circle at 75% 75%, rgba(160, 82, 45, 0.015) 0%, transparent 30%),
-          radial-gradient(circle at 50% 10%, rgba(210, 180, 140, 0.02) 0%, transparent 20%);
+        background-image: radial-gradient(
+            circle at 25% 25%,
+            rgba(139, 69, 19, 0.02) 0%,
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at 75% 75%,
+            rgba(160, 82, 45, 0.015) 0%,
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 50% 10%,
+            rgba(210, 180, 140, 0.02) 0%,
+            transparent 20%
+          );
         pointer-events: none;
         z-index: -1;
       }
-      
+
       body::after {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
-          repeating-linear-gradient(
+        background: repeating-linear-gradient(
             0deg,
             transparent,
             transparent 100px,
@@ -307,6 +333,9 @@
       >
       <a href="https://huggingface.co/atharva2099" target="_blank"
         >huggingface</a
+      >
+      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank"
+        >blogs</a
       >
     </div>
 
