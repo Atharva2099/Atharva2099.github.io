@@ -145,15 +145,18 @@
       }
 
       .links {
-        margin: 1.5rem 0;
+        text-align: center;
+        margin: 2rem 0;
       }
 
       .links a {
-        margin-right: 1.5rem;
+        margin-right: 2rem;
+        font-weight: 500;
       }
 
       .section {
         margin: 2.5rem 0;
+        margin-bottom: 3rem;
       }
 
       .project {
@@ -162,13 +165,16 @@
 
       .project-title {
         font-size: 1.1rem;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: 0.5rem;
+        color: hsl(60deg 5.26% 7.45%);
       }
 
       .project-desc {
         margin-left: 1rem;
         margin-bottom: 0.75rem;
+        color: hsl(60deg 5.26% 25%);
+        line-height: 1.6;
       }
 
       .experience-item {
@@ -177,12 +183,15 @@
 
       .experience-header {
         font-size: 1.1rem;
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: 0.5rem;
+        color: hsl(60deg 5.26% 7.45%);
       }
 
       .experience-details {
         margin-left: 1rem;
+        color: hsl(60deg 5.26% 25%);
+        line-height: 1.6;
       }
 
       .experience-details ul {
@@ -198,7 +207,7 @@
 
       .experience-details li:before {
         content: "•";
-        color: #666;
+        color: hsl(60deg 5.26% 45%);
         position: absolute;
         left: 0;
       }
@@ -230,17 +239,6 @@
         text-align: center;
       }
 
-      /* Clean seamless links */
-      .links {
-        text-align: center;
-        margin: 2rem 0;
-      }
-
-      .links a {
-        margin-right: 2rem;
-        font-weight: 500;
-      }
-
       /* Desktop-only design - redirect mobile users */
       @media (max-width: 768px) {
         body {
@@ -263,34 +261,6 @@
           display: none;
         }
       }
-
-      /* Clean seamless styling */
-      .section {
-        margin-bottom: 3rem;
-      }
-
-      .project,
-      .experience-item {
-        margin-bottom: 2rem;
-      }
-
-      .project-title,
-      .experience-header {
-        margin-bottom: 0.5rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: hsl(60deg 5.26% 7.45%);
-      }
-
-      .project-desc,
-      .experience-details {
-        color: hsl(60deg 5.26% 25%);
-        line-height: 1.6;
-      }
-
-      .experience-details li:before {
-        color: hsl(60deg 5.26% 45%);
-      }
     </style>
   </head>
   <body>
@@ -304,14 +274,14 @@
           font-weight: bold;
         "
       >
- █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ ██╗   ██╗ █████╗ 
+ █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ ██╗   ██╗ █████╗
 ██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗
 ███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║
 ██╔══██║   ██║   ██╔══██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══██║
 ██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║
 ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝
 
-██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗ 
+██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗
 ██║    ██║██╔══██╗██║     ██╔══██╗██║    ██║██╔══██╗██║     ██║ ██╔╝██╔══██╗██╔══██╗
 ██║ █╗ ██║███████║██║     ███████║██║ █╗ ██║███████║██║     █████╔╝ ███████║██████╔╝
 ██║███╗██║██╔══██║██║     ██╔══██║██║███╗██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
@@ -320,9 +290,9 @@
         </pre
       >
     </h1>
-    <div class="subtitle">ai. robotics. everything in between...</div>
+    <div class="subtitle">ml. rl. everything in between...</div>
     <p style="text-align: center; margin-bottom: 2rem">
-      looking for full time roles in robotics and ai research
+      looking for AI research, Applied AI, or MLE roles starting May 2026
     </p>
 
     <div class="links">
@@ -331,7 +301,7 @@
       <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank"
         >linkedin</a
       >
-      <a href="https://huggingface.co/atharva2099" target="_blank"
+      <a href="https://huggingface.co/Atharva2099" target="_blank"
         >huggingface</a
       >
       <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank"
@@ -344,158 +314,171 @@
 
       <div class="experience-item">
         <div class="experience-header">
-          Chewy Inc., Bellevue, WA — AI Engineering Intern
+          Chewy Inc., Bellevue, WA — Applied AI Intern
           <span class="date">(Jun 2025 – Aug 2025)</span>
         </div>
         <div class="experience-details">
           <ul>
             <li>
-              Architected an
-              <span class="highlight">LLM-powered intent inference system</span>
-              analyzing <span class="highlight">5M+ daily events</span>, mapping
-              user shopping journeys into structured behavioral states;
-              recognized as
+              Architected
+              <span class="highlight">M.A.T.T. and P.A.W.S.</span>, a user
+              intent analysis and memory system on a
+              <span class="highlight">Neo4j graph</span> transforming
+              <span class="highlight">4.5B+ clickstream events</span> into
+              persistent agent memories for behavioral analysis across internal
+              teams and customer applications.
+            </li>
+            <li>
+              Built <span class="highlight">Ad-visor</span>, an autonomous
+              diagnostic agent using a Reason-Critique-Analyze loop that
+              evaluates ad campaign performance per user and auto-escalates
+              patterns to marketing teams via
+              <span class="highlight">Slack integration</span>.
+            </li>
+            <li>
+              Engineered a
+              <span class="highlight">Fluid Frontend Engine</span> to
+              dynamically rerank homepage widgets based on navigation patterns,
+              achieving
+              <span class="highlight">sub-50ms personalization latency</span>
+              with LLM-in-the-loop architecture.
+            </li>
+            <li>
+              Presented multi-agent portfolio to
+              <span class="highlight"
+                >50+ stakeholders including CEO, CTO, and VP of AI</span
+              >
+              — earned
               <span class="highlight"
                 >Runner-up & "Most Innovative Use of AI"</span
               >
-              by leadership.
-            </li>
-            <li>
-              Designed a
-              <span class="highlight"
-                >memory store with billions of entries</span
-              >
-              persisting user intents and behavioral context, enabling
-              downstream agents to deliver
-              <span class="highlight">personalized experiences</span>.
-            </li>
-            <li>
-              Built
-              <span class="highlight"
-                >real-time behavioral pattern detection</span
-              >
-              to classify journey stages with confidence scoring, replacing
-              aggregate analytics with
-              <span class="highlight">user-level insights</span>.
-            </li>
-            <li>
-              Developed an
-              <span class="highlight">autonomous campaign analysis agent</span>
-              leveraging stored intents for root-cause analysis; reduced
-              <span class="highlight">manual analysis time by ~80%</span> via
-              Slack/Jira integration.
-            </li>
-            <li>
-              Cut <span class="highlight">inference costs ~60%</span> by
-              batching requests and mixing optimized
-              <span class="highlight">open-source and vendor models</span>.
+              awards.
             </li>
           </ul>
         </div>
       </div>
     </div>
 
+    <div class="section">
+      <h2>Hackathons & Competitions</h2>
 
+      <div class="talk">
+        <div class="project-title">
+          Google Gemini Hackathon — Commentator: Real-Time AI Game Caster
+          <span class="date">[Dec 2025]</span>
+          — <span class="highlight">3rd Place, $20,000</span>
+        </div>
+        <div class="project-desc">
+          Autonomous agent providing live play-by-play commentary for esports
+          broadcasts with no human intervention. Reduced broadcast latency from
+          <span class="highlight">15s to 7s</span> with entropy-based frame
+          filtering via FFmpeg. Chained
+          <span class="highlight">Gemini 2.5 Flash Lite</span> for
+          high-frequency vision analysis with
+          <span class="highlight">ElevenLabs TTS</span>.
+        </div>
+      </div>
+
+      <div class="talk">
+        <div class="project-title">
+          OpenEnv / PyTorch Hackathon — WolfeClick: RL Agent for Competitive Pokemon
+          <span class="date">[Mar 2026]</span>
+        </div>
+        <div class="project-desc">
+          Built an <span class="highlight">OpenEnv-compatible gym</span>
+          wrapping Pokemon Showdown via WebSocket with structured markdown state
+          representation and JSON action validation. Trained a
+          <span class="highlight">Qwen3-4B LoRA adapter</span> using
+          <span class="highlight">GRPO</span> on live battle trajectories with a
+          7-component dense reward signal including KO incentives,
+          type-effectiveness bonuses, and a -10.0 hallucination penalty. Designed
+          an <span class="highlight">SFT → rollout → GRPO</span> pipeline with
+          measurable win-rate improvement; deployed battle replay viewer on HF
+          Spaces.
+          <br />
+          <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank">github</a>
+          <span class="separator">|</span>
+          <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank">hf space</a>
+          <span class="separator">|</span>
+          <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank">model</a>
+          <span class="separator">|</span>
+          <a href="https://www.notion.so/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-31e26a993fa9809c8ac7d25d4d999619" target="_blank">blog</a>
+        </div>
+      </div>
+
+      <div class="talk">
+        <div class="project-title">
+          AWS Builder Hackathon — AI Interview Tutor
+          <span class="date">[2025]</span>
+        </div>
+        <div class="project-desc">
+          Voice-first technical interview simulator where the candidate speaks
+          and draws on a whiteboard; a
+          <span class="highlight">Claude Sonnet</span> critique agent and
+          <span class="highlight">Claude Haiku</span> emotion router run in
+          parallel, triggered after a 1.5s speech pause. Streaming transcription
+          via <span class="highlight">AWS Transcribe WebSocket</span> with
+          <span class="highlight">Minimax TTS</span> for emotionally-matched
+          feedback. Dual-agent async design on
+          <span class="highlight">AWS Bedrock</span>.
+        </div>
+      </div>
+
+      <div class="talk">
+        <div class="project-title">
+          Llama Hackathon — Cerebral Valley × Meta
+          <span class="date">[2025]</span>
+        </div>
+        <div class="project-desc">
+          <span class="highlight">WikiFace</span>: open-source platform inspired
+          by DeepWiki, tailored for Hugging Face. Uses Llama's extended context
+          window for fine-grained model information (papers, architecture trees,
+          tokenization notes) with a Llama-powered chatbot interface.
+        </div>
+      </div>
+
+      <div class="talk">
+        <div class="project-title">
+          Cal Hacks 11.0 <span class="date">[36 Hours, 2025]</span>
+        </div>
+        <div class="project-desc">
+          <span class="highlight">EasyQuizzes</span>: RAG-powered study
+          assistant with <span class="highlight">LLaMA 3.2-11B-vision</span> OCR
+          and ChromaDB vector embeddings for question generation.
+          <br />
+          <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">github</a>
+        </div>
+      </div>
+
+      <div class="talk">
+        <div class="project-title">
+          COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
+        </div>
+        <div class="project-desc">
+          English-to-Hinglish translator using a PyTorch-based NLP pipeline.
+          Lightweight Gradio UI and efficient CPU inference.
+        </div>
+      </div>
+    </div>
 
     <div class="section">
       <h2>Projects</h2>
 
       <div class="project">
         <div class="project-title">
-          Trip.AI <span class="date">[2024]</span>
+          Edge-AI Flood Alert System
+          <span class="date">[Provisional Patent Filed, 2024]</span>
         </div>
         <div class="project-desc">
-          LLM-powered travel itinerary generator using
-          <span class="highlight">Groq API</span>. Strict JSON schema
-          validation, dynamic itinerary modifications, cross-checking against
-          Google and Wikipedia data, Leaflet maps integration, and per-person
-          budget breakdown.
-          <br />
-          <a href="https://github.com/Atharva2099/Trip.AI" target="_blank"
-            >github</a
-          >
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          Cover Letter Generation with LLaMA <span class="date">[2024]</span>
-        </div>
-        <div class="project-desc">
-          Fine-tuned <span class="highlight">LLaMA 3.2-3B</span> for specialized
-          cover letter generation using <span class="highlight">LoRA</span>.
-          Implemented efficient 4-bit quantized training pipeline using unsloth.
-          Available on Hugging Face.
-          <br />
-          <a href="https://huggingface.co/atharva2099" target="_blank"
-            >huggingface</a
-          >
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          EasyQuizzes <span class="date">[Cal Hacks 11.0, 2025]</span>
-        </div>
-        <div class="project-desc">
-          AI-powered study assistant built in under 36 hours. Integrated
-          <span class="highlight">OCR</span> with
-          <span class="highlight">LLaMA 3.2-11B-vision</span> for document
-          understanding. Built a <span class="highlight">RAG system</span> with
-          ChromaDB vector embeddings for question generation.
-          <br />
-          <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank"
-            >github</a
-          >
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          Deep Learning Flood Alert System
-          <span class="date">[Patent Pending, 2024]</span>
-        </div>
-        <div class="project-desc">
-          TensorFlow-based flood prediction with
-          <span class="highlight">120-hour advance forecasting</span>. Achieved
-          <span class="highlight"
-            >RMSE 0.7253 mm, MSE 0.5261 mm, MAE 0.1709 mm</span
-          >. Used Haversine formula to select the closest regional model based
-          on user location. Deployed on
-          <span class="highlight">Raspberry Pi</span> with a Flutter mobile app
-          for real-time alerts.
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          Isaac Gym Robotic Manipulation <span class="date">[2024]</span>
-        </div>
-        <div class="project-desc">
-          Trained <span class="highlight">LeRobot SO-100</span> robotic arm in
-          NVIDIA Isaac Gym using imitation learning from its paired arm for
-          autonomous pick-and-place tasks. Combined learned policies with
-          <span class="highlight">ROS-based fallback heuristics</span> to ensure
-          task completion under uncertainty. Integrated Gemini Vision API for
-          real-time object detection and built a Flask + React dashboard for
-          live monitoring.
-          <br />
-          <a href="https://github.com/Atharva2099/" target="_blank">github</a>
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          Linux Systems Programming <span class="date">[2023]</span>
-        </div>
-        <div class="project-desc">
-          Developed a kernel-level
-          <span class="highlight">RLE compression driver</span> with custom
-          IOCTL interface. Implemented comprehensive error handling and memory
-          management. Optimized read/write operations and designed system call
-          hooks for seamless interaction.
-          <br />
-          <a href="https://github.com/Atharva2099/" target="_blank">github</a>
+          Custom <span class="highlight">LSTM</span> trained on
+          <span class="highlight">40 years</span> of weather data, quantized via
+          <span class="highlight">TFLite</span> for fully offline inference on
+          <span class="highlight">Raspberry Pi</span>.
+          <span class="highlight">0.73mm RMSE</span>. Offline-first architecture
+          serving predictions over local WLAN during flood-induced internet
+          blackouts. Led a 3-person team in collaboration with the
+          <span class="highlight">Indian Meteorological Department</span> for
+          live flood monitoring in Mumbai suburbs.
         </div>
       </div>
     </div>
@@ -505,34 +488,39 @@
 
       <div class="experience-item">
         <div class="experience-header">
-          Gator Tutor
-          <span class="date">Ongoing – SFSU Software Engineering Capstone</span>
+          Adaptive RL for Dynamic ROI Selection in rPPG (M.S. Thesis)
+          <span class="date">2025–2026</span>
         </div>
         <div class="experience-details">
           <ul>
             <li>
-              Built and maintained the <span class="highlight">FastAPI backend</span>, structuring endpoints with <span class="highlight">Pydantic models</span> for validation, serialization, and schema enforcement.
+              Clean-room <span class="highlight">PPO rebuild</span> for semantic
+              <span class="highlight">ROI12</span> facial region selection with a
+              <span class="highlight">MediaPipe-first</span> preprocessing stack.
             </li>
             <li>
-              Designed and optimized the <span class="highlight">MySQL database</span> with <span class="highlight">SQLAlchemy ORM</span>, handling relational mapping for users, tutors, sessions, messages, and analytics.
+              State: semantic ROI12 schema
+              (<span class="highlight">64 columns</span>). Action: continuous
+              (12,) scores →
+              <span class="highlight">top-k weighted ROI mixture</span> (k=3
+              default).
             </li>
             <li>
-              Deployed and managed the app on <span class="highlight">Linux (Ubuntu 22.04) AWS EC2 servers</span>, including environment setup, process control, and file system organization.
+              Reward modes:
+              <span class="highlight">hr_mae_sparse</span> and
+              <span class="highlight">rbs_calibrated</span> (sparse only).
             </li>
             <li>
-              Automated <span class="highlight">manual deployments via SCP and tar archives</span>, ensuring reproducible builds and version tracking without external CI/CD tools.
+              Canonical pipeline: preprocess videos → semantic ROI12 state CSVs →
+              generate aligned GT → train PPO → evaluate with local windowed or
+              paper-like 20s metrics.
             </li>
             <li>
-              Configured <span class="highlight">NGINX</span> for reverse proxy, static content delivery, and secure API routing between React and FastAPI services.
-            </li>
-            <li>
-              Implemented a <span class="highlight">search/filter system</span> combining categorical filters with SQL <span class="highlight">%LIKE</span> queries for accurate tutor discovery.
-            </li>
-            <li>
-              Managed <span class="highlight">database migrations, seeding, and backups</span>, ensuring schema consistency across development and production.
-            </li>
-            <li>
-              Oversaw <span class="highlight">integration, debugging, and performance profiling</span> to maintain backend reliability and scalability across milestones.
+              Training on
+              <span class="highlight">MMPD, V4V, PURE</span> datasets;
+              benchmarking against
+              <span class="highlight">R2I-rPPG</span> and
+              <span class="highlight">SAMC</span> baselines.
             </li>
           </ul>
         </div>
@@ -540,24 +528,41 @@
 
       <div class="experience-item">
         <div class="experience-header">
-          Adaptive Reinforcement Learning for Dynamic ROI Selection in rPPG (Thesis)
-          <span class="date">2025–2026</span>
+          Gator Tutor — Backend Lead
+          <span class="date">SFSU Software Engineering Capstone</span>
         </div>
         <div class="experience-details">
           <ul>
             <li>
-              Building a <span class="highlight">PPO-based RL policy</span> to dynamically weight facial regions for remote PPG signal extraction.
+              Stood up the entire
+              <span class="highlight">FastAPI backend</span> from scratch — the
+              foundation the 6-person team built on.
             </li>
             <li>
-              Using <span class="highlight">unsupervised signal quality metrics</span> (SNR, spectral peak stability, inter-ROI coherence) as reward signals, replacing static geometric heuristics.
+              Designed the complete
+              <span class="highlight">booking & scheduling system</span>:
+              availability slots, duration-based expiry, status filtering, and
+              optimized DB queries with <span class="highlight">joinedload</span>
+              to fix N+1 problems.
             </li>
             <li>
-              Training on public datasets (<span class="highlight">MMPD, V4V, PURE</span>); benchmarking against <span class="highlight">R2I-rPPG</span> and <span class="highlight">SAMC</span> baselines.
+              Built <span class="highlight">tutor search</span> with fuzzy
+              matching, separate course/tutor endpoints, and comprehensive
+              filters by subject and availability.
             </li>
             <li>
-              Implementing a <span class="highlight">Kalman-filtered reward baseline</span> for stability under motion and illumination variation.
+              Set up all <span class="highlight">DevOps infrastructure</span>:
+              SSH tunnels for local DB access, AWS EC2 deployment,
+              <span class="highlight">NGINX</span> reverse proxy, Google
+              Analytics.
+            </li>
+            <li>
+              Owned the <span class="highlight">media handling system</span> for
+              profile photos and hardened production — fixed routing bugs, role
+              update logic, soft deletes, and chat read-flags.
             </li>
           </ul>
+          <a href="https://github.com/CSC-648-SFSU/csc648-fa25-145-team08" target="_blank">github</a>
         </div>
       </div>
     </div>
@@ -584,76 +589,21 @@
           "A Comparative Analysis of Machine Learning Techniques for Credit Card
           Fraud Detection." Evaluated ensemble methods (XGBoost, Random Forest),
           traditional ML (SVM, Logistic Regression), and anomaly detection
-          techniques. Implemented a comparison framework using scikit-learn and
-          Python.
+          techniques.
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <h2>Hackathons & Competitions</h2>
-
-      <div class="talk">
-        <div class="project-title">
-          Llama Hackathon — Cerebral Valley × Meta
-          <span class="date">[2025]</span>
-        </div>
-        <div class="project-desc">
-          Team project: <span class="highlight">WikiFace</span>, an open-source
-          platform inspired by DeepWiki and tailored for Hugging Face. Uses
-          Llama's extended context window to present fine-grained information
-          about models (papers, architecture trees, tokenization and
-          implementation notes) with a Llama-powered chatbot interface.
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          Cal Hacks 11.0 <span class="date">[36 Hours, 2025]</span>
-        </div>
-        <div class="project-desc">
-          Built <span class="highlight">EasyQuizzes</span>: ReactJS frontend
-          with ShadCN UI and FastAPI backend. Leveraged Groq, ChromaDB, and
-          Gemini APIs for LLM-based question retrieval and summarization.
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
-        </div>
-        <div class="project-desc">
-          English-to-Hinglish translator using a PyTorch-based NLP pipeline.
-          Lightweight Gradio UI and efficient CPU inference optimized for
-          hackathon constraints.
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Robotics & Edge</h2>
-      <p>
-        • <span class="highlight">Isaac Gym → ROS:</span> imitation-learning
-        policies for SO-100 with fallback heuristics for reliability<br />
-        •
-        <span class="highlight">Edge deployment and quantization:</span>
-        TensorFlow Lite on Raspberry Pi; on-device alerts and monitoring<br />
-      </p>
     </div>
 
     <div class="section">
       <h2>Technical Stack</h2>
       <p>
-        <span class="highlight">ML/AI:</span> PyTorch, TensorFlow, Hugging Face,
-        ChromaDB, LLMs, RAG, TTS/STT Models
+        <span class="highlight">ML/AI:</span> PyTorch, HuggingFace
+        Transformers, scikit-learn, TFLite, ONNX, LoRA, GRPO, PPO, LangChain,
+        DSPy
       </p>
       <p>
-        <span class="highlight">Programming:</span> Python (NumPy, Pandas,
-        Matplotlib, FastAPI), C++, MATLAB, SQL, JavaScript (React, ShadCN)
-      </p>
-      <p>
-        <span class="highlight">Tools & Platforms:</span> Linux, Git, AWS
-        (Basic), Google Coral, Raspberry Pi
+        <span class="highlight">Infra & Languages:</span> Python, C++,
+        JavaScript, SQL, AWS EC2/Bedrock, Docker, FastAPI, Neo4j, Git, Linux
       </p>
     </div>
 
@@ -663,32 +613,34 @@
         <span class="highlight">M.S., Data Science & AI</span>
         <span class="separator">|</span> San Francisco State University
         <span class="separator">|</span>
-        <span class="date">Expected Jul 2026</span>
+        <span class="date">Expected May 2026</span>
       </p>
       <p class="project-desc">
         GPA: 4.0/4.0<br />
-        Relevant coursework: Operating Systems, Natural Language Processing,
-        Probability & Statistics, Pattern Analysis, Analysis of Algorithms
+        Relevant coursework: Natural Language Processing, Algorithms, Operating
+        Systems
       </p>
 
       <p>
-        <span class="highlight">B.Tech., Electronics & Communication</span>
+        <span class="highlight"
+          >B.Tech., Electrical, Electronics & Communication Engineering</span
+        >
         <span class="separator">|</span> Pune University
-        <span class="separator">|</span> <span class="date">2020-2024</span>
+        <span class="separator">|</span> <span class="date">2024</span>
       </p>
       <p class="project-desc">
         GPA: 8.2/10.0<br />
-        Relevant coursework: Data Structures & Algorithms, Embedded Systems,
-        Signal Processing, IoT Development
+        Relevant coursework: Signal Processing, Electromagnetism, Computer
+        Networks, Digital Communication
       </p>
     </div>
 
     <div class="section">
       <h2>Contact</h2>
       <p>
-        Looking for full-time opportunities starting May 2026 in the ML/AI
-        domain. Feel free to reach out if you want to discuss AI, collaborate on
-        projects, or talk about opportunities.
+        Looking for full-time AI research, Applied AI, or MLE opportunities
+        starting May 2026. Feel free to reach out if you want to discuss AI,
+        collaborate on projects, or talk about opportunities.
       </p>
       <p>
         <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
