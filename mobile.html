@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atharva Walawalkar</title>
+    <title>ssh atharva</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" href="assets/favicon-atharva.png">
     <style>
       @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
 
@@ -13,39 +15,43 @@
         box-sizing: border-box;
       }
 
+      :root {
+        --bg: #382b36;
+      }
+
       body {
         font-family: "JetBrains Mono", monospace;
         line-height: 1.6;
-        background-color: hsl(48deg 33.33% 97.06%);
+        background-color: var(--bg);
         background-image: radial-gradient(
             circle at 20% 80%,
-            rgba(120, 119, 198, 0.03) 0%,
+            rgba(168, 31, 237, 0.2) 0%,
             transparent 50%
           ),
           radial-gradient(
             circle at 80% 20%,
-            rgba(255, 119, 48, 0.03) 0%,
+            rgba(230, 21, 195, 0.18) 0%,
             transparent 50%
           ),
           radial-gradient(
             circle at 40% 40%,
-            rgba(120, 119, 198, 0.02) 0%,
+            rgba(168, 31, 237, 0.12) 0%,
             transparent 50%
           ),
           linear-gradient(
             135deg,
             transparent 0%,
-            rgba(255, 255, 255, 0.1) 50%,
+            rgba(230, 21, 195, 0.08) 50%,
             transparent 100%
           ),
           repeating-linear-gradient(
             45deg,
             transparent,
             transparent 2px,
-            rgba(0, 0, 0, 0.005) 2px,
-            rgba(0, 0, 0, 0.005) 4px
+            rgba(168, 31, 237, 0.06) 2px,
+            rgba(168, 31, 237, 0.06) 4px
           );
-        color: hsl(60deg 5.26% 7.45%);
+        color: #f8e9ff;
         padding: 1.5rem;
         font-size: 14px;
         position: relative;
@@ -60,17 +66,17 @@
         height: 100%;
         background-image: radial-gradient(
             circle at 25% 25%,
-            rgba(139, 69, 19, 0.02) 0%,
+            rgba(230, 21, 195, 0.08) 0%,
             transparent 25%
           ),
           radial-gradient(
             circle at 75% 75%,
-            rgba(160, 82, 45, 0.015) 0%,
+            rgba(168, 31, 237, 0.08) 0%,
             transparent 30%
           ),
           radial-gradient(
             circle at 50% 10%,
-            rgba(210, 180, 140, 0.02) 0%,
+            rgba(230, 21, 195, 0.06) 0%,
             transparent 20%
           );
         pointer-events: none;
@@ -88,15 +94,15 @@
             0deg,
             transparent,
             transparent 80px,
-            rgba(0, 0, 0, 0.008) 80px,
-            rgba(0, 0, 0, 0.008) 81px
+            rgba(168, 31, 237, 0.07) 80px,
+            rgba(168, 31, 237, 0.07) 81px
           ),
           repeating-linear-gradient(
             90deg,
             transparent,
             transparent 80px,
-            rgba(0, 0, 0, 0.005) 80px,
-            rgba(0, 0, 0, 0.005) 81px
+            rgba(168, 31, 237, 0.06) 80px,
+            rgba(168, 31, 237, 0.06) 81px
           );
         pointer-events: none;
         z-index: -1;
@@ -111,7 +117,9 @@
         font-size: 0.4rem;
         line-height: 1;
         margin-bottom: 1rem;
-        color: hsl(60deg 5.26% 7.45%);
+        color: #e615c3;
+        text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 2px 2px 0 #000;
+        -webkit-text-stroke: 0.5px #000;
         font-weight: bold;
         overflow-x: auto;
         white-space: pre;
@@ -119,7 +127,7 @@
       }
 
       .subtitle {
-        color: hsl(60deg 5.26% 35%);
+        color: #c783f2;
         font-size: 1rem;
         margin-bottom: 1rem;
       }
@@ -138,7 +146,7 @@
       }
 
       .links a {
-        color: hsl(60deg 5.26% 7.45%);
+        color: #e615c3;
         text-decoration: underline;
         font-weight: 500;
         padding: 0.5rem 1rem;
@@ -147,9 +155,9 @@
       }
 
       .links a:hover {
-        color: hsl(14.77deg 63.11% 59.61%);
-        text-decoration-color: hsl(14.77deg 63.11% 59.61%);
-        background-color: hsl(48deg 33.33% 94%);
+        color: rgb(240 82 156);
+        text-decoration-color: rgb(240 82 156);
+        background-color: #160021;
       }
 
       .section {
@@ -160,13 +168,13 @@
         font-size: 1.2rem;
         font-weight: 600;
         margin-bottom: 1rem;
-        color: hsl(60deg 5.26% 7.45%);
+        color: #e615c3;
       }
 
       .item {
         margin-bottom: 1.5rem;
         padding-bottom: 1rem;
-        border-bottom: 1px solid hsl(48deg 33.33% 90%);
+        border-bottom: 1px solid #28083b;
       }
 
       .item:last-child {
@@ -180,24 +188,24 @@
       }
 
       .item-desc {
-        color: hsl(60deg 5.26% 25%);
+        color: #c9aed1;
         font-size: 0.9rem;
         line-height: 1.5;
       }
 
       .date {
-        color: hsl(60deg 5.26% 45%);
+        color: #b860eb;
         font-size: 0.8rem;
       }
 
       .highlight {
-        color: hsl(14.77deg 63.11% 59.61%);
+        color: rgb(240 82 156);
         font-weight: 600;
       }
 
       .separator {
         margin: 0 0.3rem;
-        color: hsl(60deg 5.26% 45%);
+        color: #b860eb;
       }
 
       ul {
@@ -213,38 +221,38 @@
 
       li:before {
         content: "•";
-        color: hsl(60deg 5.26% 45%);
+        color: #b860eb;
         position: absolute;
         left: 0;
       }
 
       a {
-        color: hsl(60deg 5.26% 7.45%);
+        color: #e615c3;
         text-decoration: underline;
         transition: all 0.2s ease;
         font-weight: 500;
       }
 
       a:hover {
-        color: hsl(14.77deg 63.11% 59.61%);
-        text-decoration-color: hsl(14.77deg 63.11% 59.61%);
+        color: rgb(240 82 156);
+        text-decoration-color: rgb(240 82 156);
       }
 
       .desktop-link {
         position: fixed;
         top: 1rem;
         right: 1rem;
-        background: hsl(48deg 33.33% 94%);
+        background: #160021;
         padding: 0.5rem 1rem;
         border-radius: 4px;
         font-size: 0.8rem;
         text-decoration: none;
-        color: hsl(60deg 5.26% 7.45%);
-        border: 1px solid hsl(48deg 33.33% 88%);
+        color: #e615c3;
+        border: 1px solid #3a0b55;
       }
 
       .desktop-link:hover {
-        background: hsl(48deg 33.33% 90%);
+        background: #28083b;
       }
     </style>
   </head>
@@ -581,9 +589,18 @@
     </div>
 
     <script>
+      const bgThemes = {
+        "382b36": "#382b36",
+        "452a40": "#452a40"
+      };
+      const bgChoice = new URLSearchParams(window.location.search).get("bg");
+      const selectedBg = bgThemes[bgChoice] || bgThemes["382b36"];
+      document.documentElement.style.setProperty("--bg", selectedBg);
+
       // Auto-redirect desktop users
       if (window.innerWidth > 768) {
-        window.location.href = "index.html";
+        const query = bgChoice ? `?bg=${bgChoice}` : "";
+        window.location.href = `index.html${query}`;
       }
     </script>
   </body>

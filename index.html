@@ -1,658 +1,763 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atharva Walawalkar</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap");
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ssh atharva</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" href="assets/favicon-atharva.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #382b36;
+  --surface:    #4c3b49;
+  --surface2:   #64505f;
+  --teal-light: rgb(240 82 156);
+  --teal:       #e615c3;
+  --teal-deep:  #ff66ea;
+  --text:       #f8e9ff;
+  --text-2:     #e7b8ff;
+  --text-3:     #c783f2;
+  --em-accent:  rgb(240 82 156);
+}
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-      body {
-        font-family: "JetBrains Mono", monospace;
-        line-height: 1.7;
-        background-color: hsl(48deg 33.33% 97.06%);
-        background-image: radial-gradient(
-            circle at 20% 80%,
-            rgba(120, 119, 198, 0.03) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 20%,
-            rgba(255, 119, 48, 0.03) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 40% 40%,
-            rgba(120, 119, 198, 0.02) 0%,
-            transparent 50%
-          ),
-          linear-gradient(
-            135deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 100%
-          ),
-          repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 0, 0, 0.005) 2px,
-            rgba(0, 0, 0, 0.005) 4px
-          );
-        color: hsl(60deg 5.26% 7.45%);
-        padding: 4rem;
-        max-width: 800px;
-        margin: 0 auto;
-        font-size: 16px;
-        position: relative;
-      }
+body {
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
 
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-            circle at 25% 25%,
-            rgba(139, 69, 19, 0.02) 0%,
-            transparent 25%
-          ),
-          radial-gradient(
-            circle at 75% 75%,
-            rgba(160, 82, 45, 0.015) 0%,
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at 50% 10%,
-            rgba(210, 180, 140, 0.02) 0%,
-            transparent 20%
-          );
-        pointer-events: none;
-        z-index: -1;
-      }
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
 
-      body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 100px,
-            rgba(0, 0, 0, 0.008) 100px,
-            rgba(0, 0, 0, 0.008) 101px
-          ),
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 100px,
-            rgba(0, 0, 0, 0.005) 100px,
-            rgba(0, 0, 0, 0.005) 101px
-          );
-        pointer-events: none;
-        z-index: -1;
-      }
+a { text-decoration: none; color: inherit; transition: color 0.15s ease; }
 
-      h1,
-      h2,
-      h3 {
-        color: hsl(60deg 5.26% 7.45%);
-        font-weight: 700;
-      }
+/* ── NAV ── */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 0 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
-        font-family: monospace;
-        letter-spacing: -0.02em;
-        text-align: center;
-      }
+.nav-brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--teal-deep);
+}
 
-      h2 {
-        font-size: 1.4rem;
-        margin-top: 3rem;
-        margin-bottom: 1.5rem;
-        font-weight: 600;
-      }
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  font-size: 12px;
+}
 
-      p {
-        margin-bottom: 1rem;
-      }
+.nav-links a {
+  color: var(--text-2);
+}
 
-      a {
-        color: hsl(60deg 5.26% 7.45%);
-        text-decoration: underline;
-        text-decoration-color: hsl(60deg 5.26% 7.45%);
-        transition: all 0.2s ease;
-        font-weight: 500;
-      }
+.nav-links a:hover {
+  color: var(--teal-deep);
+}
 
-      a:hover {
-        color: hsl(14.77deg 63.11% 59.61%);
-        text-decoration-color: hsl(14.77deg 63.11% 59.61%);
-      }
+/* ── HERO ── */
+.hero { margin-top: 48px; text-align: center; }
 
-      .links {
-        text-align: center;
-        margin: 2rem 0;
-      }
+.status-pill, .link-chips { justify-content: center; }
 
-      .links a {
-        margin-right: 2rem;
-        font-weight: 500;
-      }
+.ascii-art {
+  font-family: 'DM Mono', monospace;
+  font-size: 6px;
+  line-height: 1.15;
+  color: var(--teal);
+  text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 2px 2px 0 #000;
+  -webkit-text-stroke: 0.5px #000;
+  white-space: pre;
+  overflow-x: auto;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.1s;
+}
 
-      .section {
-        margin: 2.5rem 0;
-        margin-bottom: 3rem;
-      }
+.hero-tagline {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--teal-deep);
+  margin-top: 24px;
+  line-height: 1.3;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.3s;
+}
 
-      .project {
-        margin-bottom: 2rem;
-      }
+.hero-tagline em {
+  color: var(--em-accent);
+  font-style: italic;
+}
 
-      .project-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: hsl(60deg 5.26% 7.45%);
-      }
+.hero-subtitle {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 8px;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.45s;
+}
 
-      .project-desc {
-        margin-left: 1rem;
-        margin-bottom: 0.75rem;
-        color: hsl(60deg 5.26% 25%);
-        line-height: 1.6;
-      }
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--teal-deep);
+  margin-top: 20px;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.55s;
+}
 
-      .experience-item {
-        margin-bottom: 2rem;
-      }
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2s ease-in-out infinite;
+}
 
-      .experience-header {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        color: hsl(60deg 5.26% 7.45%);
-      }
+.link-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.65s;
+}
 
-      .experience-details {
-        margin-left: 1rem;
-        color: hsl(60deg 5.26% 25%);
-        line-height: 1.6;
-      }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-2);
+  transition: color 0.15s ease;
+}
 
-      .experience-details ul {
-        list-style-type: none;
-        padding-left: 0;
-      }
+.chip:hover {
+  color: var(--teal-deep);
+}
 
-      .experience-details li {
-        margin-bottom: 0.5rem;
-        position: relative;
-        padding-left: 1rem;
-      }
+.chip--blog:hover {
+  color: var(--teal-deep);
+}
 
-      .experience-details li:before {
-        content: "•";
-        color: hsl(60deg 5.26% 45%);
-        position: absolute;
-        left: 0;
-      }
+/* ── SECTIONS ── */
+.section {
+  margin-top: 56px;
+  opacity: 0;
+  animation: sectionIn 0.5s ease both;
+}
 
-      .talk {
-        margin-bottom: 1.5rem;
-      }
+.section:nth-of-type(1) { animation-delay: 0.7s; }
+.section:nth-of-type(2) { animation-delay: 0.8s; }
+.section:nth-of-type(3) { animation-delay: 0.9s; }
+.section:nth-of-type(4) { animation-delay: 1.0s; }
+.section:nth-of-type(5) { animation-delay: 1.1s; }
+.section:nth-of-type(6) { animation-delay: 1.2s; }
+.section:nth-of-type(7) { animation-delay: 1.3s; }
 
-      .date {
-        color: hsl(60deg 5.26% 45%);
-        font-size: 0.9rem;
-      }
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid var(--surface2);
+  margin-bottom: 28px;
+}
 
-      .highlight {
-        color: hsl(14.77deg 63.11% 59.61%);
-        font-weight: 600;
-      }
+/* ── ENTRIES ── */
+.timeline-entry {
+  padding-bottom: 32px;
+}
 
-      .separator {
-        margin: 0 0.5rem;
-        color: hsl(60deg 5.26% 45%);
-      }
+.timeline-entry:last-child { padding-bottom: 0; }
 
-      .subtitle {
-        color: hsl(60deg 5.26% 35%);
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-        font-weight: 400;
-        text-align: center;
-      }
+.entry-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 17px;
+  color: var(--teal-deep);
+  line-height: 1.35;
+}
 
-      /* Desktop-only design - redirect mobile users */
-      @media (max-width: 768px) {
-        body {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          min-height: 100vh;
-          text-align: center;
-          padding: 2rem;
-        }
+.entry-meta {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
 
-        body::before {
-          content: "This site is optimized for desktop viewing. Redirecting to mobile version...";
-          font-size: 1.2rem;
-          margin-bottom: 2rem;
-        }
+.entry-org {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
 
-        body > * {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h1>
-      <pre
-        style="
-          font-size: 0.35em;
-          line-height: 1;
-          margin: 0;
-          color: hsl(60deg 5.26% 7.45%);
-          font-weight: bold;
-        "
-      >
- █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ ██╗   ██╗ █████╗
-██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗
-███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║
-██╔══██║   ██║   ██╔══██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══██║
-██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║
-╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝
+.entry-body {
+  font-size: 13px;
+  color: #c9aed1;
+  margin-top: 8px;
+  line-height: 1.85;
+  text-align: justify;
+}
 
-██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗
-██║    ██║██╔══██╗██║     ██╔══██╗██║    ██║██╔══██╗██║     ██║ ██╔╝██╔══██╗██╔══██╗
-██║ █╗ ██║███████║██║     ███████║██║ █╗ ██║███████║██║     █████╔╝ ███████║██████╔╝
-██║███╗██║██╔══██║██║     ██╔══██║██║███╗██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
-╚███╔███╔╝██║  ██║███████╗██║  ██║╚███╔███╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
- ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-        </pre
-      >
-    </h1>
-    <div class="subtitle">ml. rl. everything in between...</div>
-    <p style="text-align: center; margin-bottom: 2rem">
-      looking for AI research, Applied AI, or MLE roles starting May 2026
-    </p>
+.entry-body strong {
+  color: var(--teal-deep);
+}
 
-    <div class="links">
-      <a href="mailto:atharvawal27@gmail.com">email</a>
-      <a href="https://github.com/Atharva2099/" target="_blank">github</a>
-      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank"
-        >linkedin</a
-      >
-      <a href="https://huggingface.co/Atharva2099" target="_blank"
-        >huggingface</a
-      >
-      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank"
-        >blogs</a
-      >
+.entry-body p + p {
+  margin-top: 10px;
+}
+
+.entry-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.entry-body li {
+  position: relative;
+  padding-left: 14px;
+  margin-top: 4px;
+}
+
+.entry-body li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+}
+
+/* ── AWARD PILL ── */
+.award-pill {
+  display: inline-block;
+  background: var(--surface);
+  border: 0.5px solid var(--surface2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: var(--teal-deep);
+  margin-top: 6px;
+}
+
+/* ── BADGES ── */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--surface);
+  border: 0.5px solid var(--surface2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: var(--teal-deep);
+}
+
+.badge--indigo,
+.badge--accent-teal,
+.badge--accent-indigo {
+  background: var(--surface);
+  border-color: var(--surface2);
+  color: var(--teal-deep);
+}
+
+/* ── ENTRY LINKS ── */
+.entry-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.entry-links a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-decoration-color: var(--teal-light);
+  text-underline-offset: 2px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.entry-links a:hover {
+  color: var(--teal-deep);
+  text-decoration-color: var(--teal-deep);
+}
+
+/* ── STACK GRID ── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stack-card {
+  padding: 0;
+}
+
+.stack-category {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 8px;
+}
+
+.stack-items {
+  font-size: 12px;
+  color: var(--teal-deep);
+  line-height: 1.7;
+}
+
+/* ── EDU GRID ── */
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.edu-card {
+  padding: 0;
+}
+
+.edu-degree {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--teal-deep);
+}
+
+.edu-school {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+
+.edu-detail {
+  font-size: 12px;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+.gpa-pill {
+  display: inline-block;
+  background: var(--surface2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: var(--teal-deep);
+  margin-top: 8px;
+}
+
+/* ── CONTACT ── */
+.contact-card {
+  padding: 0;
+}
+
+.contact-heading, .contact-h {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 22px;
+  color: var(--teal-deep);
+}
+
+.contact-text, .contact-sub {
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 8px;
+  line-height: 1.85;
+}
+
+.contact-email {
+  color: var(--teal);
+  text-decoration: underline;
+  text-decoration-color: var(--teal-light);
+  text-underline-offset: 2px;
+}
+
+.contact-email:hover {
+  color: var(--teal-deep);
+  text-decoration-color: var(--teal-deep);
+}
+
+/* ── FOOTER ── */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0 28px;
+  margin-top: 56px;
+  border-top: 0.5px solid var(--surface2);
+  font-size: 12px;
+  color: var(--text-3);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 680px) {
+  .stack-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 540px) {
+  .edu-grid { grid-template-columns: 1fr; }
+  .ascii-art { font-size: 4.5px; }
+  nav { flex-direction: column; align-items: flex-start; }
+  .hero-tagline { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">atharva walawalkar</div>
+  <ul class="nav-links">
+    <li><a href="#experience">exp</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#research">research</a></li>
+    <li><a href="#contact">contact</a></li>
+    <li><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<pre class="ascii-art">
+ █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ ██╗   ██╗ █████╗     ██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗
+██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗    ██║    ██║██╔══██╗██║     ██╔══██╗██║    ██║██╔══██╗██║     ██║ ██╔╝██╔══██╗██╔══██╗
+███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║    ██║ █╗ ██║███████║██║     ███████║██║ █╗ ██║███████║██║     █████╔╝ ███████║██████╔╝
+██╔══██║   ██║   ██╔══██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══██║    ██║███╗██║██╔══██║██║     ██╔══██║██║███╗██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
+██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║    ╚███╔███╔╝██║  ██║███████╗██║  ██║╚███╔███╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
+╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+</pre>
+
+  <h1 class="hero-tagline">ml. rl. <em>everything in between.</em></h1>
+  <p class="hero-subtitle">ms data science &amp; ai · sf state · 4.0 · may 2026</p>
+
+  <div class="status-pill">
+    <span class="pulse-dot"></span>
+    open to AI research, applied AI, and MLE roles starting may 2026
+  </div>
+
+  <div class="link-chips">
+    <a class="chip" href="mailto:atharvawal27@gmail.com">email</a>
+    <a class="chip" href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a>
+    <a class="chip" href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a>
+    <a class="chip" href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hugging face</a>
+    <a class="chip chip--blog" href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-label">experience</div>
+
+  <div class="timeline-entry">
+    <div class="entry-title">applied ai intern</div>
+    <div class="entry-meta">jun – aug 2025</div>
+    <div class="entry-org">Chewy Inc. — Bellevue, WA</div>
+    <div class="award-pill">runner-up · most innovative use of ai</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>M.A.T.T. &amp; P.A.W.S.</strong> — memory and intent system on a Neo4j knowledge graph ingesting 4.5B+ clickstream events, building persistent behavioral memories across sessions for downstream agent reasoning.</li>
+        <li><strong>Ad-visor</strong> — autonomous diagnostic agent using a Reason–Critique–Analyze loop to evaluate ad campaign performance per user and auto-escalate actionable summaries to marketing via Slack, cutting analyst-in-the-loop latency from days to minutes.</li>
+        <li><strong>Fluid Frontend Engine</strong> — LLM-in-the-loop homepage widget reranker based on real-time navigation patterns, achieving sub-50ms personalization latency by deciding when to invoke the model vs fall back to cached rankings.</li>
+        <li><strong>Presented</strong> the full multi-agent portfolio to 50+ stakeholders including CEO, CTO, and VP of AI — received runner-up and "Most Innovative Use of AI" awards.</li>
+      </ul>
     </div>
-
-    <div class="section">
-      <h2>Experience</h2>
-
-      <div class="experience-item">
-        <div class="experience-header">
-          Chewy Inc., Bellevue, WA — Applied AI Intern
-          <span class="date">(Jun 2025 – Aug 2025)</span>
-        </div>
-        <div class="experience-details">
-          <ul>
-            <li>
-              Architected
-              <span class="highlight">M.A.T.T. and P.A.W.S.</span>, a user
-              intent analysis and memory system on a
-              <span class="highlight">Neo4j graph</span> transforming
-              <span class="highlight">4.5B+ clickstream events</span> into
-              persistent agent memories for behavioral analysis across internal
-              teams and customer applications.
-            </li>
-            <li>
-              Built <span class="highlight">Ad-visor</span>, an autonomous
-              diagnostic agent using a Reason-Critique-Analyze loop that
-              evaluates ad campaign performance per user and auto-escalates
-              patterns to marketing teams via
-              <span class="highlight">Slack integration</span>.
-            </li>
-            <li>
-              Engineered a
-              <span class="highlight">Fluid Frontend Engine</span> to
-              dynamically rerank homepage widgets based on navigation patterns,
-              achieving
-              <span class="highlight">sub-50ms personalization latency</span>
-              with LLM-in-the-loop architecture.
-            </li>
-            <li>
-              Presented multi-agent portfolio to
-              <span class="highlight"
-                >50+ stakeholders including CEO, CTO, and VP of AI</span
-              >
-              — earned
-              <span class="highlight"
-                >Runner-up & "Most Innovative Use of AI"</span
-              >
-              awards.
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div class="badges">
+      <span class="badge">neo4j</span>
+      <span class="badge">multi-agent</span>
+      <span class="badge">langchain</span>
+      <span class="badge">fastapi</span>
+      <span class="badge">aws bedrock</span>
     </div>
+  </div>
+</section>
 
-    <div class="section">
-      <h2>Hackathons & Competitions</h2>
+<!-- PROJECTS & HACKATHONS -->
+<section class="section" id="projects">
+  <div class="section-label">projects &amp; hackathons</div>
 
-      <div class="talk">
-        <div class="project-title">
-          Google Gemini Hackathon — Commentator: Real-Time AI Game Caster
-          <span class="date">[Dec 2025]</span>
-          — <span class="highlight">3rd Place, $20,000</span>
-        </div>
-        <div class="project-desc">
-          Autonomous agent providing live play-by-play commentary for esports
-          broadcasts with no human intervention. Reduced broadcast latency from
-          <span class="highlight">15s to 7s</span> with entropy-based frame
-          filtering via FFmpeg. Chained
-          <span class="highlight">Gemini 2.5 Flash Lite</span> for
-          high-frequency vision analysis with
-          <span class="highlight">ElevenLabs TTS</span>.
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          OpenEnv / PyTorch Hackathon — WolfeClick: RL Agent for Competitive Pokemon
-          <span class="date">[Mar 2026]</span>
-        </div>
-        <div class="project-desc">
-          Built an <span class="highlight">OpenEnv-compatible gym</span>
-          wrapping Pokemon Showdown via WebSocket with structured markdown state
-          representation and JSON action validation. Trained a
-          <span class="highlight">Qwen3-4B LoRA adapter</span> using
-          <span class="highlight">GRPO</span> on live battle trajectories with a
-          7-component dense reward signal including KO incentives,
-          type-effectiveness bonuses, and a -10.0 hallucination penalty. Designed
-          an <span class="highlight">SFT → rollout → GRPO</span> pipeline with
-          measurable win-rate improvement; deployed battle replay viewer on HF
-          Spaces.
-          <br />
-          <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank">github</a>
-          <span class="separator">|</span>
-          <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank">hf space</a>
-          <span class="separator">|</span>
-          <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank">model</a>
-          <span class="separator">|</span>
-          <a href="https://www.notion.so/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-31e26a993fa9809c8ac7d25d4d999619" target="_blank">blog</a>
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          AWS Builder Hackathon — AI Interview Tutor
-          <span class="date">[2025]</span>
-        </div>
-        <div class="project-desc">
-          Voice-first technical interview simulator where the candidate speaks
-          and draws on a whiteboard; a
-          <span class="highlight">Claude Sonnet</span> critique agent and
-          <span class="highlight">Claude Haiku</span> emotion router run in
-          parallel, triggered after a 1.5s speech pause. Streaming transcription
-          via <span class="highlight">AWS Transcribe WebSocket</span> with
-          <span class="highlight">Minimax TTS</span> for emotionally-matched
-          feedback. Dual-agent async design on
-          <span class="highlight">AWS Bedrock</span>.
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          Llama Hackathon — Cerebral Valley × Meta
-          <span class="date">[2025]</span>
-        </div>
-        <div class="project-desc">
-          <span class="highlight">WikiFace</span>: open-source platform inspired
-          by DeepWiki, tailored for Hugging Face. Uses Llama's extended context
-          window for fine-grained model information (papers, architecture trees,
-          tokenization notes) with a Llama-powered chatbot interface.
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          Cal Hacks 11.0 <span class="date">[36 Hours, 2025]</span>
-        </div>
-        <div class="project-desc">
-          <span class="highlight">EasyQuizzes</span>: RAG-powered study
-          assistant with <span class="highlight">LLaMA 3.2-11B-vision</span> OCR
-          and ChromaDB vector embeddings for question generation.
-          <br />
-          <a href="https://github.com/Atharva2099/EasyQuizzes" target="_blank">github</a>
-        </div>
-      </div>
-
-      <div class="talk">
-        <div class="project-title">
-          COEP Neurohacks <span class="date">[48 Hours, 2023]</span>
-        </div>
-        <div class="project-desc">
-          English-to-Hinglish translator using a PyTorch-based NLP pipeline.
-          Lightweight Gradio UI and efficient CPU inference.
-        </div>
-      </div>
+  <!-- WolfeClick — indigo -->
+  <div class="timeline-entry timeline-entry--indigo">
+    <div class="entry-title">WolfeClick — RL agent for competitive pokémon</div>
+    <div class="entry-meta">mar 2026</div>
+    <div class="entry-org">OpenEnv / PyTorch Hackathon</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Gym infrastructure</strong> — wrapped Pokémon Showdown's WebSocket API into an OpenEnv-compatible gym with structured markdown state representation and strict JSON action validation, eliminating the illegal-move hallucinations that made naive LLM agents unplayable.</li>
+        <li><strong>Training pipeline</strong> — SFT warmup on expert trajectories was non-negotiable before RL; without it the base model's action distribution was too diffuse for useful GRPO gradients. SFT → rollout → GRPO produced measurable win-rate improvement over the SFT-only baseline.</li>
+        <li><strong>Reward design</strong> — 7-component dense signal covering KO incentives, type-effectiveness bonuses, HP differential shaping, and a −10.0 hallucination penalty for illegal actions across a Qwen3-4B LoRA adapter.</li>
+        <li><strong>Emergent behavior</strong> — status-move rewards induced a stalling strategy never explicitly incentivized; damage rewards pushed aggressive type-effectiveness exploitation, suggesting the policy learned genuine strategy rather than trajectory memorization.</li>
+      </ul>
     </div>
-
-    <div class="section">
-      <h2>Projects</h2>
-
-      <div class="project">
-        <div class="project-title">
-          Edge-AI Flood Alert System
-          <span class="date">[Provisional Patent Filed, 2024]</span>
-        </div>
-        <div class="project-desc">
-          Custom <span class="highlight">LSTM</span> trained on
-          <span class="highlight">40 years</span> of weather data, quantized via
-          <span class="highlight">TFLite</span> for fully offline inference on
-          <span class="highlight">Raspberry Pi</span>.
-          <span class="highlight">0.73mm RMSE</span>. Offline-first architecture
-          serving predictions over local WLAN during flood-induced internet
-          blackouts. Led a 3-person team in collaboration with the
-          <span class="highlight">Indian Meteorological Department</span> for
-          live flood monitoring in Mumbai suburbs.
-        </div>
-      </div>
+    <div class="badges">
+      <span class="badge badge--indigo">grpo</span>
+      <span class="badge badge--indigo">qwen3-4b</span>
+      <span class="badge badge--indigo">lora</span>
+      <span class="badge badge--indigo">rl</span>
     </div>
-
-    <div class="section">
-      <h2>Ongoing Projects</h2>
-
-      <div class="experience-item">
-        <div class="experience-header">
-          Adaptive RL for Dynamic ROI Selection in rPPG (M.S. Thesis)
-          <span class="date">2025–2026</span>
-        </div>
-        <div class="experience-details">
-          <ul>
-            <li>
-              Clean-room <span class="highlight">PPO rebuild</span> for semantic
-              <span class="highlight">ROI12</span> facial region selection with a
-              <span class="highlight">MediaPipe-first</span> preprocessing stack.
-            </li>
-            <li>
-              State: semantic ROI12 schema
-              (<span class="highlight">64 columns</span>). Action: continuous
-              (12,) scores →
-              <span class="highlight">top-k weighted ROI mixture</span> (k=3
-              default).
-            </li>
-            <li>
-              Reward modes:
-              <span class="highlight">hr_mae_sparse</span> and
-              <span class="highlight">rbs_calibrated</span> (sparse only).
-            </li>
-            <li>
-              Canonical pipeline: preprocess videos → semantic ROI12 state CSVs →
-              generate aligned GT → train PPO → evaluate with local windowed or
-              paper-like 20s metrics.
-            </li>
-            <li>
-              Training on
-              <span class="highlight">MMPD, V4V, PURE</span> datasets;
-              benchmarking against
-              <span class="highlight">R2I-rPPG</span> and
-              <span class="highlight">SAMC</span> baselines.
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="experience-item">
-        <div class="experience-header">
-          Gator Tutor — Backend Lead
-          <span class="date">SFSU Software Engineering Capstone</span>
-        </div>
-        <div class="experience-details">
-          <ul>
-            <li>
-              Stood up the entire
-              <span class="highlight">FastAPI backend</span> from scratch — the
-              foundation the 6-person team built on.
-            </li>
-            <li>
-              Designed the complete
-              <span class="highlight">booking & scheduling system</span>:
-              availability slots, duration-based expiry, status filtering, and
-              optimized DB queries with <span class="highlight">joinedload</span>
-              to fix N+1 problems.
-            </li>
-            <li>
-              Built <span class="highlight">tutor search</span> with fuzzy
-              matching, separate course/tutor endpoints, and comprehensive
-              filters by subject and availability.
-            </li>
-            <li>
-              Set up all <span class="highlight">DevOps infrastructure</span>:
-              SSH tunnels for local DB access, AWS EC2 deployment,
-              <span class="highlight">NGINX</span> reverse proxy, Google
-              Analytics.
-            </li>
-            <li>
-              Owned the <span class="highlight">media handling system</span> for
-              profile photos and hardened production — fixed routing bugs, role
-              update logic, soft deletes, and chat read-flags.
-            </li>
-          </ul>
-          <a href="https://github.com/CSC-648-SFSU/csc648-fa25-145-team08" target="_blank">github</a>
-        </div>
-      </div>
+    <div class="entry-links">
+      <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a>
+      <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a>
+      <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
+      <a href="https://www.notion.so/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-31e26a993fa9809c8ac7d25d4d999619" target="_blank" rel="noopener">blog post</a>
     </div>
+  </div>
 
-    <div class="section">
-      <h2>Research</h2>
-      <div class="project">
-        <div class="project-title">
-          Deep Learning Flood Alert System
-          <span class="date">[Patent Pending, 2024]</span>
-        </div>
-        <div class="project-desc">
-          IoT and deep learning system combining LSTM networks with edge
-          computing over Raspberry Pi for real-world environmental monitoring.
-        </div>
-      </div>
-
-      <div class="project">
-        <div class="project-title">
-          Credit Card Fraud Detection
-          <span class="date">[Publication, 2023]</span>
-        </div>
-        <div class="project-desc">
-          "A Comparative Analysis of Machine Learning Techniques for Credit Card
-          Fraud Detection." Evaluated ensemble methods (XGBoost, Random Forest),
-          traditional ML (SVM, Logistic Regression), and anomaly detection
-          techniques.
-        </div>
-      </div>
+  <!-- Commentator — teal -->
+  <div class="timeline-entry">
+    <div class="entry-title">Commentator — real-time AI game caster</div>
+    <div class="entry-meta">dec 2025</div>
+    <div class="entry-org">Google Gemini Hackathon</div>
+    <div class="award-pill">3rd place · $20,000</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Core insight</strong> — reframed live commentary as a signal detection problem, not a captioning problem: detect high-entropy moments worth narrating rather than describing every frame.</li>
+        <li><strong>Frame filter</strong> — entropy-based FFmpeg pipeline triggers the commentary chain only on high-information transitions (kills, objective takes, team fights), cutting broadcast latency from 15s to 7s and redundant commentary by ~60%.</li>
+        <li><strong>Vision pipeline</strong> — chained Gemini 2.5 Flash Lite for high-frequency game-state analysis into a commentary generation layer, then ElevenLabs TTS, running fully async to keep latency flat under load.</li>
+      </ul>
     </div>
-
-    <div class="section">
-      <h2>Technical Stack</h2>
-      <p>
-        <span class="highlight">ML/AI:</span> PyTorch, HuggingFace
-        Transformers, scikit-learn, TFLite, ONNX, LoRA, GRPO, PPO, LangChain,
-        DSPy
-      </p>
-      <p>
-        <span class="highlight">Infra & Languages:</span> Python, C++,
-        JavaScript, SQL, AWS EC2/Bedrock, Docker, FastAPI, Neo4j, Git, Linux
-      </p>
+    <div class="badges">
+      <span class="badge">gemini 2.5</span>
+      <span class="badge">ffmpeg</span>
+      <span class="badge">elevenlabs</span>
+      <span class="badge badge--accent-teal">$20k</span>
     </div>
+  </div>
 
-    <div class="section">
-      <h2>Education</h2>
-      <p>
-        <span class="highlight">M.S., Data Science & AI</span>
-        <span class="separator">|</span> San Francisco State University
-        <span class="separator">|</span>
-        <span class="date">Expected May 2026</span>
-      </p>
-      <p class="project-desc">
-        GPA: 4.0/4.0<br />
-        Relevant coursework: Natural Language Processing, Algorithms, Operating
-        Systems
-      </p>
-
-      <p>
-        <span class="highlight"
-          >B.Tech., Electrical, Electronics & Communication Engineering</span
-        >
-        <span class="separator">|</span> Pune University
-        <span class="separator">|</span> <span class="date">2024</span>
-      </p>
-      <p class="project-desc">
-        GPA: 8.2/10.0<br />
-        Relevant coursework: Signal Processing, Electromagnetism, Computer
-        Networks, Digital Communication
-      </p>
+  <!-- PivotRL — indigo -->
+  <div class="timeline-entry timeline-entry--indigo">
+    <div class="entry-title">PivotRL — distillation via NLL pivot detection</div>
+    <div class="entry-meta">ongoing 2026</div>
+    <div class="entry-org">personal research</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Hypothesis</strong> — not all tokens in a reasoning trace are equally worth learning from; NLL-based pivot detection identifies navigational transition points in Kimi K2.5 traces and applies higher loss weight to them when distilling into Gemma 4.</li>
+        <li><strong>Results</strong> — uniform SFT hurt GSM8K performance (85.5% → 74.5%); pivot-weighted SFT partially recovered it to 80%, suggesting the pivot signal is real but the pipeline is incomplete.</li>
+        <li><strong>Next step</strong> — running 50-sample AIME eval to test whether the regression is domain-specific; if pivot-weighted holds on AIME, the GSM8K drop reframes as distribution shift, not capability loss.</li>
+        <li><strong>Honest status</strong> — ongoing, null-ish result so far, but the null is informative: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+      </ul>
     </div>
-
-    <div class="section">
-      <h2>Contact</h2>
-      <p>
-        Looking for full-time AI research, Applied AI, or MLE opportunities
-        starting May 2026. Feel free to reach out if you want to discuss AI,
-        collaborate on projects, or talk about opportunities.
-      </p>
-      <p>
-        <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
-        <span class="separator">|</span>
-        <span class="date">San Francisco, CA</span>
-      </p>
+    <div class="badges">
+      <span class="badge badge--indigo">gemma 4</span>
+      <span class="badge badge--indigo">distillation</span>
+      <span class="badge badge--indigo">sft</span>
+      <span class="badge badge--indigo">gsm8k</span>
     </div>
-    <script>
-      // Auto-redirect mobile users
-      if (window.innerWidth <= 768) {
-        window.location.href = "mobile.html";
-      }
-    </script>
-  </body>
+  </div>
+
+  <!-- AI Interview Tutor — teal -->
+  <div class="timeline-entry">
+    <div class="entry-title">AI interview tutor</div>
+    <div class="entry-meta">2025</div>
+    <div class="entry-org">AWS Builder Hackathon</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Architecture</strong> — dual-agent system triggered in parallel after a 1.5s speech pause detected via AWS Transcribe WebSocket, keeping total latency under 3 seconds from end of speech to voiced feedback.</li>
+        <li><strong>Claude Sonnet</strong> — handled technical critique, evaluating answer correctness, approach quality, and communication clarity.</li>
+        <li><strong>Claude Haiku</strong> — ran a parallel emotion routing layer classifying the candidate's affective state to adjust feedback tone, with Minimax TTS delivering emotionally-matched voice output.</li>
+      </ul>
+    </div>
+    <div class="badges">
+      <span class="badge">aws bedrock</span>
+      <span class="badge">claude</span>
+      <span class="badge">transcribe</span>
+      <span class="badge">minimax tts</span>
+    </div>
+  </div>
+
+  <!-- Edge-AI Flood — indigo -->
+  <div class="timeline-entry timeline-entry--indigo">
+    <div class="entry-title">edge-AI flood alert system</div>
+    <div class="entry-meta">2024</div>
+    <div class="entry-org">Indian Meteorological Department — provisional patent filed</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Offline-first constraint</strong> — internet drops during the floods being predicted, so the entire inference stack runs on a Raspberry Pi via TFLite-quantized LSTM trained on 40 years of IMD weather data, achieving 0.73mm RMSE.</li>
+        <li><strong>Local delivery</strong> — predictions served over WLAN so devices on the same local network receive live flood alerts even with no internet connectivity.</li>
+        <li><strong>Deployment</strong> — led a 3-person team through data collection, model training, hardware deployment, and field testing in collaboration with the Indian Meteorological Department; resulted in a provisional patent filing.</li>
+      </ul>
+    </div>
+    <div class="badges">
+      <span class="badge badge--indigo">lstm</span>
+      <span class="badge badge--indigo">tflite</span>
+      <span class="badge badge--indigo">raspberry pi</span>
+      <span class="badge badge--accent-indigo">patent</span>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section" id="research">
+  <div class="section-label">research</div>
+
+  <!-- Thesis — teal -->
+  <div class="timeline-entry">
+    <div class="entry-title">adaptive RL for dynamic ROI selection in rPPG</div>
+    <div class="entry-meta">2025 – 2026</div>
+    <div class="entry-org">M.S. Thesis · SF State</div>
+    <div class="entry-body">
+      <ul>
+        <li>Remote photoplethysmography (rPPG) extracts heart rate from video by detecting subtle color changes in facial skin caused by blood flow. The challenge is that different facial regions carry different signal quality depending on lighting, motion, and skin tone, and most methods fix the ROI at the full face or a static subregion. My thesis asks whether a <strong>PPO-trained agent can learn to dynamically select which facial regions to weight</strong> based on the current video context.</li>
+        <li>The state space is a 64-column semantic ROI12 schema derived from MediaPipe, 12 facial regions each with quality features. The action space is a continuous (12,) vector of region scores mapped to a top-k weighted ROI mixture (k=3 default). The policy selects among three signal extraction algorithms (POS, CHROM, PBV) dynamically based on the selected ROI. I trained on 3,600 videos across MMPD, V4V, and PURE datasets using SLURM-managed jobs tracked in W&amp;B.</li>
+        <li>The best result is HR_MAE of 21.76 vs a baseline of 33.58, a meaningful improvement. But the honest tension is that HR_MAE gains come at a cost to PPG waveform correlation, and the policy behaves differently on frontal vs side-facing video in ways that aren't yet fully understood. The dense+sparse hybrid reward underperformed the sparse-only reward, which suggests the waveform-level signal is harder to translate into useful gradient than expected. That asymmetry is the most interesting open question in the thesis.</li>
+      </ul>
+    </div>
+    <div class="badges">
+      <span class="badge">ppo</span>
+      <span class="badge">rppg</span>
+      <span class="badge">mediapipe</span>
+      <span class="badge">pytorch</span>
+      <span class="badge">wandb</span>
+      <span class="badge">slurm</span>
+    </div>
+  </div>
+
+  <!-- Flood patent — indigo -->
+  <div class="timeline-entry timeline-entry--indigo">
+    <div class="entry-title">deep learning flood alert system</div>
+    <div class="entry-meta">2024</div>
+    <div class="entry-org">patent pending</div>
+    <div class="entry-body">
+      <ul>
+        <li>The research publication underlying the flood alert system. An IoT and deep learning architecture combining LSTM networks with edge computing for real-world environmental monitoring. Focuses on the system design decisions that make offline-first inference viable on low-power hardware, and the tradeoffs between model size, quantization error, and prediction latency in a constrained deployment environment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fraud — teal -->
+  <div class="timeline-entry">
+    <div class="entry-title">credit card fraud detection</div>
+    <div class="entry-meta">2023</div>
+    <div class="entry-org">publication</div>
+    <div class="entry-body">
+      <ul>
+        <li>A comparative analysis of machine learning techniques for fraud detection across imbalanced transaction datasets. Evaluated ensemble methods (XGBoost, Random Forest), traditional classifiers (SVM, Logistic Regression), and anomaly detection approaches. The interesting finding wasn't which model won. It was how dramatically class imbalance handling strategy affected results across method families, more than the model choice itself.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL STACK -->
+<section class="section" id="stack">
+  <div class="section-label">technical stack</div>
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="stack-category">ml / ai</div>
+      <div class="stack-items">PyTorch · HuggingFace · scikit-learn · TFLite · ONNX · LoRA · GRPO · PPO · LangChain · DSPy</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">languages</div>
+      <div class="stack-items">Python · C++ · JavaScript · SQL</div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-category">infra</div>
+      <div class="stack-items">AWS EC2/Bedrock · Docker · FastAPI · Neo4j · Git · Linux · SLURM · NGINX</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-label">education</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">M.S. Data Science &amp; AI</div>
+      <div class="edu-school">San Francisco State University</div>
+      <div class="edu-detail">expected may 2026 · NLP · Algorithms · Operating Systems</div>
+      <div class="gpa-pill">4.0 / 4.0</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.Tech. Electronics &amp; Communication</div>
+      <div class="edu-school">Pune University</div>
+      <div class="edu-detail">2024 · Signal Processing · Computer Networks · Digital Communication</div>
+      <div class="gpa-pill">8.2 / 10.0</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-label">contact</div>
+  <div class="contact-card">
+    <div class="contact-h">let's talk.</div>
+    <p class="contact-sub">I'm looking for full-time AI research, applied AI, and MLE roles starting May 2026, and also actively applying to AI safety research fellowships. If you're working on RL, interpretability, rPPG, or LLM reasoning — or if you just want to talk through a paper — I'm genuinely up for it. F-1 visa, OPT eligible from May 2026.</p>
+    <a class="contact-email" href="mailto:atharvawal27@gmail.com" style="display:inline-block;margin-top:12px;">atharvawal27@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>atharva walawalkar · san francisco, ca</span>
+  <span>f-1 · opt eligible</span>
+</footer>
+
+</div>
+
+<script>
+const bgThemes = {
+  '382b36': { bg: '#382b36', surface: '#4c3b49', surface2: '#64505f' },
+  '452a40': { bg: '#452a40', surface: '#5b3a55', surface2: '#724c6a' }
+};
+const bgChoice = new URLSearchParams(window.location.search).get('bg');
+const selectedTheme = bgThemes[bgChoice] || bgThemes['382b36'];
+Object.entries(selectedTheme).forEach(([key, value]) => {
+  document.documentElement.style.setProperty(`--${key}`, value);
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
 </html>
