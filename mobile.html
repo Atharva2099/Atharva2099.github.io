@@ -4,8 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ssh atharva</title>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" href="assets/favicon-atharva.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
     <style>
       @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
 
@@ -16,41 +15,15 @@
       }
 
       :root {
-        --bg: #382b36;
+        --bg: #000000;
+        --pink: #FF0080;
       }
 
       body {
         font-family: "JetBrains Mono", monospace;
         line-height: 1.6;
         background-color: var(--bg);
-        background-image: radial-gradient(
-            circle at 20% 80%,
-            rgba(168, 31, 237, 0.2) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 20%,
-            rgba(230, 21, 195, 0.18) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 40% 40%,
-            rgba(168, 31, 237, 0.12) 0%,
-            transparent 50%
-          ),
-          linear-gradient(
-            135deg,
-            transparent 0%,
-            rgba(230, 21, 195, 0.08) 50%,
-            transparent 100%
-          ),
-          repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 2px,
-            rgba(168, 31, 237, 0.06) 2px,
-            rgba(168, 31, 237, 0.06) 4px
-          );
+        background-image: none;
         color: #f8e9ff;
         padding: 1.5rem;
         font-size: 14px;
@@ -64,21 +37,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-image: radial-gradient(
-            circle at 25% 25%,
-            rgba(230, 21, 195, 0.08) 0%,
-            transparent 25%
-          ),
-          radial-gradient(
-            circle at 75% 75%,
-            rgba(168, 31, 237, 0.08) 0%,
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at 50% 10%,
-            rgba(230, 21, 195, 0.06) 0%,
-            transparent 20%
-          );
+        background: none;
         pointer-events: none;
         z-index: -1;
       }
@@ -90,20 +49,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 80px,
-            rgba(168, 31, 237, 0.07) 80px,
-            rgba(168, 31, 237, 0.07) 81px
-          ),
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 80px,
-            rgba(168, 31, 237, 0.06) 80px,
-            rgba(168, 31, 237, 0.06) 81px
-          );
+        background: none;
         pointer-events: none;
         z-index: -1;
       }
@@ -253,6 +199,27 @@
 
       .desktop-link:hover {
         background: #28083b;
+      }
+
+      /* Signal color overrides */
+      .links a,
+      .item-desc a {
+        color: #aaaaaa;
+      }
+
+      .ascii-name,
+      .tagline,
+      .section h2,
+      .highlight,
+      .links a[href*="280CharsArentEnough/"],
+      a[href^="mailto:"],
+      .desktop-link {
+        color: var(--pink);
+      }
+
+      .links a:hover,
+      a:hover {
+        color: var(--pink);
       }
     </style>
   </head>

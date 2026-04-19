@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ssh atharva</title>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" href="assets/favicon-atharva.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:         #382b36;
+  --bg:         #000000;
   --surface:    #4c3b49;
   --surface2:   #64505f;
+  --pink:       #FF0080;
   --teal-light: rgb(240 82 156);
   --teal:       #e615c3;
   --teal-deep:  #ff66ea;
@@ -446,6 +446,52 @@ footer {
   nav { flex-direction: column; align-items: flex-start; }
   .hero-tagline { font-size: 24px; }
 }
+
+/* Signal color overrides */
+.nav-brand,
+.ascii-art,
+.status-pill,
+.section-label,
+.award-pill,
+.contact-email,
+#projects .timeline-entry:nth-of-type(5) .entry-org,
+#research .timeline-entry:nth-of-type(2) .entry-org {
+  color: var(--pink);
+}
+
+.pulse-dot {
+  background: var(--pink);
+}
+
+.nav-links a[href*="280CharsArentEnough/"] {
+  color: var(--pink);
+}
+
+.nav-links a:hover,
+.link-chips a:hover,
+.entry-links a:hover,
+.contact-email:hover,
+a:hover {
+  color: var(--pink);
+}
+
+.entry-links a,
+.contact-email {
+  color: var(--text-2);
+  text-decoration-color: currentColor;
+}
+
+.contact-email {
+  color: var(--pink);
+}
+
+.badge,
+.badge--indigo,
+.badge--accent-teal,
+.badge--accent-indigo {
+  color: #FF0080;
+  border: 1px solid #FF0080;
+}
 </style>
 </head>
 <body>
@@ -741,8 +787,8 @@ footer {
 
 <script>
 const bgThemes = {
-  '382b36': { bg: '#382b36', surface: '#4c3b49', surface2: '#64505f' },
-  '452a40': { bg: '#452a40', surface: '#5b3a55', surface2: '#724c6a' }
+  '382b36': { bg: '#000000', surface: '#4c3b49', surface2: '#64505f' },
+  '452a40': { bg: '#000000', surface: '#5b3a55', surface2: '#724c6a' }
 };
 const bgChoice = new URLSearchParams(window.location.search).get('bg');
 const selectedTheme = bgThemes[bgChoice] || bgThemes['382b36'];
