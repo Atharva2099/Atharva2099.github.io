@@ -1,48 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ssh atharva</title>
+<title>atharva walawalkar</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:         #000000;
-  --surface:    #4c3b49;
-  --surface2:   #64505f;
-  --pink:       #FF0080;
-  --teal-light: rgb(240 82 156);
-  --teal:       #e615c3;
-  --teal-deep:  #ff66ea;
-  --text:       #f8e9ff;
-  --text-2:     #e7b8ff;
-  --text-3:     #c783f2;
-  --em-accent:  rgb(240 82 156);
+
+/* ═══════════════════════════════════════════
+   LIGHT MODE (default)
+═══════════════════════════════════════════ */
+:root, [data-theme="light"] {
+  --bg:           #FBF8F3;
+  --surface:      #F0EBE1;
+  --surface2:     #E5DDD2;
+  --border:       #DEDAD2;
+  --text:         #1A1612;
+  --text-2:       #6B5E51;
+  --text-3:       #A8917D;
+  --accent:       #2D6A4F;
+  --accent-bg:    rgba(45,106,79,0.08);
+  --accent-border:rgba(45,106,79,0.3);
+  --alt:          #9B6A23;
+  --alt-bg:       rgba(155,106,35,0.08);
+  --alt-border:   rgba(155,106,35,0.3);
+  --mode-icon:    "☾";
 }
 
+/* ═══════════════════════════════════════════
+   DARK MODE
+═══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:           #080608;
+  --surface:      #1a111a;
+  --surface2:     #2d1f2d;
+  --border:       #3a2a3a;
+  --text:         #f0e0ff;
+  --text-2:       #d8b4f0;
+  --text-3:       #a87bc8;
+  --accent:       #FF0080;
+  --accent-bg:    rgba(255,0,128,0.07);
+  --accent-border:rgba(255,0,128,0.3);
+  --alt:          #9b8bff;
+  --alt-bg:       rgba(155,139,255,0.07);
+  --alt-border:   rgba(155,139,255,0.35);
+  --mode-icon:    "☀";
+}
+
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'DM Mono', monospace;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.65;
+  font-family: 'Lora', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
   color: var(--text);
   background: var(--bg);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] .container {
+  background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,0,128,0.07) 0%, transparent 70%);
 }
 
 .container {
-  max-width: 980px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 40px 80px;
 }
 
-a { text-decoration: none; color: inherit; transition: color 0.15s ease; }
+a { text-decoration: none; color: inherit; }
 
-/* ── NAV ── */
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
 nav {
   display: flex;
   justify-content: space-between;
@@ -57,369 +94,515 @@ nav {
   font-weight: 300;
   font-style: italic;
   font-size: 16px;
-  color: var(--teal-deep);
+  color: var(--accent);
+  transition: color 0.25s ease;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-links {
   display: flex;
   gap: 20px;
   list-style: none;
-  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
 }
 
 .nav-links a {
-  color: var(--text-2);
+  color: var(--text-3);
+  transition: color 0.15s ease;
 }
 
-.nav-links a:hover {
-  color: var(--teal-deep);
+.nav-links a:hover { color: var(--accent); }
+
+.mode-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  border: 0.5px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 10px;
+  cursor: pointer;
+  background: var(--surface);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.25s ease;
+  white-space: nowrap;
 }
 
-/* ── HERO ── */
-.hero { margin-top: 48px; text-align: center; }
+.mode-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
 
-.status-pill, .link-chips { justify-content: center; }
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  margin-top: 60px;
+  animation: fadeIn 0.5s ease both;
+}
 
 .ascii-art {
   font-family: 'DM Mono', monospace;
   font-size: 6px;
   line-height: 1.15;
-  color: var(--teal);
-  text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 2px 2px 0 #000;
-  -webkit-text-stroke: 0.5px #000;
   white-space: pre;
   overflow-x: auto;
+  color: var(--accent);
+  opacity: 0.18;
+  margin-bottom: 28px;
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.1s;
+  animation-delay: 0.05s;
+}
+
+[data-theme="dark"] .ascii-art {
+  opacity: 0.7;
+}
+
+.hero-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
 }
 
 .hero-tagline {
   font-family: 'Fraunces', serif;
   font-weight: 300;
-  font-size: 28px;
-  color: var(--teal-deep);
-  margin-top: 24px;
-  line-height: 1.3;
+  font-size: 38px;
+  color: var(--text);
+  line-height: 1.2;
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.3s;
+  animation-delay: 0.1s;
 }
 
 .hero-tagline em {
-  color: var(--em-accent);
+  color: var(--accent);
   font-style: italic;
-}
-
-.hero-subtitle {
-  font-size: 13px;
-  color: var(--text-3);
-  margin-top: 8px;
-  animation: fadeIn 0.5s ease both;
-  animation-delay: 0.45s;
+  transition: color 0.25s ease;
 }
 
 .status-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  color: var(--teal-deep);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-2);
   margin-top: 20px;
+  padding: 5px 14px;
+  border: 0.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.55s;
+  animation-delay: 0.2s;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .pulse-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: var(--teal);
+  background: var(--accent);
+  flex-shrink: 0;
   animation: pulse 2s ease-in-out infinite;
+  transition: background 0.25s ease;
 }
 
 .link-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 7px;
+  margin-top: 14px;
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.65s;
+  animation-delay: 0.3s;
 }
 
 .chip {
   display: inline-flex;
   align-items: center;
-  font-size: 12px;
-  color: var(--text-2);
-  transition: color 0.15s ease;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--text-3);
+  border: 0.5px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 10px;
+  background: var(--surface);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
 .chip:hover {
-  color: var(--teal-deep);
+  color: var(--accent);
+  border-color: var(--accent-border);
 }
 
-.chip--blog:hover {
-  color: var(--teal-deep);
-}
-
-/* ── SECTIONS ── */
+/* ═══════════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════════ */
 .section {
   margin-top: 56px;
   opacity: 0;
   animation: sectionIn 0.5s ease both;
 }
 
-.section:nth-of-type(1) { animation-delay: 0.7s; }
-.section:nth-of-type(2) { animation-delay: 0.8s; }
-.section:nth-of-type(3) { animation-delay: 0.9s; }
-.section:nth-of-type(4) { animation-delay: 1.0s; }
-.section:nth-of-type(5) { animation-delay: 1.1s; }
-.section:nth-of-type(6) { animation-delay: 1.2s; }
-.section:nth-of-type(7) { animation-delay: 1.3s; }
+.section:nth-of-type(1) { animation-delay: 0.4s; }
+.section:nth-of-type(2) { animation-delay: 0.5s; }
+.section:nth-of-type(3) { animation-delay: 0.6s; }
+.section:nth-of-type(4) { animation-delay: 0.7s; }
+.section:nth-of-type(5) { animation-delay: 0.8s; }
+.section:nth-of-type(6) { animation-delay: 0.9s; }
+.section:nth-of-type(7) { animation-delay: 1.0s; }
 
 .section-label {
-  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--teal-light);
+  color: var(--accent);
   padding-bottom: 10px;
-  border-bottom: 0.5px solid var(--surface2);
+  border-bottom: 0.5px solid var(--border);
   margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.25s ease, border-color 0.25s ease;
 }
 
-/* ── ENTRIES ── */
-.timeline-entry {
-  padding-bottom: 32px;
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: background 0.25s ease;
 }
+
+/* ═══════════════════════════════════════════
+   TIMELINE ENTRIES
+═══════════════════════════════════════════ */
+.timeline-entry {
+  padding-left: 18px;
+  border-left: 1px solid var(--border);
+  padding-bottom: 34px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.timeline-entry:hover { border-color: var(--accent-border); }
+.timeline-entry:hover::before { background: var(--accent); border-color: var(--accent); }
 
 .timeline-entry:last-child { padding-bottom: 0; }
 
 .entry-title {
   font-family: 'Fraunces', serif;
   font-weight: 400;
-  font-size: 17px;
-  color: var(--teal-deep);
-  line-height: 1.35;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.3;
 }
 
 .entry-meta {
-  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
   color: var(--text-3);
-  margin-top: 2px;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
 }
 
 .entry-org {
+  font-family: 'Lora', serif;
   font-size: 13px;
   color: var(--text-2);
   margin-top: 2px;
 }
 
 .entry-body {
-  font-size: 13px;
-  color: #c9aed1;
-  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-3);
+  margin-top: 12px;
   line-height: 1.85;
-  text-align: justify;
 }
 
-.entry-body strong {
-  color: var(--teal-deep);
-}
+.entry-body strong { color: var(--text-2); font-weight: 500; }
 
-.entry-body p + p {
-  margin-top: 10px;
-}
-
-.entry-body ul {
-  list-style: none;
-  padding: 0;
-}
+.entry-body ul { list-style: none; padding: 0; }
 
 .entry-body li {
   position: relative;
-  padding-left: 14px;
-  margin-top: 4px;
+  padding-left: 16px;
+  margin-top: 6px;
 }
 
 .entry-body li::before {
   content: '·';
   position: absolute;
   left: 0;
-  color: var(--teal);
+  color: var(--accent);
+  opacity: 0.7;
+  transition: color 0.25s ease;
 }
 
-/* ── AWARD PILL ── */
+/* ═══════════════════════════════════════════
+   AWARD PILL
+═══════════════════════════════════════════ */
 .award-pill {
   display: inline-block;
-  background: var(--surface);
-  border: 0.5px solid var(--surface2);
-  border-radius: 4px;
-  padding: 2px 8px;
-  font-size: 11px;
-  color: var(--teal-deep);
-  margin-top: 6px;
+  background: var(--accent-bg);
+  border: 0.5px solid var(--accent-border);
+  border-radius: 3px;
+  padding: 2px 9px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 7px;
+  letter-spacing: 0.04em;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-/* ── BADGES ── */
+.entry-award {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+  padding: 6px 10px;
+  background: var(--accent-bg);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 3px 3px 0;
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════════════
+   BADGES
+═══════════════════════════════════════════ */
 .badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 5px;
+  margin-top: 12px;
 }
 
 .badge {
   display: inline-block;
-  background: var(--surface);
-  border: 0.5px solid var(--surface2);
-  border-radius: 4px;
+  background: var(--accent-bg);
+  border: 0.5px solid var(--accent-border);
+  border-radius: 3px;
   padding: 2px 8px;
-  font-size: 11px;
-  color: var(--teal-deep);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
 
-.badge--indigo,
+/* indigo/alt variants — same as default, unified */
+.badge--indigo { }
+
+/* only prize/achievement badges get the alt color */
 .badge--accent-teal,
 .badge--accent-indigo {
-  background: var(--surface);
-  border-color: var(--surface2);
-  color: var(--teal-deep);
+  background: var(--alt-bg);
+  border-color: var(--alt-border);
+  color: var(--alt);
 }
 
-/* ── ENTRY LINKS ── */
+/* ═══════════════════════════════════════════
+   ENTRY LINKS
+═══════════════════════════════════════════ */
 .entry-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-  font-size: 12px;
+  gap: 10px;
+  margin-top: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
 }
 
 .entry-links a {
-  color: var(--teal);
+  color: var(--text-3);
   text-decoration: underline;
-  text-decoration-color: var(--teal-light);
+  text-decoration-color: var(--border);
   text-underline-offset: 2px;
   transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .entry-links a:hover {
-  color: var(--teal-deep);
-  text-decoration-color: var(--teal-deep);
+  color: var(--accent);
+  text-decoration-color: var(--accent-border);
 }
 
-/* ── STACK GRID ── */
+/* ═══════════════════════════════════════════
+   STACK GRID
+═══════════════════════════════════════════ */
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
 .stack-card {
-  padding: 0;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 5px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .stack-category {
-  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--teal-light);
-  margin-bottom: 8px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  transition: color 0.25s ease;
 }
 
 .stack-items {
-  font-size: 12px;
-  color: var(--teal-deep);
-  line-height: 1.7;
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.8;
 }
 
-/* ── EDU GRID ── */
+/* ═══════════════════════════════════════════
+   EDUCATION
+═══════════════════════════════════════════ */
 .edu-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 14px;
 }
 
 .edu-card {
-  padding: 0;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 5px;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .edu-degree {
   font-family: 'Fraunces', serif;
   font-weight: 400;
   font-size: 15px;
-  color: var(--teal-deep);
+  color: var(--text);
 }
 
 .edu-school {
+  font-family: 'Lora', serif;
   font-size: 13px;
   color: var(--text-2);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .edu-detail {
-  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
   color: var(--text-3);
-  margin-top: 4px;
+  margin-top: 5px;
+  line-height: 1.6;
 }
 
 .gpa-pill {
   display: inline-block;
-  background: var(--surface2);
-  border-radius: 4px;
+  background: var(--accent-bg);
+  border: 0.5px solid var(--accent-border);
+  border-radius: 3px;
   padding: 2px 8px;
-  font-size: 12px;
-  color: var(--teal-deep);
-  margin-top: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  margin-top: 10px;
 }
 
-/* ── CONTACT ── */
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
 .contact-card {
-  padding: 0;
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 5px;
+  border-left: 2px solid var(--accent);
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
-.contact-heading, .contact-h {
+.contact-h {
   font-family: 'Fraunces', serif;
   font-weight: 300;
-  font-size: 22px;
-  color: var(--teal-deep);
+  font-size: 24px;
+  color: var(--text);
 }
 
-.contact-text, .contact-sub {
-  font-size: 13px;
+.contact-sub {
+  font-family: 'Lora', serif;
+  font-size: 14px;
   color: var(--text-3);
   margin-top: 8px;
   line-height: 1.85;
 }
 
 .contact-email {
-  color: var(--teal);
+  display: inline-block;
+  margin-top: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
   text-decoration: underline;
-  text-decoration-color: var(--teal-light);
-  text-underline-offset: 2px;
+  text-decoration-color: var(--accent-border);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
 }
 
-.contact-email:hover {
-  color: var(--teal-deep);
-  text-decoration-color: var(--teal-deep);
-}
+.contact-email:hover { text-decoration-color: var(--accent); }
 
-/* ── FOOTER ── */
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
 footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0 28px;
   margin-top: 56px;
-  border-top: 0.5px solid var(--surface2);
-  font-size: 12px;
+  border-top: 0.5px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
   color: var(--text-3);
   flex-wrap: wrap;
   gap: 8px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.25s ease;
 }
 
-/* ── ANIMATIONS ── */
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -435,63 +618,23 @@ footer {
   50%      { opacity: 0.4; }
 }
 
-/* ── RESPONSIVE ── */
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
 @media (max-width: 680px) {
   .stack-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 540px) {
+  .ascii-art { font-size: 2.4px; overflow-x: hidden; }
   .edu-grid { grid-template-columns: 1fr; }
-  .ascii-art { font-size: 4.5px; }
-  nav { flex-direction: column; align-items: flex-start; }
-  .hero-tagline { font-size: 24px; }
+  .hero-tagline { font-size: 28px; }
+  .container { padding: 0 24px 60px; }
+  nav { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .nav-right { flex-wrap: wrap; gap: 10px; }
+  .nav-links { gap: 14px; }
 }
 
-/* Signal color overrides */
-.nav-brand,
-.ascii-art,
-.status-pill,
-.section-label,
-.award-pill,
-.contact-email,
-#projects .timeline-entry:nth-of-type(5) .entry-org,
-#research .timeline-entry:nth-of-type(2) .entry-org {
-  color: var(--pink);
-}
-
-.pulse-dot {
-  background: var(--pink);
-}
-
-.nav-links a[href*="280CharsArentEnough/"] {
-  color: var(--pink);
-}
-
-.nav-links a:hover,
-.link-chips a:hover,
-.entry-links a:hover,
-.contact-email:hover,
-a:hover {
-  color: var(--pink);
-}
-
-.entry-links a,
-.contact-email {
-  color: var(--text-2);
-  text-decoration-color: currentColor;
-}
-
-.contact-email {
-  color: var(--pink);
-}
-
-.badge,
-.badge--indigo,
-.badge--accent-teal,
-.badge--accent-indigo {
-  color: #FF0080;
-  border: 1px solid #FF0080;
-}
 </style>
 </head>
 <body>
@@ -500,13 +643,16 @@ a:hover {
 <!-- NAV -->
 <nav>
   <div class="nav-brand">atharva walawalkar</div>
-  <ul class="nav-links">
-    <li><a href="#experience">exp</a></li>
-    <li><a href="#projects">projects</a></li>
-    <li><a href="#research">research</a></li>
-    <li><a href="#contact">contact</a></li>
-    <li><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#experience">exp</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#research">research</a></li>
+      <li><a href="#contact">contact</a></li>
+      <li><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">☾ dark</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -519,9 +665,8 @@ a:hover {
 ██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║    ╚███╔███╔╝██║  ██║███████╗██║  ██║╚███╔███╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
 ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
 </pre>
-
+  <p class="hero-sub">ms ai · sf state · 4.0 · may 2026</p>
   <h1 class="hero-tagline">ml. rl. <em>everything in between.</em></h1>
-  <p class="hero-subtitle">ms ai · sf state · 4.0 · may 2026</p>
 
   <div class="status-pill">
     <span class="pulse-dot"></span>
@@ -533,7 +678,7 @@ a:hover {
     <a class="chip" href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a>
     <a class="chip" href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a>
     <a class="chip" href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hugging face</a>
-    <a class="chip chip--blog" href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a>
+    <a class="chip" href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a>
   </div>
 </section>
 
@@ -545,13 +690,12 @@ a:hover {
     <div class="entry-title">applied ai intern</div>
     <div class="entry-meta">jun – aug 2025</div>
     <div class="entry-org">Chewy Inc. — Bellevue, WA</div>
-    <div class="award-pill">runner-up · most innovative use of ai</div>
     <div class="entry-body">
       <ul>
-        <li><strong>M.A.T.T. &amp; P.A.W.S.</strong> — memory and intent system on a Neo4j knowledge graph ingesting 4.5B+ clickstream events, building persistent behavioral memories across sessions for downstream agent reasoning.</li>
-        <li><strong>Ad-visor</strong> — autonomous diagnostic agent using a Reason–Critique–Analyze loop to evaluate ad campaign performance per user and auto-escalate actionable summaries to marketing via Slack, cutting analyst-in-the-loop latency from days to minutes.</li>
-        <li><strong>Fluid Frontend Engine</strong> — LLM-in-the-loop homepage widget reranker based on real-time navigation patterns, achieving sub-50ms personalization latency by deciding when to invoke the model vs fall back to cached rankings.</li>
-        <li><strong>Presented</strong> the full multi-agent portfolio to 50+ stakeholders including CEO, CTO, and VP of AI — received runner-up and "Most Innovative Use of AI" awards.</li>
+        <li><strong>M.A.T.T. &amp; P.A.W.S.</strong> — built a persistent behavioral memory layer on Neo4j ingesting 4.5B+ clickstream events to construct cross-session user intent graphs, letting downstream agents retrieve customer context in sub-100ms instead of re-deriving it from raw logs on every request.</li>
+        <li><strong>Ad-visor</strong> — autonomous diagnostic agent with a Reason–Critique–Analyze loop that detected ad campaign anomalies and pushed root-cause summaries to marketing via Slack, cutting analyst review time from ~2 days to under 5 minutes per escalation.</li>
+        <li><strong>Fluid Frontend Engine</strong> — hybrid personalization system for the Chewy homepage: routed real-time navigation signals through an LLM reranker with automatic fallback to cached collaborative-filter rankings when confidence dropped below threshold. Sub-50ms p95 latency on the hot path.</li>
+        <li><strong>Demoed</strong> the full multi-agent portfolio to 50+ stakeholders including the CEO, CTO, and VP of AI at the intern final showcase — awarded runner-up and most innovative use of AI.</li>
       </ul>
     </div>
     <div class="badges">
@@ -568,8 +712,7 @@ a:hover {
 <section class="section" id="projects">
   <div class="section-label">projects &amp; hackathons</div>
 
-  <!-- WolfeClick — indigo -->
-  <div class="timeline-entry timeline-entry--indigo">
+  <div class="timeline-entry">
     <div class="entry-title">WolfeClick — RL agent for competitive pokémon</div>
     <div class="entry-meta">mar 2026</div>
     <div class="entry-org">OpenEnv / PyTorch Hackathon</div>
@@ -595,7 +738,6 @@ a:hover {
     </div>
   </div>
 
-  <!-- Commentator — teal -->
   <div class="timeline-entry">
     <div class="entry-title">Commentator — real-time AI game caster</div>
     <div class="entry-meta">dec 2025</div>
@@ -616,8 +758,7 @@ a:hover {
     </div>
   </div>
 
-  <!-- PivotRL — indigo -->
-  <div class="timeline-entry timeline-entry--indigo">
+  <div class="timeline-entry">
     <div class="entry-title">PivotRL — distillation via NLL pivot detection</div>
     <div class="entry-meta">ongoing 2026</div>
     <div class="entry-org">personal research</div>
@@ -637,7 +778,6 @@ a:hover {
     </div>
   </div>
 
-  <!-- AI Interview Tutor — teal -->
   <div class="timeline-entry">
     <div class="entry-title">AI interview tutor</div>
     <div class="entry-meta">2025</div>
@@ -657,8 +797,7 @@ a:hover {
     </div>
   </div>
 
-  <!-- Edge-AI Flood — indigo -->
-  <div class="timeline-entry timeline-entry--indigo">
+  <div class="timeline-entry">
     <div class="entry-title">edge-AI flood alert system</div>
     <div class="entry-meta">2024</div>
     <div class="entry-org">Indian Meteorological Department — provisional patent filed</div>
@@ -682,7 +821,6 @@ a:hover {
 <section class="section" id="research">
   <div class="section-label">research</div>
 
-  <!-- Thesis — teal -->
   <div class="timeline-entry">
     <div class="entry-title">adaptive RL for dynamic ROI selection in rPPG</div>
     <div class="entry-meta">2025 – 2026</div>
@@ -704,8 +842,7 @@ a:hover {
     </div>
   </div>
 
-  <!-- Flood patent — indigo -->
-  <div class="timeline-entry timeline-entry--indigo">
+  <div class="timeline-entry">
     <div class="entry-title">deep learning flood alert system</div>
     <div class="entry-meta">2024</div>
     <div class="entry-org">patent pending</div>
@@ -716,7 +853,6 @@ a:hover {
     </div>
   </div>
 
-  <!-- Fraud — teal -->
   <div class="timeline-entry">
     <div class="entry-title">credit card fraud detection</div>
     <div class="entry-meta">2023</div>
@@ -773,34 +909,40 @@ a:hover {
   <div class="contact-card">
     <div class="contact-h">let's talk.</div>
     <p class="contact-sub">I'm looking for full-time AI research, applied AI, and MLE roles, and also actively applying to AI safety research fellowships. If you're working on RL, interpretability, rPPG, or LLM reasoning — or if you just want to talk through a paper — I'm genuinely up for it.</p>
-    <a class="contact-email" href="mailto:atharvawal27@gmail.com" style="display:inline-block;margin-top:12px;">atharvawal27@gmail.com</a>
+    <a class="contact-email" href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <span>atharva walawalkar · san francisco, ca</span>
+  <span>2026</span>
 </footer>
 
 </div>
 
 <script>
-const bgThemes = {
-  '382b36': { bg: '#000000', surface: '#4c3b49', surface2: '#64505f' },
-  '452a40': { bg: '#000000', surface: '#5b3a55', surface2: '#724c6a' }
-};
-const bgChoice = new URLSearchParams(window.location.search).get('bg');
-const selectedTheme = bgThemes[bgChoice] || bgThemes['382b36'];
-Object.entries(selectedTheme).forEach(([key, value]) => {
-  document.documentElement.style.setProperty(`--${key}`, value);
-});
+// Persist mode across page loads
+const saved = localStorage.getItem('theme') || 'light';
+setTheme(saved);
 
-// Smooth scroll for nav links
+function setTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  document.getElementById('modeBtn').textContent = mode === 'light' ? '☾ dark' : '☀ light';
+  localStorage.setItem('theme', mode);
+}
+
+function toggleMode() {
+  const current = document.documentElement.getAttribute('data-theme');
+  setTheme(current === 'light' ? 'dark' : 'light');
+}
+
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 </script>
