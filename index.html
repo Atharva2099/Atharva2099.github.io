@@ -759,26 +759,6 @@ footer {
   </div>
 
   <div class="timeline-entry">
-    <div class="entry-title">PivotRL — distillation via NLL pivot detection</div>
-    <div class="entry-meta">ongoing 2026</div>
-    <div class="entry-org">personal research</div>
-    <div class="entry-body">
-      <ul>
-        <li><strong>Hypothesis</strong> — not all tokens in a reasoning trace are equally worth learning from; NLL-based pivot detection identifies navigational transition points in Kimi K2.5 traces and applies higher loss weight to them when distilling into Gemma 4.</li>
-        <li><strong>Results</strong> — uniform SFT hurt GSM8K performance (85.5% → 74.5%); pivot-weighted SFT partially recovered it to 80%, suggesting the pivot signal is real but the pipeline is incomplete.</li>
-        <li><strong>Next step</strong> — running 50-sample AIME eval to test whether the regression is domain-specific; if pivot-weighted holds on AIME, the GSM8K drop reframes as distribution shift, not capability loss.</li>
-        <li><strong>Honest status</strong> — ongoing, null-ish result so far, but the null is informative: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
-      </ul>
-    </div>
-    <div class="badges">
-      <span class="badge badge--indigo">gemma 4</span>
-      <span class="badge badge--indigo">distillation</span>
-      <span class="badge badge--indigo">sft</span>
-      <span class="badge badge--indigo">gsm8k</span>
-    </div>
-  </div>
-
-  <div class="timeline-entry">
     <div class="entry-title">AI interview tutor</div>
     <div class="entry-meta">2025</div>
     <div class="entry-org">AWS Builder Hackathon</div>
@@ -797,24 +777,6 @@ footer {
     </div>
   </div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">edge-AI flood alert system</div>
-    <div class="entry-meta">2024</div>
-    <div class="entry-org">Indian Meteorological Department — provisional patent filed</div>
-    <div class="entry-body">
-      <ul>
-        <li><strong>Offline-first constraint</strong> — internet drops during the floods being predicted, so the entire inference stack runs on a Raspberry Pi via TFLite-quantized LSTM trained on 40 years of IMD weather data, achieving 0.73mm RMSE.</li>
-        <li><strong>Local delivery</strong> — predictions served over WLAN so devices on the same local network receive live flood alerts even with no internet connectivity.</li>
-        <li><strong>Deployment</strong> — led a 3-person team through data collection, model training, hardware deployment, and field testing in collaboration with the Indian Meteorological Department; resulted in a provisional patent filing.</li>
-      </ul>
-    </div>
-    <div class="badges">
-      <span class="badge badge--indigo">lstm</span>
-      <span class="badge badge--indigo">tflite</span>
-      <span class="badge badge--indigo">raspberry pi</span>
-      <span class="badge badge--accent-indigo">patent</span>
-    </div>
-  </div>
 </section>
 
 <!-- RESEARCH -->
@@ -843,13 +805,42 @@ footer {
   </div>
 
   <div class="timeline-entry">
-    <div class="entry-title">deep learning flood alert system</div>
-    <div class="entry-meta">2024</div>
-    <div class="entry-org">patent pending</div>
+    <div class="entry-title">PivotRL — distillation via NLL pivot detection</div>
+    <div class="entry-meta">ongoing 2026</div>
+    <div class="entry-org">personal research</div>
+    <div class="award-pill">ongoing</div>
     <div class="entry-body">
       <ul>
-        <li>The research publication underlying the flood alert system. An IoT and deep learning architecture combining LSTM networks with edge computing for real-world environmental monitoring. Focuses on the system design decisions that make offline-first inference viable on low-power hardware, and the tradeoffs between model size, quantization error, and prediction latency in a constrained deployment environment.</li>
+        <li><strong>Hypothesis</strong> — not all tokens in a reasoning trace are equally worth learning from; NLL-based pivot detection identifies navigational transition points in Kimi K2.5 traces and applies higher loss weight to them when distilling into Gemma 4.</li>
+        <li><strong>Results</strong> — uniform SFT hurt GSM8K performance (85.5% → 74.5%); pivot-weighted SFT partially recovered it to 80%, suggesting the pivot signal is real but the pipeline is incomplete.</li>
+        <li><strong>Next step</strong> — running 50-sample AIME eval to test whether the regression is domain-specific; if pivot-weighted holds on AIME, the GSM8K drop reframes as distribution shift, not capability loss.</li>
+        <li><strong>Honest status</strong> — ongoing, null-ish result so far, but the null is informative: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
       </ul>
+    </div>
+    <div class="badges">
+      <span class="badge badge--indigo">gemma 4</span>
+      <span class="badge badge--indigo">distillation</span>
+      <span class="badge badge--indigo">sft</span>
+      <span class="badge badge--indigo">gsm8k</span>
+    </div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="entry-title">edge-AI flood alert system</div>
+    <div class="entry-meta">2024</div>
+    <div class="entry-org">Indian Meteorological Department — provisional patent filed</div>
+    <div class="entry-body">
+      <ul>
+        <li><strong>Offline-first constraint</strong> — internet drops during the floods being predicted, so the entire inference stack runs on a Raspberry Pi via TFLite-quantized LSTM trained on 40 years of IMD weather data, achieving 0.73mm RMSE.</li>
+        <li><strong>Local delivery</strong> — predictions served over WLAN so devices on the same local network receive live flood alerts even with no internet connectivity.</li>
+        <li><strong>Deployment</strong> — led a 3-person team through data collection, model training, hardware deployment, and field testing in collaboration with the Indian Meteorological Department; resulted in a provisional patent filing.</li>
+      </ul>
+    </div>
+    <div class="badges">
+      <span class="badge badge--indigo">lstm</span>
+      <span class="badge badge--indigo">tflite</span>
+      <span class="badge badge--indigo">raspberry pi</span>
+      <span class="badge badge--accent-indigo">patent</span>
     </div>
   </div>
 
