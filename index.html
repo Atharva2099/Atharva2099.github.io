@@ -188,40 +188,30 @@ nav {
   transition: color 0.25s ease;
 }
 
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
+.hero-note {
+  font-family: 'Lora', serif;
+  font-size: 14px;
   color: var(--text-2);
-  margin-top: 20px;
-  padding: 5px 14px;
-  border: 0.5px solid var(--border);
-  border-radius: 20px;
-  background: var(--surface);
+  margin-top: 14px;
+  line-height: 1.7;
+  max-width: 580px;
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.2s;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  animation-delay: 0.15s;
 }
 
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-  animation: pulse 2s ease-in-out infinite;
-  transition: background 0.25s ease;
+.hero-note + .hero-note {
+  margin-top: 6px;
+  color: var(--text-3);
+  animation-delay: 0.2s;
 }
 
 .link-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
-  margin-top: 14px;
+  margin-top: 20px;
   animation: fadeIn 0.5s ease both;
-  animation-delay: 0.3s;
+  animation-delay: 0.25s;
 }
 
 .chip {
@@ -665,13 +655,10 @@ footer {
 ██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║    ╚███╔███╔╝██║  ██║███████╗██║  ██║╚███╔███╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
 ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
 </pre>
-  <p class="hero-sub">ms ai · sf state · 4.0 · may 2026</p>
-  <h1 class="hero-tagline">ml. rl. <em>everything in between.</em></h1>
-
-  <div class="status-pill">
-    <span class="pulse-dot"></span>
-    open to AI research, applied AI, and MLE roles
-  </div>
+  <p class="hero-sub">ms ai · sf state · may 2026</p>
+  <h1 class="hero-tagline">rl, agents, systems.</h1>
+  <p class="hero-note">i like making models do things they probably should not be able to do.</p>
+  <p class="hero-note">outside of that i take photos and am currently catching up on one piece.</p>
 
   <div class="link-chips">
     <a class="chip" href="mailto:atharvawal27@gmail.com">email</a>
@@ -679,6 +666,7 @@ footer {
     <a class="chip" href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a>
     <a class="chip" href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hugging face</a>
     <a class="chip" href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a>
+    <a class="chip" href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads &#8599;</a>
   </div>
 </section>
 
@@ -688,95 +676,63 @@ footer {
 
   <div class="timeline-entry">
     <div class="entry-title">applied ai intern</div>
-    <div class="entry-meta">jun – aug 2025</div>
-    <div class="entry-org">Chewy Inc. — Bellevue, WA</div>
+    <div class="entry-meta">summer 2025</div>
+    <div class="entry-org">chewy</div>
     <div class="entry-body">
       <ul>
-        <li><strong>M.A.T.T. &amp; P.A.W.S.</strong> — built a persistent behavioral memory layer on Neo4j ingesting 4.5B+ clickstream events to construct cross-session user intent graphs, letting downstream agents retrieve customer context in sub-100ms instead of re-deriving it from raw logs on every request.</li>
-        <li><strong>Ad-visor</strong> — autonomous diagnostic agent with a Reason–Critique–Analyze loop that detected ad campaign anomalies and pushed root-cause summaries to marketing via Slack, cutting analyst review time from ~2 days to under 5 minutes per escalation.</li>
-        <li><strong>Fluid Frontend Engine</strong> — hybrid personalization system for the Chewy homepage: routed real-time navigation signals through an LLM reranker with automatic fallback to cached collaborative-filter rankings when confidence dropped below threshold. Sub-50ms p95 latency on the hot path.</li>
-        <li><strong>Demoed</strong> the full multi-agent portfolio to 50+ stakeholders including the CEO, CTO, and VP of AI at the intern final showcase — awarded runner-up and most innovative use of AI.</li>
+        <li>built a neo4j graph memory layer over 4.5 billion clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</li>
+        <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes to marketing workflows.</li>
+        <li>shipped a hybrid personalization engine for the homepage that reranked content in real time with sub-50ms latency.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge">neo4j</span>
-      <span class="badge">multi-agent</span>
-      <span class="badge">langchain</span>
-      <span class="badge">fastapi</span>
-      <span class="badge">aws bedrock</span>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS & HACKATHONS -->
+<!-- PROJECTS -->
 <section class="section" id="projects">
-  <div class="section-label">projects &amp; hackathons</div>
+  <div class="section-label">projects</div>
 
   <div class="timeline-entry">
-    <div class="entry-title">WolfeClick — RL agent for competitive pokémon</div>
+    <div class="entry-title">wolfeclick</div>
     <div class="entry-meta">mar 2026</div>
-    <div class="entry-org">OpenEnv / PyTorch Hackathon</div>
+    <div class="entry-org">rl for competitive pokemon</div>
     <div class="entry-body">
       <ul>
-        <li><strong>Gym infrastructure</strong> — wrapped Pokémon Showdown's WebSocket API into an OpenEnv-compatible gym with structured markdown state representation and strict JSON action validation, eliminating the illegal-move hallucinations that made naive LLM agents unplayable.</li>
-        <li><strong>Training pipeline</strong> — SFT warmup on expert trajectories was non-negotiable before RL; without it the base model's action distribution was too diffuse for useful GRPO gradients. SFT → rollout → GRPO produced measurable win-rate improvement over the SFT-only baseline.</li>
-        <li><strong>Reward design</strong> — 7-component dense signal covering KO incentives, type-effectiveness bonuses, HP differential shaping, and a −10.0 hallucination penalty for illegal actions across a Qwen3-4B LoRA adapter.</li>
-        <li><strong>Emergent behavior</strong> — status-move rewards induced a stalling strategy never explicitly incentivized; damage rewards pushed aggressive type-effectiveness exploitation, suggesting the policy learned genuine strategy rather than trajectory memorization.</li>
+        <li>i wanted to train llms for long-horizon reasoning under hidden information. pokemon works: you do not see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
+        <li>i wrapped smogon's api for real-time rollouts and tried grpo. the model immediately spat invalid json, which taught me why labs sft before rl. after stabilizing qwen3-4b, i shaped rewards: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one number.</li>
+        <li>it still loses often, but watching one scalar determine whether it rushes or cowers was my clearest lesson in how objectives shape behavior.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge badge--indigo">grpo</span>
-      <span class="badge badge--indigo">qwen3-4b</span>
-      <span class="badge badge--indigo">lora</span>
-      <span class="badge badge--indigo">rl</span>
     </div>
     <div class="entry-links">
       <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a>
       <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a>
       <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
-      <a href="https://www.notion.so/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-31e26a993fa9809c8ac7d25d4d999619" target="_blank" rel="noopener">blog post</a>
     </div>
   </div>
 
   <div class="timeline-entry">
-    <div class="entry-title">Commentator — real-time AI game caster</div>
+    <div class="entry-title">commentator</div>
     <div class="entry-meta">dec 2025</div>
-    <div class="entry-org">Google Gemini Hackathon</div>
-    <div class="award-pill">3rd place · $20,000</div>
+    <div class="entry-org">real-time ai game caster · google gemini hackathon</div>
+    <div class="award-pill">3rd place · $20k</div>
     <div class="entry-body">
       <ul>
-        <li><strong>Core insight</strong> — reframed live commentary as a signal detection problem, not a captioning problem: detect high-entropy moments worth narrating rather than describing every frame.</li>
-        <li><strong>Frame filter</strong> — entropy-based FFmpeg pipeline triggers the commentary chain only on high-information transitions (kills, objective takes, team fights), cutting broadcast latency from 15s to 7s and redundant commentary by ~60%.</li>
-        <li><strong>Vision pipeline</strong> — chained Gemini 2.5 Flash Lite for high-frequency game-state analysis into a commentary generation layer, then ElevenLabs TTS, running fully async to keep latency flat under load.</li>
+        <li>most ai commentary tools just caption everything. the insight was that commentary is not about describing what happened — it is about knowing what is worth saying. built an event detector that only fires when something meaningful changes, which cut redundant output by 60% and made the whole thing feel live instead of laggy. concept to working demo in 12 hours.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge">gemini 2.5</span>
-      <span class="badge">ffmpeg</span>
-      <span class="badge">elevenlabs</span>
-      <span class="badge badge--accent-teal">$20k</span>
     </div>
   </div>
 
   <div class="timeline-entry">
-    <div class="entry-title">AI interview tutor</div>
-    <div class="entry-meta">2025</div>
-    <div class="entry-org">AWS Builder Hackathon</div>
+    <div class="entry-title">wanderlust</div>
+    <div class="entry-meta">2026</div>
+    <div class="entry-org">ai trip planner</div>
     <div class="entry-body">
       <ul>
-        <li><strong>Architecture</strong> — dual-agent system triggered in parallel after a 1.5s speech pause detected via AWS Transcribe WebSocket, keeping total latency under 3 seconds from end of speech to voiced feedback.</li>
-        <li><strong>Claude Sonnet</strong> — handled technical critique, evaluating answer correctness, approach quality, and communication clarity.</li>
-        <li><strong>Claude Haiku</strong> — ran a parallel emotion routing layer classifying the candidate's affective state to adjust feedback tone, with Minimax TTS delivering emotionally-matched voice output.</li>
+        <li>built for people who do not want to spend a week in a city and come back having only seen the same ten things that show up on every travel blog. feed it a destination and budget, it surfaces neighborhood-level spots, clusters them geographically so you are not commuting across the city between stops, and estimates real costs from a live index.</li>
+        <li>llms default to the obvious. getting genuinely local recommendations required building explicit novelty and geographic pressure into the prompt stack — alongside hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on cloudflare workers with d1 sqlite at the edge.</li>
       </ul>
     </div>
-    <div class="badges">
-      <span class="badge">aws bedrock</span>
-      <span class="badge">claude</span>
-      <span class="badge">transcribe</span>
-      <span class="badge">minimax tts</span>
-    </div>
   </div>
-
 </section>
 
 <!-- RESEARCH -->
@@ -784,63 +740,43 @@ footer {
   <div class="section-label">research</div>
 
   <div class="timeline-entry">
-    <div class="entry-title">adaptive RL for dynamic ROI selection in rPPG</div>
+    <div class="entry-title">adaptive rl for dynamic roi selection in rppg</div>
     <div class="entry-meta">2025 – 2026</div>
-    <div class="entry-org">M.S. Thesis · SF State</div>
+    <div class="entry-org">ms thesis · sf state</div>
     <div class="entry-body">
       <ul>
-        <li>Remote photoplethysmography (rPPG) extracts heart rate from video by detecting subtle color changes in facial skin caused by blood flow. The challenge is that different facial regions carry different signal quality depending on lighting, motion, and skin tone, and most methods fix the ROI at the full face or a static subregion. My thesis asks whether a <strong>PPO-trained agent can learn to dynamically select which facial regions to weight</strong> based on the current video context.</li>
-        <li>The state space is a 64-column semantic ROI12 schema derived from MediaPipe, 12 facial regions each with quality features. The action space is a continuous (12,) vector of region scores mapped to a top-k weighted ROI mixture (k=3 default). The policy selects among three signal extraction algorithms (POS, CHROM, PBV) dynamically based on the selected ROI. I trained on 3,600 videos across MMPD, V4V, and PURE datasets using SLURM-managed jobs tracked in W&amp;B.</li>
-        <li>The best result is HR_MAE of 21.76 vs a baseline of 33.58, a meaningful improvement. But the honest tension is that HR_MAE gains come at a cost to PPG waveform correlation, and the policy behaves differently on frontal vs side-facing video in ways that aren't yet fully understood. The dense+sparse hybrid reward underperformed the sparse-only reward, which suggests the waveform-level signal is harder to translate into useful gradient than expected. That asymmetry is the most interesting open question in the thesis.</li>
+        <li>rppg extracts heart rate from video by detecting subtle color changes in facial skin. most methods fix the region of interest to the full face or a static patch, but signal quality varies heavily by lighting, motion, and skin tone across different regions.</li>
+        <li>i trained a ppo agent to dynamically select and weight facial regions per frame using a 64-dimensional state space from mediapipe. the policy improved hr_mae from 33.58 to 21.76 beats per minute. the honest catch is that the gains came at a cost to ppg waveform correlation, and dense rewards underperformed sparse ones. that suggests the waveform-level signal is harder to translate into useful gradients than expected.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge">ppo</span>
-      <span class="badge">rppg</span>
-      <span class="badge">mediapipe</span>
-      <span class="badge">pytorch</span>
-      <span class="badge">wandb</span>
-      <span class="badge">slurm</span>
     </div>
   </div>
 
   <div class="timeline-entry">
-    <div class="entry-title">PivotRL — distillation via NLL pivot detection</div>
+    <div class="entry-title">pivotrl</div>
     <div class="entry-meta">ongoing 2026</div>
     <div class="entry-org">personal research</div>
-    <div class="award-pill">ongoing</div>
     <div class="entry-body">
       <ul>
-        <li><strong>Hypothesis</strong> — not all tokens in a reasoning trace are equally worth learning from; NLL-based pivot detection identifies navigational transition points in Kimi K2.5 traces and applies higher loss weight to them when distilling into Gemma 4.</li>
-        <li><strong>Results</strong> — uniform SFT hurt GSM8K performance (85.5% → 74.5%); pivot-weighted SFT partially recovered it to 80%, suggesting the pivot signal is real but the pipeline is incomplete.</li>
-        <li><strong>Next step</strong> — running 50-sample AIME eval to test whether the regression is domain-specific; if pivot-weighted holds on AIME, the GSM8K drop reframes as distribution shift, not capability loss.</li>
-        <li><strong>Honest status</strong> — ongoing, null-ish result so far, but the null is informative: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+        <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in kimi k2.5 traces and up-weight them when distilling into gemma 4.</li>
+        <li>uniform sft on reasoning traces dropped gsm8k from 85.5% to 74.5%. pivot-weighted sft recovered it partially to 80%. the null result is informative: naive distillation on reasoning traces actively hurts, which is not obvious from the literature.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge badge--indigo">gemma 4</span>
-      <span class="badge badge--indigo">distillation</span>
-      <span class="badge badge--indigo">sft</span>
-      <span class="badge badge--indigo">gsm8k</span>
     </div>
   </div>
+</section>
+
+<!-- EARLIER WORK -->
+<section class="section" id="earlier">
+  <div class="section-label">earlier work</div>
 
   <div class="timeline-entry">
-    <div class="entry-title">edge-AI flood alert system</div>
+    <div class="entry-title">edge-ai flood alert system</div>
     <div class="entry-meta">2024</div>
-    <div class="entry-org">Indian Meteorological Department — provisional patent filed</div>
+    <div class="entry-org">indian meteorological department · provisional patent</div>
     <div class="entry-body">
       <ul>
-        <li><strong>Offline-first constraint</strong> — internet drops during the floods being predicted, so the entire inference stack runs on a Raspberry Pi via TFLite-quantized LSTM trained on 40 years of IMD weather data, achieving 0.73mm RMSE.</li>
-        <li><strong>Local delivery</strong> — predictions served over WLAN so devices on the same local network receive live flood alerts even with no internet connectivity.</li>
-        <li><strong>Deployment</strong> — led a 3-person team through data collection, model training, hardware deployment, and field testing in collaboration with the Indian Meteorological Department; resulted in a provisional patent filing.</li>
+        <li>flood-prone areas in india often do not have reliable internet infrastructure, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
+        <li>trained an encoder-decoder lstm on 45 years of hourly rainfall data (1979-2024) across three mumbai neighborhoods — matunga east, byculla, and dahisar — each with ~400k records. models hit mae around 0.17 across all three locations. deployed as tflite on a raspberry pi 4 serving a fastapi backend, with a flutter app using the haversine formula to route users to the nearest model based on their gps coordinates. alerts go out over local wlan with no internet required.</li>
       </ul>
-    </div>
-    <div class="badges">
-      <span class="badge badge--indigo">lstm</span>
-      <span class="badge badge--indigo">tflite</span>
-      <span class="badge badge--indigo">raspberry pi</span>
-      <span class="badge badge--accent-indigo">patent</span>
     </div>
   </div>
 
@@ -850,27 +786,11 @@ footer {
     <div class="entry-org">publication</div>
     <div class="entry-body">
       <ul>
-        <li>A comparative analysis of machine learning techniques for fraud detection across imbalanced transaction datasets. Evaluated ensemble methods (XGBoost, Random Forest), traditional classifiers (SVM, Logistic Regression), and anomaly detection approaches. The interesting finding wasn't which model won. It was how dramatically class imbalance handling strategy affected results across method families, more than the model choice itself.</li>
+        <li>compared xgboost, random forest, svm, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered was not which algorithm won. it was that the class imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
       </ul>
     </div>
-  </div>
-</section>
-
-<!-- TECHNICAL STACK -->
-<section class="section" id="stack">
-  <div class="section-label">technical stack</div>
-  <div class="stack-grid">
-    <div class="stack-card">
-      <div class="stack-category">ml / ai</div>
-      <div class="stack-items">PyTorch · HuggingFace · scikit-learn · TFLite · ONNX · LoRA · GRPO · PPO · LangChain · DSPy</div>
-    </div>
-    <div class="stack-card">
-      <div class="stack-category">languages</div>
-      <div class="stack-items">Python · C++ · JavaScript · SQL</div>
-    </div>
-    <div class="stack-card">
-      <div class="stack-category">infra</div>
-      <div class="stack-items">AWS EC2/Bedrock · Docker · FastAPI · Neo4j · Git · Linux · SLURM · NGINX</div>
+    <div class="entry-links">
+      <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
     </div>
   </div>
 </section>
@@ -880,16 +800,14 @@ footer {
   <div class="section-label">education</div>
   <div class="edu-grid">
     <div class="edu-card">
-      <div class="edu-degree">M.S. Data Science &amp; AI</div>
-      <div class="edu-school">San Francisco State University</div>
-      <div class="edu-detail">expected may 2026 · NLP · Algorithms · Operating Systems</div>
-      <div class="gpa-pill">4.0 / 4.0</div>
+      <div class="edu-degree">ms data science and ai</div>
+      <div class="edu-school">sf state</div>
+      <div class="edu-detail">4.0 · may 2026</div>
     </div>
     <div class="edu-card">
-      <div class="edu-degree">B.Tech. Electronics &amp; Communication</div>
-      <div class="edu-school">Pune University</div>
-      <div class="edu-detail">2024 · Signal Processing · Computer Networks · Digital Communication</div>
-      <div class="gpa-pill">8.2 / 10.0</div>
+      <div class="edu-degree">b.tech electronics and communication</div>
+      <div class="edu-school">pune university</div>
+      <div class="edu-detail">2024</div>
     </div>
   </div>
 </section>
@@ -899,7 +817,7 @@ footer {
   <div class="section-label">contact</div>
   <div class="contact-card">
     <div class="contact-h">let's talk.</div>
-    <p class="contact-sub">I'm looking for full-time AI research, applied AI, and MLE roles, and also actively applying to AI safety research fellowships. If you're working on RL, interpretability, rPPG, or LLM reasoning — or if you just want to talk through a paper — I'm genuinely up for it.</p>
+    <p class="contact-sub">looking for ai research, applied ai, and mle roles starting may 2026. also applying to ai safety research fellowships.<br><br>if you want to talk about rl, why sparse rewards beat dense ones, or why one piece is actually a masterpiece, i am up for it.</p>
     <a class="contact-email" href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
   </div>
 </section>
