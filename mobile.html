@@ -114,6 +114,19 @@
         background-color: #160021;
       }
 
+      .links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .links svg {
+        width: 14px;
+        height: 14px;
+        stroke: currentColor;
+        flex-shrink: 0;
+      }
+
       .section {
         margin-bottom: 2rem;
       }
@@ -236,7 +249,7 @@
     </style>
   </head>
   <body>
-    <a href="index.html" class="desktop-link">Desktop View</a>
+    <a href="index.html" class="desktop-link">desktop view</a>
 
     <div class="header">
       <pre class="ascii-name">
@@ -258,46 +271,61 @@
       <div class="subtitle">ms ai · sf state · may 2026</div>
       <div class="tagline">rl, agents, systems.</div>
       <div class="about">i like making models do things they probably should not be able to do.</div>
-      <div class="about">outside of that i take photos and am currently catching up on one piece.</div>
+      <div class="about">outside of that i take photos and am currently catching up on One Piece.</div>
     </div>
 
     <div class="links">
-      <a href="mailto:atharvawal27@gmail.com">email</a>
-      <a href="https://github.com/Atharva2099/" target="_blank">github</a>
-      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank">linkedin</a>
-      <a href="https://huggingface.co/Atharva2099" target="_blank">huggingface</a>
-      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank">blog</a>
-      <a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank">goodreads</a>
+      <a href="mailto:atharvawal27@gmail.com" aria-label="email">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>email
+      </a>
+      <a href="https://github.com/Atharva2099/" target="_blank" aria-label="github">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.9-.39s1.98.13 2.9.39c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>github
+      </a>
+      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" aria-label="linkedin">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>linkedin
+      </a>
+      <a href="https://huggingface.co/Atharva2099" target="_blank" aria-label="hugging face">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>huggingface
+      </a>
+      <a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" aria-label="google scholar">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6z"/><path d="M6 11v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M22 9v6"/></svg>scholar
+      </a>
+      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" aria-label="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>blog
+      </a>
+      <a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" aria-label="goodreads">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M20 17v4H6.5A2.5 2.5 0 0 1 4 18.5"/></svg>goodreads
+      </a>
     </div>
 
     <div class="section">
-      <h2>Experience</h2>
+      <h2>experience</h2>
+
       <div class="item">
         <div class="item-title">
-          applied ai intern
-          <span class="date">(summer 2025)</span>
+          applied ai intern, chewy
+          <span class="date">[internship · summer 2025]</span>
         </div>
         <div class="item-desc">
-          <p>built a neo4j graph memory layer over 4.5 billion clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</p>
-          <p>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes to marketing workflows.</p>
-          <p>shipped a hybrid personalization engine for the homepage that reranked content in real time with sub-50ms latency.</p>
+          <p>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</p>
+          <p>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</p>
+          <p>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</p>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <h2>Projects</h2>
+      <h2>projects</h2>
 
       <div class="item">
         <div class="item-title">
-          wolfeclick
-          <span class="date">[Mar 2026]</span>
+          wolfeclick: pokémon rl with grpo
+          <span class="date">[personal project · mar 2026]</span>
         </div>
         <div class="item-desc">
-          <p>rl for competitive pokemon.</p>
-          <p>i wanted to train llms for long-horizon reasoning under hidden information. pokemon works: you do not see the full opponent team, and a decision on turn two still matters at turn fifteen.</p>
-          <p>i wrapped smogon's api for real-time rollouts and tried grpo. the model immediately spat invalid json, which taught me why labs sft before rl. after stabilizing qwen3-4b, i shaped rewards: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one number.</p>
-          <p>it still loses often, but watching one scalar determine whether it rushes or cowers was my clearest lesson in how objectives shape behavior.</p>
+          <p>i wanted to train LLMs for long-horizon reasoning under hidden information. Pokémon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</p>
+          <p>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</p>
+          <p>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</p>
           <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank">github</a>
           <span class="separator">|</span>
           <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank">hf space</a>
@@ -308,108 +336,97 @@
 
       <div class="item">
         <div class="item-title">
-          commentator
-          <span class="date">[Dec 2025]</span>
-          — <span class="highlight">3rd Place, $20,000</span>
+          wanderlust: ai trip planner
+          <span class="date">[personal project · 2026]</span>
         </div>
         <div class="item-desc">
-          <p>real-time ai game caster. google gemini hackathon.</p>
-          <p>most ai commentary tools just caption everything. the insight was that commentary is not about describing what happened — it is about knowing what is worth saying. built an event detector that only fires when something meaningful changes, which cut redundant output by 60% and made the whole thing feel live instead of laggy. concept to working demo in 12 hours.</p>
+          <p>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</p>
+          <p>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</p>
         </div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          wanderlust
-          <span class="date">[2026]</span>
+          commentator: real-time ai game caster
+          <span class="date">[hackathon · google gemini · dec 2025]</span>
+          <span class="highlight">3rd place · $20k</span>
         </div>
         <div class="item-desc">
-          <p>ai trip planner.</p>
-          <p>built for people who do not want to spend a week in a city and come back having only seen the same ten things that show up on every travel blog. feed it a destination and budget, it surfaces neighborhood-level spots, clusters them geographically so you are not commuting across the city between stops, and estimates real costs from a live index.</p>
-          <p>llms default to the obvious. getting genuinely local recommendations required building explicit novelty and geographic pressure into the prompt stack — alongside hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on cloudflare workers with d1 sqlite at the edge.</p>
+          <p>most ai commentary tools just caption everything. the insight: commentary isn't about describing what happened, it's about knowing what's worth saying. built an event detector that only fires when something meaningful changes, cut redundant output by 60%, concept to working demo in 12 hours.</p>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <h2>Research</h2>
+      <h2>research</h2>
 
       <div class="item">
         <div class="item-title">
-          adaptive rl for dynamic roi selection in rppg
-          <span class="date">[2025–2026]</span>
+          pivotrl: pivot-weighted reasoning distillation
+          <span class="date">[personal research · ongoing 2026]</span>
         </div>
         <div class="item-desc">
-          <p>ms thesis · sf state.</p>
-          <p>rppg extracts heart rate from video by detecting subtle color changes in facial skin. most methods fix the region of interest to the full face or a static patch, but signal quality varies heavily by lighting, motion, and skin tone across different regions.</p>
-          <p>i trained a ppo agent to dynamically select and weight facial regions per frame using a 64-dimensional state space from mediapipe. the policy improved hr_mae from 33.58 to 21.76 beats per minute. the honest catch is that the gains came at a cost to ppg waveform correlation, and dense rewards underperformed sparse ones. that suggests the waveform-level signal is harder to translate into useful gradients than expected.</p>
+          <p>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</p>
+          <p>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</p>
         </div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          pivotrl
-          <span class="date">[ongoing 2026]</span>
+          rppg with adaptive roi selection
+          <span class="date">[masters thesis · sf state · 2025–2026]</span>
         </div>
         <div class="item-desc">
-          <p>personal research.</p>
-          <p>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in kimi k2.5 traces and up-weight them when distilling into gemma 4.</p>
-          <p>uniform sft on reasoning traces dropped gsm8k from 85.5% to 74.5%. pivot-weighted sft recovered it partially to 80%. the null result is informative: naive distillation on reasoning traces actively hurts, which is not obvious from the literature.</p>
+          <p>rPPG extracts heart rate from video via subtle color changes in facial skin. most methods fix the region of interest to the full face or a static patch, but signal quality varies heavily by lighting, motion, and skin tone across regions.</p>
+          <p>trained a PPO agent to dynamically select and weight facial regions per frame using a 64-dim state from MediaPipe. policy improved HR_MAE from 33.58 to 21.76 BPM. the honest catch: gains came at a cost to PPG waveform correlation, and dense rewards underperformed sparse ones. the waveform signal is harder to translate into useful gradients than i expected.</p>
         </div>
       </div>
-    </div>
-
-    <div class="section">
-      <h2>Earlier Work</h2>
 
       <div class="item">
         <div class="item-title">
           edge-ai flood alert system
-          <span class="date">[2024]</span>
+          <span class="date">[bachelors thesis · indian meteorological department · 2024]</span>
+          <span class="highlight">provisional patent</span>
         </div>
         <div class="item-desc">
-          <p>indian meteorological department · provisional patent.</p>
-          <p>flood-prone areas in india often do not have reliable internet infrastructure, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</p>
-          <p>trained an encoder-decoder lstm on 45 years of hourly rainfall data (1979-2024) across three mumbai neighborhoods — matunga east, byculla, and dahisar — each with ~400k records. models hit mae around 0.17 across all three locations. deployed as tflite on a raspberry pi 4 serving a fastapi backend, with a flutter app using the haversine formula to route users to the nearest model based on their gps coordinates. alerts go out over local wlan with no internet required.</p>
+          <p>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</p>
+          <p>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979–2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</p>
         </div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          credit card fraud detection
-          <span class="date">[2023]</span>
+          credit card fraud detection on imbalanced data
+          <span class="date">[publication · 2023]</span>
         </div>
         <div class="item-desc">
-          <p>publication.</p>
-          <p>compared xgboost, random forest, svm, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered was not which algorithm won. it was that the class imbalance handling strategy created larger performance swings across method families than the model choice itself.</p>
+          <p>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</p>
           <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank">paper</a>
         </div>
       </div>
     </div>
 
     <div class="section">
-      <h2>Education</h2>
+      <h2>education</h2>
       <div class="item">
         <div class="item-title">
           ms data science and ai
-          <span class="date">Expected May 2026</span>
+          <span class="date">[sf state · 4.0 · may 2026]</span>
         </div>
-        <div class="item-desc">sf state · 4.0/4.0</div>
       </div>
       <div class="item">
         <div class="item-title">
           b.tech electronics and communication
-          <span class="date">2024</span>
+          <span class="date">[pune university · 2024]</span>
         </div>
-        <div class="item-desc">pune university</div>
       </div>
     </div>
 
     <div class="section">
-      <h2>Contact</h2>
+      <h2>contact</h2>
       <div class="item-desc">
-        looking for ai research, applied ai, and mle roles starting may 2026. also applying to ai safety research fellowships.<br /><br />
-        if you want to talk about rl, why sparse rewards beat dense ones, or why one piece is actually a masterpiece, i am up for it.<br /><br />
+        looking for AI research, applied AI, and MLE roles starting May 2026. also applying to AI safety research fellowships.<br /><br />
+        if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.<br /><br />
         <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
       </div>
     </div>
