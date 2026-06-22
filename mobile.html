@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,249 +7,248 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      /* Same token system as index.html.
+         RULE: --accent is for the pixel name (ascii art) ONLY.
+         To emphasize anything else, drop a tier in the gray ladder. */
+      :root, [data-theme="light"] {
+        --fs-meta: 13px;
+        --fs-body: 16px;
+        --fs-lead: 18px;
+        --fs-h2:   26px;
+
+        --bg:      #F5F0E8;
+        --surface: #ECE5D8;
+        --text-1:  #1A1A14;
+        --text-2:  #4A4438;
+        --text-3:  #8A7F6B;
+        --rule:    #D8D0C0;
+        --accent:  #2E5E3A;   /* forest green — pixel name ONLY */
       }
 
-      :root {
-        --bg: #000000;
-        --pink: #FF0080;
+      [data-theme="dark"] {
+        --bg:      #121212;
+        --surface: #1A1A1A;
+        --text-1:  #F0EDE6;
+        --text-2:  #B8B2A6;
+        --text-3:  #6E665A;
+        --rule:    #2A2A2A;
+        --accent:  #E84393;   /* desaturated pink — pixel name ONLY */
       }
 
       body {
-        font-family: "JetBrains Mono", monospace;
-        line-height: 1.6;
+        font-family: 'Lora', serif;
+        line-height: 1.7;
         background-color: var(--bg);
-        background-image: none;
-        color: #f8e9ff;
-        padding: 1.5rem;
-        font-size: 14px;
-        position: relative;
+        color: var(--text-2);
+        padding: 1.25rem 1.25rem 3rem;
+        font-size: var(--fs-body);
+        transition: background 0.25s ease, color 0.25s ease;
       }
 
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+      /* ── top bar ── */
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        letter-spacing: 0.04em;
+      }
+
+      .mode-toggle {
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        letter-spacing: 0.04em;
+        color: var(--text-3);
         background: none;
-        pointer-events: none;
-        z-index: -1;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: color 0.15s ease;
       }
+      .mode-toggle:active { color: var(--text-1); }
 
-      body::after {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: none;
-        pointer-events: none;
-        z-index: -1;
+      .desktop-link {
+        color: var(--text-3);
+        text-decoration: none;
+        transition: color 0.15s ease;
       }
+      .desktop-link:active { color: var(--text-1); }
 
-      .header {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
+      /* ── hero ── */
+      .header { margin-bottom: 2rem; }
 
       .ascii-name {
+        font-family: 'DM Mono', monospace;
         font-size: 0.4rem;
-        line-height: 1;
-        margin-bottom: 1rem;
-        color: #e615c3;
-        text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 2px 2px 0 #000;
-        -webkit-text-stroke: 0.5px #000;
-        font-weight: bold;
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+        color: var(--accent);
+        opacity: 0.85;
         overflow-x: auto;
         white-space: pre;
-        font-family: monospace;
       }
+      [data-theme="dark"] .ascii-name { opacity: 0.9; }
 
       .subtitle {
-        color: #c783f2;
-        font-size: 1rem;
-        margin-bottom: 1rem;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        color: var(--text-3);
+        letter-spacing: 0.04em;
+        margin-bottom: 0.75rem;
       }
 
       .tagline {
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
+        font-family: 'Fraunces', serif;
+        font-weight: 300;
+        font-size: var(--fs-h2);
+        line-height: 1.2;
+        color: var(--text-1);
+        margin-bottom: 1rem;
       }
 
       .about {
-        font-size: 0.85rem;
-        color: #c9aed1;
-        margin-bottom: 1rem;
-        line-height: 1.5;
+        font-family: 'Lora', serif;
+        font-size: var(--fs-lead);
+        color: var(--text-2);
+        line-height: 1.55;
+        margin-bottom: 0.5rem;
+      }
+      .about + .about {
+        font-size: var(--fs-body);
+        color: var(--text-3);
       }
 
+      /* ── social row ── */
       .links {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .links a {
-        color: #e615c3;
-        text-decoration: underline;
-        font-weight: 500;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-      }
-
-      .links a:hover {
-        color: rgb(240 82 156);
-        text-decoration-color: rgb(240 82 156);
-        background-color: #160021;
+        gap: 1.1rem;
+        margin: 1.5rem 0 2.5rem;
       }
 
       .links a {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.35rem;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        letter-spacing: 0.03em;
+        color: var(--text-3);
+        text-decoration: none;
+        transition: color 0.15s ease;
       }
+      .links a:active { color: var(--text-1); }
 
       .links svg {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         stroke: currentColor;
         flex-shrink: 0;
       }
 
-      .section {
-        margin-bottom: 2rem;
-      }
+      /* ── sections ── */
+      .section { margin-bottom: 2.5rem; }
 
       .section h2 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #e615c3;
+        font-family: 'DM Mono', monospace;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        padding-bottom: 8px;
+        border-bottom: 0.5px solid var(--rule);
+        margin-bottom: 1.25rem;
       }
 
       .item {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #28083b;
+        margin-bottom: 1.75rem;
       }
-
-      .item:last-child {
-        border-bottom: none;
-      }
+      .item:last-child { margin-bottom: 0; }
 
       .item-title {
-        font-weight: 600;
-        margin-bottom: 0.3rem;
-        font-size: 1rem;
-      }
-
-      .item-desc {
-        color: #c9aed1;
-        font-size: 0.9rem;
-        line-height: 1.5;
-      }
-
-      .item-desc p + p {
-        margin-top: 0.5rem;
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-size: var(--fs-lead);
+        line-height: 1.3;
+        color: var(--text-1);
+        margin-bottom: 0.4rem;
       }
 
       .date {
-        color: #b860eb;
-        font-size: 0.8rem;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        color: var(--text-3);
+        letter-spacing: 0.02em;
+        margin-left: 0.4rem;
+        white-space: nowrap;
       }
 
+      /* inline credibility metadata — quiet, factual */
       .highlight {
-        color: rgb(240 82 156);
-        font-weight: 600;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        font-weight: 400;
+        color: var(--text-3);
+        letter-spacing: 0.02em;
+        margin-left: 0.4rem;
+        white-space: nowrap;
       }
+
+      .item-desc {
+        font-family: 'Lora', serif;
+        color: var(--text-2);
+        font-size: var(--fs-body);
+        line-height: 1.65;
+      }
+      .item-desc p + p { margin-top: 0.6rem; }
+      .item-desc strong { color: var(--text-1); font-weight: 500; }
 
       .separator {
-        margin: 0 0.3rem;
-        color: #b860eb;
+        margin: 0 0.4rem;
+        color: var(--text-3);
       }
 
-      ul {
-        list-style: none;
-        padding-left: 0;
+      /* ── links inside body ── */
+      .item-desc a {
+        color: var(--text-3);
+        text-decoration: underline;
+        text-decoration-color: var(--rule);
+        text-underline-offset: 2px;
+        font-family: 'DM Mono', monospace;
+        font-size: var(--fs-meta);
+        transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      }
+      .item-desc a:active {
+        color: var(--text-1);
+        text-decoration-color: var(--text-3);
       }
 
+      ul { list-style: none; padding-left: 0; }
       li {
-        margin-bottom: 0.5rem;
         position: relative;
         padding-left: 1rem;
+        margin-bottom: 0.5rem;
       }
-
       li:before {
-        content: "•";
-        color: #b860eb;
+        content: "·";
+        color: var(--text-3);
         position: absolute;
         left: 0;
-      }
-
-      a {
-        color: #e615c3;
-        text-decoration: underline;
-        transition: all 0.2s ease;
-        font-weight: 500;
-      }
-
-      a:hover {
-        color: rgb(240 82 156);
-        text-decoration-color: rgb(240 82 156);
-      }
-
-      .desktop-link {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        background: #160021;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        text-decoration: none;
-        color: #e615c3;
-        border: 1px solid #3a0b55;
-      }
-
-      .desktop-link:hover {
-        background: #28083b;
-      }
-
-      /* Signal color overrides */
-      .links a,
-      .item-desc a {
-        color: #aaaaaa;
-      }
-
-      .ascii-name,
-      .tagline,
-      .section h2,
-      .highlight,
-      .links a[href*="280CharsArentEnough/"],
-      a[href^="mailto:"],
-      .desktop-link {
-        color: var(--pink);
-      }
-
-      .links a:hover,
-      a:hover {
-        color: var(--pink);
       }
     </style>
   </head>
   <body>
-    <a href="index.html" class="desktop-link">desktop view</a>
+    <div class="topbar">
+      <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">☾ dark</button>
+      <a href="index.html" class="desktop-link">desktop &#8599;</a>
+    </div>
 
     <div class="header">
       <pre class="ascii-name">
@@ -266,8 +265,7 @@
 ██║╚██╔╝██║██╔══██║██║     ██╔══██║██║╚██╔╝██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
 ╚██╔╝ ██╔╝██║  ██║███████╗██║  ██║╚██╔╝ ██╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
  ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-        </pre
-      >
+      </pre>
       <div class="subtitle">ms ai · sf state · may 2026</div>
       <div class="tagline">rl, agents, systems.</div>
       <div class="about">i like making models do things they probably should not be able to do.</div>
@@ -278,22 +276,22 @@
       <a href="mailto:atharvawal27@gmail.com" aria-label="email">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>email
       </a>
-      <a href="https://github.com/Atharva2099/" target="_blank" aria-label="github">
+      <a href="https://github.com/Atharva2099/" target="_blank" rel="noopener" aria-label="github">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.9-.39s1.98.13 2.9.39c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>github
       </a>
-      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" aria-label="linkedin">
+      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener" aria-label="linkedin">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>linkedin
       </a>
-      <a href="https://huggingface.co/Atharva2099" target="_blank" aria-label="hugging face">
+      <a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener" aria-label="hugging face">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>huggingface
       </a>
-      <a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" aria-label="google scholar">
+      <a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="google scholar">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6z"/><path d="M6 11v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M22 9v6"/></svg>scholar
       </a>
-      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" aria-label="blog">
+      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener" aria-label="blog">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>blog
       </a>
-      <a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" aria-label="goodreads">
+      <a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener" aria-label="goodreads">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M20 17v4H6.5A2.5 2.5 0 0 1 4 18.5"/></svg>goodreads
       </a>
     </div>
@@ -304,7 +302,7 @@
       <div class="item">
         <div class="item-title">
           applied ai intern, chewy
-          <span class="date">[internship · summer 2025]</span>
+          <span class="date">internship · summer 2025</span>
         </div>
         <div class="item-desc">
           <p>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</p>
@@ -320,24 +318,24 @@
       <div class="item">
         <div class="item-title">
           wolfeclick: pokémon rl with grpo
-          <span class="date">[personal project · mar 2026]</span>
+          <span class="date">personal project · mar 2026</span>
         </div>
         <div class="item-desc">
           <p>i wanted to train LLMs for long-horizon reasoning under hidden information. Pokémon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</p>
           <p>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</p>
           <p>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</p>
-          <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank">github</a>
-          <span class="separator">|</span>
-          <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank">hf space</a>
-          <span class="separator">|</span>
-          <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank">model</a>
+          <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a>
+          <span class="separator">·</span>
+          <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a>
+          <span class="separator">·</span>
+          <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
         </div>
       </div>
 
       <div class="item">
         <div class="item-title">
           wanderlust: ai trip planner
-          <span class="date">[personal project · 2026]</span>
+          <span class="date">personal project · 2026</span>
         </div>
         <div class="item-desc">
           <p>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</p>
@@ -348,8 +346,8 @@
       <div class="item">
         <div class="item-title">
           commentator: real-time ai game caster
-          <span class="date">[hackathon · google gemini · dec 2025]</span>
-          <span class="highlight">3rd place · $20k</span>
+          <span class="date">hackathon · google gemini · dec 2025</span>
+          <span class="highlight">3rd · $20k</span>
         </div>
         <div class="item-desc">
           <p>most ai commentary tools just caption everything. the insight: commentary isn't about describing what happened, it's about knowing what's worth saying. built an event detector that only fires when something meaningful changes, cut redundant output by 60%, concept to working demo in 12 hours.</p>
@@ -363,7 +361,7 @@
       <div class="item">
         <div class="item-title">
           pivotrl: pivot-weighted reasoning distillation
-          <span class="date">[personal research · ongoing 2026]</span>
+          <span class="date">personal research · ongoing 2026</span>
         </div>
         <div class="item-desc">
           <p>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</p>
@@ -374,7 +372,7 @@
       <div class="item">
         <div class="item-title">
           rppg with adaptive roi selection
-          <span class="date">[masters thesis · sf state · 2025–2026]</span>
+          <span class="date">masters thesis · sf state · 2025–2026</span>
         </div>
         <div class="item-desc">
           <p>rPPG extracts heart rate from video via subtle color changes in facial skin. most methods fix the region of interest to the full face or a static patch, but signal quality varies heavily by lighting, motion, and skin tone across regions.</p>
@@ -385,7 +383,7 @@
       <div class="item">
         <div class="item-title">
           edge-ai flood alert system
-          <span class="date">[bachelors thesis · indian meteorological department · 2024]</span>
+          <span class="date">bachelors thesis · indian meteorological department · 2024</span>
           <span class="highlight">provisional patent</span>
         </div>
         <div class="item-desc">
@@ -397,11 +395,12 @@
       <div class="item">
         <div class="item-title">
           credit card fraud detection on imbalanced data
-          <span class="date">[publication · 2023]</span>
+          <span class="date">publication · 2023</span>
+          <span class="highlight">published</span>
         </div>
         <div class="item-desc">
           <p>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</p>
-          <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank">paper</a>
+          <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
         </div>
       </div>
     </div>
@@ -411,13 +410,13 @@
       <div class="item">
         <div class="item-title">
           ms data science and ai
-          <span class="date">[sf state · 4.0 · may 2026]</span>
+          <span class="date">sf state · 4.0 · may 2026</span>
         </div>
       </div>
       <div class="item">
         <div class="item-title">
           b.tech electronics and communication
-          <span class="date">[pune university · 2024]</span>
+          <span class="date">pune university · 2024</span>
         </div>
       </div>
     </div>
@@ -432,18 +431,28 @@
     </div>
 
     <script>
-      const bgThemes = {
-        "382b36": "#382b36",
-        "452a40": "#452a40"
-      };
-      const bgChoice = new URLSearchParams(window.location.search).get("bg");
-      const selectedBg = bgThemes[bgChoice] || bgThemes["382b36"];
-      document.documentElement.style.setProperty("--bg", selectedBg);
-
-      // Auto-redirect desktop users
+      // Send desktop visitors to the full layout
       if (window.innerWidth > 768) {
-        const query = bgChoice ? `?bg=${bgChoice}` : "";
-        window.location.href = `index.html${query}`;
+        window.location.href = "index.html";
+      }
+
+      // First visit follows the OS preference; an explicit toggle is remembered.
+      // Shares the "theme-v2" key with index.html so the choice carries across.
+      const saved = localStorage.getItem("theme-v2");
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(saved || (prefersDark ? "dark" : "light"));
+
+      function applyTheme(mode) {
+        document.documentElement.setAttribute("data-theme", mode);
+        const btn = document.getElementById("modeBtn");
+        if (btn) btn.textContent = mode === "light" ? "☾ dark" : "☀ light";
+      }
+
+      function toggleMode() {
+        const current = document.documentElement.getAttribute("data-theme");
+        const next = current === "light" ? "dark" : "light";
+        applyTheme(next);
+        localStorage.setItem("theme-v2", next);
       }
     </script>
   </body>
