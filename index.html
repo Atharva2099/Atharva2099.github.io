@@ -7,45 +7,42 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 
 /* ═══════════════════════════════════════════
-   LIGHT MODE (default)
+   TOKENS — kraft paper meets devotional poster
+   accent: single risograph forest ink.
+   used ONLY on hero display word, section break
+   rules, and project/research numerals.
 ═══════════════════════════════════════════ */
-/* Three-tier text ladder + one accent. RULE: --accent is for the
-   pixel name (ascii art) ONLY. To emphasize anything else, drop a
-   tier in the gray ladder instead of reaching for color. */
 :root, [data-theme="light"] {
-  /* modular type scale — every text role maps to a rung */
-  --fs-meta:   13px;   /* metadata, labels, social row */
-  --fs-body:   16px;   /* bullets, descriptions */
-  --fs-lead:   19px;   /* entry titles, hero lead */
-  --fs-h2:     28px;   /* hero tagline, section CTA */
-  --measure:   42rem;  /* ~70ch prose column */
+  --bg:        #E0D4BE;   /* kraft paper */
+  --ink:       #1A1510;   /* warm near-black */
+  --ink-2:     #2E2416;   /* body, bullets */
+  --ink-3:     #8A7A62;   /* metadata, fine print, dates */
+  --accent:    #1A5C35;   /* deep forest — single risograph ink */
+  --rule:      #C4B89A;   /* hairlines */
 
-  --bg:        #F5F0E8;   /* cream */
-  --surface:   #ECE5D8;   /* recessed panels */
-  --text-1:    #1A1A14;   /* titles, role names */
-  --text-2:    #4A4438;   /* body, descriptions, bullets */
-  --text-3:    #8A7F6B;   /* metadata, labels, separators */
-  --rule:      #D8D0C0;   /* hairlines */
-  --accent:    #2E5E3A;   /* forest green — pixel name ONLY */
-  --mode-icon: "☾";
+  --fs-fine:     12px;    /* corner metadata, registration labels */
+  --fs-meta:     13px;    /* dates, tags */
+  --fs-body:     16px;    /* bullets, bio */
+  --fs-entry:    22px;    /* role/project titles */
+  --fs-section:  36px;    /* section labels */
+  --fs-display:  72px;    /* hero word — accent color */
+
+  --grain-op: 0.08;
 }
 
-/* ═══════════════════════════════════════════
-   DARK MODE — same ladder, neutral palette, desaturated accent
-═══════════════════════════════════════════ */
 [data-theme="dark"] {
-  --bg:        #121212;   /* lifted off pure black */
-  --surface:   #1A1A1A;
-  --text-1:    #F0EDE6;
-  --text-2:    #B8B2A6;
-  --text-3:    #6E665A;
-  --rule:      #2A2A2A;
-  --accent:    #E84393;   /* desaturated pink — pixel name ONLY */
-  --mode-icon: "☀";
+  --bg:        #0E0C09;   /* aged warm black */
+  --ink:       #F0E8D8;   /* warm near-white */
+  --ink-2:     #B8A888;
+  --ink-3:     #6E5E48;
+  --accent:    #2E7A4A;   /* lifted forest */
+  --rule:      #2A2218;
+
+  --grain-op: 0.05;
 }
 
 /* ═══════════════════════════════════════════
@@ -53,17 +50,37 @@
 ═══════════════════════════════════════════ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Lora', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: var(--fs-body);
   line-height: 1.7;
-  color: var(--text-2);
+  color: var(--ink-2);
   background: var(--bg);
-  transition: background 0.25s ease, color 0.25s ease;
+  position: relative;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
+/* grain overlay — the soul */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-op);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] body::after { mix-blend-mode: screen; }
+
 .container {
-  max-width: 900px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 40px 80px;
 }
@@ -71,53 +88,35 @@ body {
 a { text-decoration: none; color: inherit; }
 
 /* ═══════════════════════════════════════════
-   NAV
+   TOP BAR — fine print top-left + right toggle
 ═══════════════════════════════════════════ */
-nav {
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 28px 0 0;
+  padding: 28px 0 14px;
+  border-bottom: 0.5px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  transition: border-color 0.3s ease;
 }
 
-.nav-brand {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--text-1);
-  transition: color 0.25s ease;
-}
-
-.nav-right {
+.top-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
-.nav-links {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
+.toggle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
   letter-spacing: 0.04em;
-}
-
-.nav-links a {
-  color: var(--text-2);
-  transition: color 0.15s ease;
-}
-
-.nav-links a:hover { color: var(--text-1); }
-
-.mode-toggle {
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
-  letter-spacing: 0.04em;
-  color: var(--text-3);
+  color: var(--ink-3);
   border: none;
   padding: 0;
   cursor: pointer;
@@ -126,242 +125,194 @@ nav {
   white-space: nowrap;
 }
 
-.mode-toggle:hover { color: var(--text-1); }
+.toggle:hover { color: var(--ink); }
 
 /* ═══════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════ */
 .hero {
-  margin-top: 64px;
+  position: relative;
+  margin-top: 56px;
   animation: fadeIn 0.5s ease both;
 }
 
-.ascii-art {
-  font-family: 'DM Mono', monospace;
-  font-size: 6px;
-  line-height: 1.15;
-  white-space: pre;
-  overflow-x: auto;
+.display-word {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 1;
   color: var(--accent);
-  opacity: 0.85;
-  margin-bottom: 24px;
-  animation: fadeIn 0.5s ease both;
-  animation-delay: 0.05s;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
 }
 
-[data-theme="dark"] .ascii-art {
-  opacity: 0.9;
+.hero-lead {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-entry);
+  color: var(--ink-2);
+  line-height: 1.4;
+  margin-bottom: 22px;
 }
 
-.hero-sub {
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
-  color: var(--text-3);
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
+.hero-bio {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  line-height: 1.75;
+  max-width: 42rem;
 }
 
-.hero-tagline {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: var(--fs-h2);
-  color: var(--text-1);
-  line-height: 1.2;
+.hero-bio + .hero-bio { margin-top: 6px; }
+
+.social-row {
+  margin-top: 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  line-height: 1.9;
   animation: fadeIn 0.5s ease both;
   animation-delay: 0.1s;
 }
 
-.hero-tagline em {
-  color: var(--text-1);
-  font-style: italic;
-  transition: color 0.25s ease;
-}
-
-.hero-note {
-  font-family: 'Lora', serif;
-  font-size: var(--fs-lead);
-  color: var(--text-2);
-  margin-top: 16px;
-  line-height: 1.6;
-  max-width: var(--measure);
-  animation: fadeIn 0.5s ease both;
-  animation-delay: 0.15s;
-}
-
-.hero-note + .hero-note {
-  margin-top: 8px;
-  font-size: var(--fs-body);
-  color: var(--text-3);
-  animation-delay: 0.2s;
-}
-
-.link-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  margin-top: 22px;
-  animation: fadeIn 0.5s ease both;
-  animation-delay: 0.25s;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
-  letter-spacing: 0.03em;
-  color: var(--text-3);
+.social-row a {
+  color: var(--ink-3);
   transition: color 0.15s ease;
 }
 
-.chip:hover { color: var(--text-1); }
+.social-row a:hover { color: var(--ink); }
 
-.chip svg {
-  width: 11px;
-  height: 11px;
-  margin-right: 5px;
-  flex-shrink: 0;
-  stroke: currentColor;
+.social-row .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
+
+/* registration marks */
+.reg-mark {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink-3);
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+  font-size: 20px;
+  line-height: 1;
 }
 
+.reg-hero { top: 6px; right: 0; }
+.reg-page { bottom: 22px; right: 22px; }
+
 /* ═══════════════════════════════════════════
-   SECTIONS
+   SECTIONS — printed artifact headers
 ═══════════════════════════════════════════ */
 .section {
-  margin-top: 64px;
+  margin-top: 56px;
   opacity: 0;
   animation: sectionIn 0.5s ease both;
 }
 
-.section:nth-of-type(1) { animation-delay: 0.4s; }
-.section:nth-of-type(2) { animation-delay: 0.5s; }
-.section:nth-of-type(3) { animation-delay: 0.6s; }
-.section:nth-of-type(4) { animation-delay: 0.7s; }
-.section:nth-of-type(5) { animation-delay: 0.8s; }
-.section:nth-of-type(6) { animation-delay: 0.9s; }
-.section:nth-of-type(7) { animation-delay: 1.0s; }
+.section:nth-of-type(1) { animation-delay: 0.15s; }
+.section:nth-of-type(2) { animation-delay: 0.22s; }
+.section:nth-of-type(3) { animation-delay: 0.29s; }
+.section:nth-of-type(4) { animation-delay: 0.36s; }
+.section:nth-of-type(5) { animation-delay: 0.43s; }
 
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  padding-bottom: 8px;
-  border-bottom: 0.5px solid var(--rule);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: color 0.25s ease, border-color 0.25s ease;
+.section-head {
+  border-top: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  padding: 14px 0;
+  margin-bottom: 40px;
 }
 
-.section-label::before {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 1px;
-  background: var(--text-3);
-  opacity: 0.5;
-  flex-shrink: 0;
-  transition: background 0.25s ease;
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-section);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: 0.01em;
 }
 
 /* ═══════════════════════════════════════════
-   TIMELINE ENTRIES
+   ENTRIES
 ═══════════════════════════════════════════ */
-.timeline-entry {
-  padding-bottom: 40px;
-}
-
-.timeline-entry:last-child { padding-bottom: 0; }
+.entry { margin-bottom: 48px; }
+.entry:last-child { margin-bottom: 0; }
 
 .entry-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Libre Baskerville', serif;
   font-weight: 400;
-  font-size: var(--fs-lead);
-  color: var(--text-1);
+  font-size: var(--fs-entry);
+  color: var(--ink);
   line-height: 1.3;
 }
 
-/* inline credibility metadata — quiet, factual (Phase 9) */
-.entry-title .cred {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--text-3);
+.num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: var(--fs-entry);
+  color: var(--accent);
+  margin-right: 14px;
   letter-spacing: 0.02em;
-  margin-left: 10px;
+}
+
+/* inline credibility metadata — plain mono, no pill */
+.cred {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  margin-left: 8px;
   white-space: nowrap;
 }
 
 .entry-meta {
-  font-family: 'DM Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: var(--fs-meta);
-  color: var(--text-3);
-  margin-top: 4px;
+  color: var(--ink-3);
+  margin-top: 6px;
   letter-spacing: 0.02em;
 }
 
-.entry-org {
-  font-family: 'Lora', serif;
-  font-size: var(--fs-meta);
-  color: var(--text-2);
-  margin-top: 2px;
-}
-
 .entry-body {
-  font-size: var(--fs-body);
-  color: var(--text-2);
   margin-top: 16px;
-  line-height: 1.75;
-  max-width: var(--measure);
+  list-style: none;
+  max-width: 42rem;
 }
-
-.entry-body strong { color: var(--text-1); font-weight: 500; }
-
-.entry-body ul { list-style: none; padding: 0; }
 
 .entry-body li {
   position: relative;
-  padding-left: 16px;
-  margin-top: 6px;
+  padding-left: 18px;
+  margin-top: 8px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  line-height: 1.75;
 }
 
 .entry-body li::before {
   content: '·';
   position: absolute;
-  left: 0;
-  color: var(--text-3);
-  opacity: 0.9;
-  transition: color 0.25s ease;
+  left: 2px;
+  top: -1px;
+  color: var(--ink-3);
 }
 
-/* ═══════════════════════════════════════════
-   ENTRY LINKS
-═══════════════════════════════════════════ */
 .entry-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
+  margin-top: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  line-height: 1.9;
 }
 
 .entry-links a {
-  color: var(--text-3);
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 2px;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  color: var(--ink-3);
+  transition: color 0.15s ease;
 }
 
-.entry-links a:hover {
-  color: var(--text-1);
-  text-decoration-color: var(--text-3);
-}
+.entry-links a:hover { color: var(--ink); }
+
+.entry-links .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
 
 /* ═══════════════════════════════════════════
    EDUCATION
@@ -369,71 +320,65 @@ nav {
 .edu-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
-.edu-card {
-  padding: 0;
+  gap: 40px;
 }
 
 .edu-degree {
-  font-family: 'Fraunces', serif;
+  font-family: 'Libre Baskerville', serif;
   font-weight: 400;
-  font-size: var(--fs-body);
-  color: var(--text-1);
+  font-size: var(--fs-entry);
+  color: var(--ink);
+  line-height: 1.3;
 }
 
 .edu-school {
-  font-family: 'Lora', serif;
-  font-size: var(--fs-meta);
-  color: var(--text-2);
-  margin-top: 3px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  margin-top: 6px;
 }
 
 .edu-detail {
-  font-family: 'DM Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: var(--fs-meta);
-  color: var(--text-3);
-  margin-top: 5px;
-  line-height: 1.6;
+  color: var(--ink-3);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
 }
 
 /* ═══════════════════════════════════════════
    CONTACT
 ═══════════════════════════════════════════ */
-.contact-card {
-  padding: 0;
-}
-
 .contact-h {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-size: var(--fs-h2);
-  color: var(--text-1);
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-entry);
+  color: var(--ink);
+  line-height: 1.3;
 }
 
 .contact-sub {
-  font-family: 'Lora', serif;
+  font-family: 'Libre Baskerville', serif;
   font-size: var(--fs-body);
-  color: var(--text-2);
-  margin-top: 8px;
+  color: var(--ink-2);
+  margin-top: 14px;
   line-height: 1.75;
-  max-width: var(--measure);
+  max-width: 42rem;
 }
 
 .contact-email {
   display: inline-block;
-  margin-top: 16px;
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
-  color: var(--text-1);
+  margin-top: 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-body);
+  color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--text-3);
-  text-underline-offset: 3px;
+  text-decoration-color: var(--ink-3);
+  text-underline-offset: 4px;
   transition: text-decoration-color 0.15s ease;
 }
 
-.contact-email:hover { text-decoration-color: var(--text-1); }
+.contact-email:hover { text-decoration-color: var(--ink); }
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -443,15 +388,15 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
-  margin-top: 64px;
+  margin-top: 96px;
   border-top: 0.5px solid var(--rule);
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-meta);
-  color: var(--text-3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
   flex-wrap: wrap;
   gap: 8px;
-  letter-spacing: 0.03em;
-  transition: border-color 0.25s ease;
+  transition: border-color 0.3s ease;
 }
 
 /* ═══════════════════════════════════════════
@@ -467,192 +412,146 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
-}
-
 /* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 540px) {
-  .ascii-art { font-size: 2.4px; overflow-x: hidden; }
-  .edu-grid { grid-template-columns: 1fr; }
-  .hero-tagline { font-size: 24px; }
-  .hero-note { font-size: var(--fs-body); }
   .container { padding: 0 24px 60px; }
-  nav { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .nav-right { flex-wrap: wrap; gap: 10px; }
-  .nav-links { gap: 14px; }
+  .display-word { font-size: clamp(40px, 13vw, 72px); }
+  .section-title { font-size: clamp(28px, 8vw, 36px); }
+  .edu-grid { grid-template-columns: 1fr; gap: 28px; }
+  .top-bar { padding: 22px 0 12px; }
+  .section { margin-top: 64px; }
+  footer { margin-top: 72px; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
 <body>
+
 <div class="container">
 
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">atharva walawalkar</div>
-  <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#experience">exp</a></li>
-      <li><a href="#projects">projects</a></li>
-      <li><a href="#research">research</a></li>
-      <li><a href="#contact">contact</a></li>
-      <li><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog &#8599;</a></li>
-    </ul>
-    <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">☾ dark</button>
-  </div>
-</nav>
+<!-- TOP BAR -->
+<header class="top-bar">
+  <span class="brand">atharva walawalkar</span>
+  <span class="top-right">
+    <span class="meta">ms ai &middot; sf state &middot; may 2026</span>
+    <button class="toggle" id="modeBtn" onclick="toggleMode()">dark</button>
+  </span>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-<pre class="ascii-art">
- █████╗ ████████╗██╗  ██╗ █████╗ ██████╗ ██╗   ██╗ █████╗     ██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗
-██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗    ██║    ██║██╔══██╗██║     ██╔══██╗██║    ██║██╔══██╗██║     ██║ ██╔╝██╔══██╗██╔══██╗
-███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║    ██║ █╗ ██║███████║██║     ███████║██║ █╗ ██║███████║██║     █████╔╝ ███████║██████╔╝
-██╔══██║   ██║   ██╔══██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══██║    ██║███╗██║██╔══██║██║     ██╔══██║██║███╗██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
-██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║    ╚███╔███╔╝██║  ██║███████╗██║  ██║╚███╔███╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
-╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝     ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-</pre>
-  <p class="hero-sub">ms ai · sf state · may 2026</p>
-  <h1 class="hero-tagline">rl, agents, systems.</h1>
-  <p class="hero-note">i like making models do things they probably should not be able to do.</p>
-  <p class="hero-note">outside of that i take photos and am currently catching up on One Piece.</p>
-
-  <div class="link-chips">
-    <a class="chip" href="mailto:atharvawal27@gmail.com" aria-label="email">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>email
-    </a>
-    <a class="chip" href="https://github.com/Atharva2099/" target="_blank" rel="noopener" aria-label="github">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.9-.39s1.98.13 2.9.39c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>github
-    </a>
-    <a class="chip" href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener" aria-label="linkedin">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>linkedin
-    </a>
-    <a class="chip" href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener" aria-label="hugging face">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>hugging face
-    </a>
-    <a class="chip" href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="google scholar">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6z"/><path d="M6 11v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M22 9v6"/></svg>scholar
-    </a>
-    <a class="chip" href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener" aria-label="blog">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>blog
-    </a>
-    <a class="chip" href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener" aria-label="goodreads">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M20 17v4H6.5A2.5 2.5 0 0 1 4 18.5"/></svg>goodreads
-    </a>
-  </div>
+  <span class="reg-mark reg-hero">&times;</span>
+  <h1 class="display-word">RESEARCHER</h1>
+  <p class="hero-lead">rl, agents, systems.</p>
+  <p class="hero-bio">i like making models do things they probably should not be able to do.</p>
+  <p class="hero-bio">outside of that i take photos and am currently catching up on One Piece.</p>
+  <nav class="social-row" aria-label="links">
+    <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
+  </nav>
 </section>
 
 <!-- EXPERIENCE -->
 <section class="section" id="experience">
-  <div class="section-label">experience</div>
+  <div class="section-head"><h2 class="section-title">EXPERIENCE</h2></div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">applied ai intern, chewy</div>
-    <div class="entry-meta">internship · summer 2025</div>
-    <div class="entry-body">
-      <ul>
-        <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</li>
-        <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</li>
-        <li>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <h3 class="entry-title">applied ai intern, chewy</h3>
+    <div class="entry-meta">internship &middot; summer 2025</div>
+    <ul class="entry-body">
+      <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</li>
+      <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</li>
+      <li>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</li>
+    </ul>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section class="section" id="projects">
-  <div class="section-label">projects</div>
+  <div class="section-head"><h2 class="section-title">PROJECTS</h2></div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">wolfeclick: pokémon rl with grpo</div>
-    <div class="entry-meta">personal project · mar 2026</div>
-    <div class="entry-body">
-      <ul>
-        <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pokémon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
-        <li>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</li>
-        <li>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">01</span>wolfeclick: pok&eacute;mon rl with grpo</h3>
+    <div class="entry-meta">personal project &middot; mar 2026</div>
+    <ul class="entry-body">
+      <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pok&eacute;mon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
+      <li>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</li>
+      <li>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</li>
+    </ul>
     <div class="entry-links">
-      <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a>
-      <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a>
-      <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
+      <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
     </div>
   </div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">wanderlust: ai trip planner</div>
-    <div class="entry-meta">personal project · 2026</div>
-    <div class="entry-body">
-      <ul>
-        <li>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</li>
-        <li>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">02</span>wanderlust: ai trip planner</h3>
+    <div class="entry-meta">personal project &middot; 2026</div>
+    <ul class="entry-body">
+      <li>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</li>
+      <li>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</li>
+    </ul>
   </div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">commentator: real-time ai game caster<span class="cred">3rd · $20k</span></div>
-    <div class="entry-meta">hackathon · google gemini · dec 2025</div>
-    <div class="entry-body">
-      <ul>
-        <li>most ai commentary tools just caption everything. the insight: commentary isn't about describing what happened, it's about knowing what's worth saying. built an event detector that only fires when something meaningful changes, cut redundant output by 60%, concept to working demo in 12 hours.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">03</span>commentator: real-time ai game caster<span class="cred">3rd &middot; $20k</span></h3>
+    <div class="entry-meta">hackathon &middot; google gemini &middot; dec 2025</div>
+    <ul class="entry-body">
+      <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
+      <li>built an event detector that only fires when something meaningful changes, cutting redundant output by 60%.</li>
+      <li>concept to working demo in 12 hours.</li>
+    </ul>
   </div>
 </section>
 
 <!-- RESEARCH -->
 <section class="section" id="research">
-  <div class="section-label">research</div>
+  <div class="section-head"><h2 class="section-title">RESEARCH</h2></div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">pivotrl: pivot-weighted reasoning distillation</div>
-    <div class="entry-meta">personal research · ongoing 2026</div>
-    <div class="entry-body">
-      <ul>
-        <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
-        <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
-      </ul>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">01</span>pivotrl: pivot-weighted reasoning distillation</h3>
+    <div class="entry-meta">personal research &middot; ongoing 2026</div>
+    <ul class="entry-body">
+      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
+      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">02</span>rppg with adaptive roi selection</h3>
+    <div class="entry-meta">masters thesis &middot; sf state &middot; 2025&ndash;2026</div>
+    <ul class="entry-body">
+      <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
+      <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</li>
+      <li>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</li>
+      <li>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">03</span>edge-ai flood alert system<span class="cred">provisional patent</span></h3>
+    <div class="entry-meta">bachelors thesis &middot; indian meteorological department &middot; 2024</div>
+    <ul class="entry-body">
+      <li>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
+      <li>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979&ndash;2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</li>
+    </ul>
+    <div class="entry-links">
+      <a href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener">paper</a>
     </div>
   </div>
 
-  <div class="timeline-entry">
-    <div class="entry-title">rppg with adaptive roi selection</div>
-    <div class="entry-meta">masters thesis · sf state · 2025–2026</div>
-    <div class="entry-body">
-      <ul>
-        <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
-        <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</li>
-        <li>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</li>
-        <li>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="timeline-entry">
-    <div class="entry-title">edge-ai flood alert system<span class="cred">provisional patent</span></div>
-    <div class="entry-meta">bachelors thesis · indian meteorological department · 2024</div>
-    <div class="entry-body">
-      <ul>
-        <li>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
-        <li>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979–2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="timeline-entry">
-    <div class="entry-title">credit card fraud detection on imbalanced data<span class="cred">published</span></div>
-    <div class="entry-meta">publication · 2023</div>
-    <div class="entry-body">
-      <ul>
-        <li>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
-      </ul>
-    </div>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">04</span>credit card fraud detection on imbalanced data<span class="cred">published</span></h3>
+    <div class="entry-meta">publication &middot; 2023</div>
+    <ul class="entry-body">
+      <li>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
+    </ul>
     <div class="entry-links">
       <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
     </div>
@@ -661,12 +560,12 @@ footer {
 
 <!-- EDUCATION -->
 <section class="section" id="education">
-  <div class="section-label">education</div>
+  <div class="section-head"><h2 class="section-title">EDUCATION</h2></div>
   <div class="edu-grid">
     <div class="edu-card">
       <div class="edu-degree">ms data science and ai</div>
       <div class="edu-school">sf state</div>
-      <div class="edu-detail">4.0 · may 2026</div>
+      <div class="edu-detail">4.0 &middot; may 2026</div>
     </div>
     <div class="edu-card">
       <div class="edu-degree">b.tech electronics and communication</div>
@@ -678,7 +577,7 @@ footer {
 
 <!-- CONTACT -->
 <section class="section" id="contact">
-  <div class="section-label">contact</div>
+  <div class="section-head"><h2 class="section-title">CONTACT</h2></div>
   <div class="contact-card">
     <div class="contact-h">let's talk.</div>
     <p class="contact-sub">looking for AI research, applied AI, and MLE roles starting May 2026. also applying to AI safety research fellowships.<br><br>if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.</p>
@@ -688,11 +587,14 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <span>atharva walawalkar · san francisco, ca</span>
+  <span>atharva walawalkar &middot; san francisco, ca</span>
   <span>2026</span>
 </footer>
 
 </div>
+
+<!-- bottom-right page registration mark -->
+<span class="reg-mark reg-page">&times;</span>
 
 <script>
 // First visit follows the OS preference; an explicit toggle is remembered.
@@ -702,24 +604,15 @@ applyTheme(saved || (prefersDark ? 'dark' : 'light'));
 
 function applyTheme(mode) {
   document.documentElement.setAttribute('data-theme', mode);
-  document.getElementById('modeBtn').textContent = mode === 'light' ? '☾ dark' : '☀ light';
+  document.getElementById('modeBtn').textContent = mode === 'light' ? 'dark' : 'light';
 }
 
 function toggleMode() {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'light' ? 'dark' : 'light';
   applyTheme(next);
-  localStorage.setItem('theme-v2', next);   // persist only an explicit choice
+  localStorage.setItem('theme-v2', next);
 }
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
 </script>
 </body>
 </html>
