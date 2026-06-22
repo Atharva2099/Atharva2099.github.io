@@ -626,8 +626,8 @@ footer {
     <div class="entry-meta">masters thesis · sf state · 2025–2026</div>
     <div class="entry-body">
       <ul>
-        <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch — but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
-        <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom — the right region exists. the problem: you can't use it live because it requires knowing the future.</li>
+        <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
+        <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</li>
         <li>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</li>
         <li>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</li>
       </ul>
