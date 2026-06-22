@@ -375,8 +375,10 @@
           <span class="date">masters thesis · sf state · 2025–2026</span>
         </div>
         <div class="item-desc">
-          <p>rPPG extracts heart rate from video via subtle color changes in facial skin. most methods fix the region of interest to the full face or a static patch, but signal quality varies heavily by lighting, motion, and skin tone across regions.</p>
-          <p>trained a PPO agent to dynamically select and weight facial regions per frame using a 64-dim state from MediaPipe. policy improved HR_MAE from 33.58 to 21.76 BPM. the honest catch: gains came at a cost to PPG waveform correlation, and dense rewards underperformed sparse ones. the waveform signal is harder to translate into useful gradients than i expected.</p>
+          <p>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch — but signal quality shifts across facial regions with motion, lighting, and camera angle.</p>
+          <p>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom — the right region exists. the problem: you can't use it live because it requires knowing the future.</p>
+          <p>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</p>
+          <p>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</p>
         </div>
       </div>
 
