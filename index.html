@@ -22,12 +22,13 @@
    rules, and project/research numerals.
 ═══════════════════════════════════════════ */
 :root, [data-theme="light"] {
-  --bg:        #E0D4BE;   /* kraft paper */
-  --ink:       #1A1510;   /* warm near-black */
-  --ink-2:     #2E2416;   /* body, bullets */
-  --ink-3:     #8A7A62;   /* metadata, fine print, dates */
-  --accent:    #1A5C35;   /* deep forest — single risograph ink */
-  --rule:      #C4B89A;   /* hairlines */
+  --bg:        #FDE0B4;   /* warm cream/off-white */
+  --ink:       #D8281E;   /* bold warm red — headings */
+  --ink-2:     #228FC2;   /* cyan-blue — body text */
+  --ink-3:     #ED961F;   /* golden-orange — metadata, fine print */
+  --accent:    #D8281E;   /* bold warm red — lines, numerals */
+  --rule:      #E9E4C9;   /* aged cream — hairlines */
+  --navy:      #16263d;   /* deep navy — poster edging */
 
   --fs-fine:     12px;    /* corner metadata, registration labels */
   --fs-meta:     13px;    /* dates, tags */
@@ -40,12 +41,12 @@
 }
 
 [data-theme="dark"] {
-  --bg:        #0E0C09;   /* aged warm black */
-  --ink:       #F0E8D8;   /* warm near-white */
-  --ink-2:     #B8A888;
-  --ink-3:     #6E5E48;
-  --accent:    #2E7A4A;   /* lifted forest */
-  --rule:      #2A2218;
+  --bg:        #14110b;   /* blacker warm black */
+  --ink:       #1a5b34;   /* green — headings */
+  --ink-2:     #ded2bc;   /* whiter cream — body */
+  --ink-3:     #cc7733;   /* dark orange — metadata, in-between */
+  --accent:    #cc7733;   /* dark orange — lines, numerals */
+  --rule:      #3a2e1f;   /* warm hairline */
 
   --grain-op: 0.05;
 }
@@ -151,6 +152,36 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 10px;
 }
 
+/* retro 70s/80s Japanese poster treatment — light mode only */
+[data-theme="light"] .display-word {
+  color: #228FC2;
+  text-shadow:
+    1px 1px 0 #D8281E,
+    2px 2px 0 #D8281E,
+    3px 3px 0 #D8281E,
+    4px 4px 0 #D8281E,
+    5px 5px 0 #ED961F,
+    6px 6px 0 #ED961F,
+    7px 7px 0 #ED961F,
+    8px 8px 0 #ED961F;
+  letter-spacing: 0.02em;
+}
+
+/* dark mode — green text, cream close, orange far */
+[data-theme="dark"] .display-word {
+  color: #1a5b34;
+  text-shadow:
+    1px 1px 0 #ded2bc,
+    2px 2px 0 #ded2bc,
+    3px 3px 0 #ded2bc,
+    4px 4px 0 #ded2bc,
+    5px 5px 0 #cc7733,
+    6px 6px 0 #cc7733,
+    7px 7px 0 #cc7733,
+    8px 8px 0 #cc7733;
+  letter-spacing: 0.02em;
+}
+
 .hero-lead {
   font-family: 'Libre Baskerville', serif;
   font-size: var(--fs-entry);
@@ -158,6 +189,8 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.4;
   margin-bottom: 22px;
 }
+
+[data-theme="light"] .hero-lead { color: var(--ink); }
 
 .hero-bio {
   font-family: 'Libre Baskerville', serif;
@@ -454,7 +487,7 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <span class="reg-mark reg-hero">&times;</span>
-  <h1 class="display-word">RESEARCHER</h1>
+  <h1 class="display-word">ATHARVA</h1>
   <p class="hero-lead">rl, agents, systems.</p>
   <p class="hero-bio">i like making models do things they probably should not be able to do.</p>
   <p class="hero-bio">outside of that i take photos and am currently catching up on One Piece.</p>
