@@ -1,461 +1,644 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>atharva walawalkar</title>
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>atharva walawalkar</title>
+<script>
+  if (window.innerWidth > 768 && !location.search.includes('force=mobile')) {
+    location.replace('index.html');
+  }
+</script>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
 
-      /* Same token system as index.html.
-         RULE: --accent is for the pixel name (ascii art) ONLY.
-         To emphasize anything else, drop a tier in the gray ladder. */
-      :root, [data-theme="light"] {
-        --fs-meta: 13px;
-        --fs-body: 16px;
-        --fs-lead: 18px;
-        --fs-h2:   26px;
+/* ═══════════════════════════════════════════
+   TOKENS — same as index.html
+   accent: single risograph forest ink.
+   used ONLY on hero display word, section break
+   rules, and project/research numerals.
+═══════════════════════════════════════════ */
+:root, [data-theme="light"] {
+  --bg:        #FDE0B4;
+  --ink:       #D8281E;
+  --ink-2:     #228FC2;
+  --ink-3:     #ED961F;
+  --accent:    #D8281E;
+  --rule:      #E9E4C9;
+  --navy:      #16263d;
 
-        --bg:      #FDE0B4;   /* warm cream/off-white */
-        --surface: #E9E4C9;
-        --text-1:  #D8281E;   /* bold warm red — primary */
-        --text-2:  #228FC2;   /* cyan-blue — body */
-        --text-3:  #ED961F;   /* golden-orange — metadata */
-        --rule:    #E9E4C9;
-        --accent:  #D8281E;   /* bold warm red — pixel name ONLY */
-      }
+  --fs-fine:     12px;
+  --fs-meta:     13px;
+  --fs-body:     16px;
+  --fs-entry:    22px;
+  --fs-section:  clamp(28px, 8vw, 36px);
+  --fs-display:  clamp(40px, 13vw, 72px);
 
-      [data-theme="dark"] {
-        --bg:      #14110b;   /* blacker warm black */
-        --surface: #1f1a10;
-        --text-1:  #1a5b34;   /* green — headings */
-        --text-2:  #ded2bc;   /* whiter cream — body */
-        --text-3:  #cc7733;   /* dark orange — metadata, in-between */
-        --rule:    #3a2e1f;
-        --accent:  #cc7733;   /* dark orange — pixel name ONLY */
-      }
+  --grain-op: 0.08;
+}
 
-      body {
-        font-family: 'Lora', serif;
-        line-height: 1.7;
-        background-color: var(--bg);
-        color: var(--text-2);
-        padding: 1.25rem 1.25rem 3rem;
-        font-size: var(--fs-body);
-        transition: background 0.25s ease, color 0.25s ease;
-      }
+[data-theme="dark"] {
+  --bg:        #14110b;
+  --ink:       #1a5b34;
+  --ink-2:     #ded2bc;
+  --ink-3:     #cc7733;
+  --accent:    #cc7733;
+  --rule:      #3a2e1f;
 
-      /* ── top bar ── */
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2.5rem;
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        letter-spacing: 0.04em;
-      }
+  --grain-op: 0.05;
+}
 
-      .mode-toggle {
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        letter-spacing: 0.04em;
-        color: var(--text-3);
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        transition: color 0.15s ease;
-      }
-      .mode-toggle:active { color: var(--text-1); }
+/* ═══════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-      .desktop-link {
-        color: var(--text-3);
-        text-decoration: none;
-        transition: color 0.15s ease;
-      }
-      .desktop-link:active { color: var(--text-1); }
+html { scroll-behavior: smooth; }
 
-      /* ── hero ── */
-      .header { margin-bottom: 2rem; }
+body {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--ink-2);
+  background: var(--bg);
+  position: relative;
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
 
-      .ascii-name {
-        font-family: 'DM Mono', monospace;
-        font-size: 0.4rem;
-        line-height: 1.1;
-        margin-bottom: 1.25rem;
-        color: var(--accent);
-        opacity: 0.85;
-        overflow-x: auto;
-        white-space: pre;
-      }
-      [data-theme="dark"] .ascii-name { opacity: 0.9; }
+/* grain overlay — the soul */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--grain-op);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
 
-      .subtitle {
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        color: var(--text-3);
-        letter-spacing: 0.04em;
-        margin-bottom: 0.75rem;
-      }
+[data-theme="dark"] body::after { mix-blend-mode: screen; }
 
-      .tagline {
-        font-family: 'Fraunces', serif;
-        font-weight: 300;
-        font-size: var(--fs-h2);
-        line-height: 1.2;
-        color: var(--text-1);
-        margin-bottom: 1rem;
-      }
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
 
-      .about {
-        font-family: 'Lora', serif;
-        font-size: var(--fs-lead);
-        color: var(--text-2);
-        line-height: 1.55;
-        margin-bottom: 0.5rem;
-      }
-      .about + .about {
-        font-size: var(--fs-body);
-        color: var(--text-3);
-      }
+a { text-decoration: none; color: inherit; }
 
-      /* ── social row ── */
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.1rem;
-        margin: 1.5rem 0 2.5rem;
-      }
+/* ═══════════════════════════════════════════
+   TOP BAR — fine print top-left + right toggle
+═══════════════════════════════════════════ */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0 12px;
+  border-bottom: 0.5px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+  gap: 10px;
+  transition: border-color 0.3s ease;
+}
 
-      .links a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        letter-spacing: 0.03em;
-        color: var(--text-3);
-        text-decoration: none;
-        transition: color 0.15s ease;
-      }
-      .links a:active { color: var(--text-1); }
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
 
-      .links svg {
-        width: 12px;
-        height: 12px;
-        stroke: currentColor;
-        flex-shrink: 0;
-      }
+.toggle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  transition: color 0.15s ease;
+  white-space: nowrap;
+}
 
-      /* ── sections ── */
-      .section { margin-bottom: 2.5rem; }
+.toggle:hover { color: var(--ink); }
 
-      .section h2 {
-        font-family: 'DM Mono', monospace;
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--text-3);
-        padding-bottom: 8px;
-        border-bottom: 0.5px solid var(--rule);
-        margin-bottom: 1.25rem;
-      }
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  margin-top: 64px;
+  animation: fadeIn 0.5s ease both;
+}
 
-      .item {
-        margin-bottom: 1.75rem;
-      }
-      .item:last-child { margin-bottom: 0; }
+.display-word {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
 
-      .item-title {
-        font-family: 'Fraunces', serif;
-        font-weight: 400;
-        font-size: var(--fs-lead);
-        line-height: 1.3;
-        color: var(--text-1);
-        margin-bottom: 0.4rem;
-      }
+/* retro 70s/80s Japanese poster treatment — light mode only */
+[data-theme="light"] .display-word {
+  color: #228FC2;
+  text-shadow:
+    1px 1px 0 #D8281E,
+    2px 2px 0 #D8281E,
+    3px 3px 0 #D8281E,
+    4px 4px 0 #D8281E,
+    5px 5px 0 #ED961F,
+    6px 6px 0 #ED961F,
+    7px 7px 0 #ED961F,
+    8px 8px 0 #ED961F;
+  letter-spacing: 0.02em;
+}
 
-      .date {
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        color: var(--text-3);
-        letter-spacing: 0.02em;
-        margin-left: 0.4rem;
-        white-space: nowrap;
-      }
+/* dark mode — green text, cream close, orange far */
+[data-theme="dark"] .display-word {
+  color: #1a5b34;
+  text-shadow:
+    1px 1px 0 #ded2bc,
+    2px 2px 0 #ded2bc,
+    3px 3px 0 #ded2bc,
+    4px 4px 0 #ded2bc,
+    5px 5px 0 #cc7733,
+    6px 6px 0 #cc7733,
+    7px 7px 0 #cc7733,
+    8px 8px 0 #cc7733;
+  letter-spacing: 0.02em;
+}
 
-      /* inline credibility metadata — quiet, factual */
-      .highlight {
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        font-weight: 400;
-        color: var(--text-3);
-        letter-spacing: 0.02em;
-        margin-left: 0.4rem;
-        white-space: nowrap;
-      }
+.hero-lead {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-entry);
+  color: var(--ink-2);
+  line-height: 1.4;
+  margin-bottom: 22px;
+}
 
-      .item-desc {
-        font-family: 'Lora', serif;
-        color: var(--text-2);
-        font-size: var(--fs-body);
-        line-height: 1.65;
-      }
-      .item-desc p + p { margin-top: 0.6rem; }
-      .item-desc strong { color: var(--text-1); font-weight: 500; }
+[data-theme="light"] .hero-lead { color: var(--ink); }
 
-      .separator {
-        margin: 0 0.4rem;
-        color: var(--text-3);
-      }
+.hero-bio {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  line-height: 1.75;
+  max-width: 42rem;
+}
 
-      /* ── links inside body ── */
-      .item-desc a {
-        color: var(--text-3);
-        text-decoration: underline;
-        text-decoration-color: var(--rule);
-        text-underline-offset: 2px;
-        font-family: 'DM Mono', monospace;
-        font-size: var(--fs-meta);
-        transition: color 0.15s ease, text-decoration-color 0.15s ease;
-      }
-      .item-desc a:active {
-        color: var(--text-1);
-        text-decoration-color: var(--text-3);
-      }
+.hero-bio + .hero-bio { margin-top: 6px; }
 
-      ul { list-style: none; padding-left: 0; }
-      li {
-        position: relative;
-        padding-left: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      li:before {
-        content: "·";
-        color: var(--text-3);
-        position: absolute;
-        left: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="topbar">
-      <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">☾ dark</button>
-      <a href="index.html" class="desktop-link">desktop &#8599;</a>
+.social-row {
+  margin-top: 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.1s;
+}
+
+.social-row a {
+  color: var(--ink-3);
+  transition: color 0.15s ease;
+}
+
+.social-row a:hover { color: var(--ink); }
+
+.social-row .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
+
+/* registration marks */
+.reg-mark {
+  position: absolute;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink-3);
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.reg-hero { top: 6px; right: 0; }
+.reg-page { bottom: 22px; right: 22px; }
+
+/* ═══════════════════════════════════════════
+   SECTIONS — printed artifact headers
+═══════════════════════════════════════════ */
+.section {
+  margin-top: 64px;
+  opacity: 0;
+  animation: sectionIn 0.5s ease both;
+}
+
+.section:nth-of-type(2) { animation-delay: 0.15s; }
+.section:nth-of-type(3) { animation-delay: 0.22s; }
+.section:nth-of-type(4) { animation-delay: 0.29s; }
+.section:nth-of-type(5) { animation-delay: 0.36s; }
+.section:nth-of-type(6) { animation-delay: 0.43s; }
+
+.section-head {
+  border-top: 2.5px solid var(--accent);
+  border-bottom: 2.5px solid var(--accent);
+  padding: 14px 0;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-section);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════
+   ENTRIES
+═══════════════════════════════════════════ */
+.entry { margin-bottom: 48px; }
+.entry:last-child { margin-bottom: 0; }
+
+.entry-title {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: var(--fs-entry);
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: var(--fs-entry);
+  color: var(--accent);
+  margin-right: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* inline credibility metadata — plain mono, no pill */
+.cred {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.entry-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-meta);
+  color: var(--ink-3);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+.entry-body {
+  margin-top: 16px;
+  list-style: none;
+  max-width: 42rem;
+}
+
+.entry-body li {
+  position: relative;
+  padding-left: 18px;
+  margin-top: 8px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  line-height: 1.75;
+}
+
+.entry-body li::before {
+  content: '·';
+  position: absolute;
+  left: 2px;
+  top: -1px;
+  color: var(--ink-3);
+}
+
+.entry-links {
+  margin-top: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+}
+
+.entry-links a {
+  color: var(--ink-3);
+  transition: color 0.15s ease;
+}
+
+.entry-links a:hover { color: var(--ink); }
+
+.entry-links .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
+
+/* ═══════════════════════════════════════════
+   EDUCATION
+═══════════════════════════════════════════ */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+.edu-degree {
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 400;
+  font-size: var(--fs-entry);
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.edu-school {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  margin-top: 6px;
+}
+
+.edu-detail {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-meta);
+  color: var(--ink-3);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+.contact-h {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: var(--fs-entry);
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.contact-sub {
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  margin-top: 14px;
+  line-height: 1.75;
+  max-width: 42rem;
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-body);
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--ink-3);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.contact-email:hover { text-decoration-color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  margin-top: 72px;
+  border-top: 0.5px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+  gap: 8px;
+  transition: border-color 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <span class="brand">atharva walawalkar</span>
+  <span class="top-right">
+    <span class="meta">ms ai &middot; sf state &middot; may 2026</span>
+    <button class="toggle" id="modeBtn" onclick="toggleMode()">dark</button>
+    <a class="toggle" href="index.html?force=desktop">desktop &#8599;</a>
+  </span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="reg-mark reg-hero">&times;</span>
+  <h1 class="display-word">ATHARVA<br>WALAWALKAR</h1>
+  <p class="hero-lead">rl, agents, systems.</p>
+  <p class="hero-bio">i like making models do things they probably should not be able to do.</p>
+  <p class="hero-bio">outside of that i take photos and am currently catching up on One Piece.</p>
+  <nav class="social-row" aria-label="links">
+    <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
+  </nav>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-head"><h2 class="section-title">EXPERIENCE</h2></div>
+
+  <div class="entry">
+    <h3 class="entry-title">applied ai intern, chewy</h3>
+    <div class="entry-meta">internship &middot; summer 2025</div>
+    <ul class="entry-body">
+      <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</li>
+      <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</li>
+      <li>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-head"><h2 class="section-title">PROJECTS</h2></div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">01</span>wolfeclick: pok&eacute;mon rl with grpo</h3>
+    <div class="entry-meta">personal project &middot; mar 2026</div>
+    <ul class="entry-body">
+      <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pok&eacute;mon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
+      <li>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</li>
+      <li>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</li>
+    </ul>
+    <div class="entry-links">
+      <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
     </div>
+  </div>
 
-    <div class="header">
-      <pre class="ascii-name">
- ██████╗ ████████╗██╗  ██╗ ██████╗ ██████╗ ██╗   ██╗ ██████╗
-██╔══██╗╚══██╔══╝██║  ██║██╔══██╗██╔══██╗██║   ██║██╔══██╗
-███████║   ██║   ███████║███████║██████╔╝██║   ██║███████║
-██╔══██║   ██║   ██╔══██║██╔══██║██╔══██╗╚██╗ ██╔╝██╔══██║
-██║  ██║   ██║   ██║  ██║██║  ██║██║  ██║ ╚████╔╝ ██║  ██║
-╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">02</span>wanderlust: ai trip planner</h3>
+    <div class="entry-meta">personal project &middot; 2026</div>
+    <ul class="entry-body">
+      <li>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</li>
+      <li>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</li>
+    </ul>
+  </div>
 
-██╗    ██╗ █████╗ ██╗      █████╗ ██╗    ██╗ █████╗ ██╗     ██╗  ██╗ █████╗ ██████╗
-██║ █╗ ██║██╔══██╗██║     ██╔══██╗██║ █╗ ██║██╔══██╗██║     ██║ ██╔╝██╔══██╗██╔══██╗
-██║███╗██║███████║██║     ███████║██║███╗██║███████║██║     █████╔╝ ███████║██████╔╝
-██║╚██╔╝██║██╔══██║██║     ██╔══██║██║╚██╔╝██║██╔══██║██║     ██╔═██╗ ██╔══██║██╔══██╗
-╚██╔╝ ██╔╝██║  ██║███████╗██║  ██║╚██╔╝ ██╔╝██║  ██║███████╗██║  ██╗██║  ██║██║  ██║
- ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
-      </pre>
-      <div class="subtitle">ms ai · sf state · may 2026</div>
-      <div class="tagline">rl, agents, systems.</div>
-      <div class="about">i like making models do things they probably should not be able to do.</div>
-      <div class="about">outside of that i take photos and am currently catching up on One Piece.</div>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">03</span>commentator: real-time ai game caster<span class="cred">3rd &middot; $20k</span></h3>
+    <div class="entry-meta">hackathon &middot; google gemini &middot; dec 2025</div>
+    <ul class="entry-body">
+      <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
+      <li>built an event detector that only fires when something meaningful changes, cutting redundant output by 60%.</li>
+      <li>concept to working demo in 12 hours.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section" id="research">
+  <div class="section-head"><h2 class="section-title">RESEARCH</h2></div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">01</span>pivotrl: pivot-weighted reasoning distillation</h3>
+    <div class="entry-meta">personal research &middot; ongoing 2026</div>
+    <ul class="entry-body">
+      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
+      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">02</span>rppg with adaptive roi selection</h3>
+    <div class="entry-meta">masters thesis &middot; sf state &middot; 2025&ndash;2026</div>
+    <ul class="entry-body">
+      <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
+      <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</li>
+      <li>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</li>
+      <li>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">03</span>edge-ai flood alert system<span class="cred">provisional patent</span></h3>
+    <div class="entry-meta">bachelors thesis &middot; indian meteorological department &middot; 2024</div>
+    <ul class="entry-body">
+      <li>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
+      <li>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979&ndash;2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</li>
+    </ul>
+    <div class="entry-links">
+      <a href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener">paper</a>
     </div>
+  </div>
 
-    <div class="links">
-      <a href="mailto:atharvawal27@gmail.com" aria-label="email">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>email
-      </a>
-      <a href="https://github.com/Atharva2099/" target="_blank" rel="noopener" aria-label="github">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.9-.39s1.98.13 2.9.39c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>github
-      </a>
-      <a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener" aria-label="linkedin">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>linkedin
-      </a>
-      <a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener" aria-label="hugging face">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="10" r=".6" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>huggingface
-      </a>
-      <a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener" aria-label="google scholar">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 9l10 6 10-6-10-6z"/><path d="M6 11v4c0 1.66 2.69 3 6 3s6-1.34 6-3v-4"/><path d="M22 9v6"/></svg>scholar
-      </a>
-      <a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener" aria-label="blog">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>blog
-      </a>
-      <a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener" aria-label="goodreads">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/><path d="M20 17v4H6.5A2.5 2.5 0 0 1 4 18.5"/></svg>goodreads
-      </a>
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">04</span>credit card fraud detection on imbalanced data<span class="cred">published</span></h3>
+    <div class="entry-meta">publication &middot; 2023</div>
+    <ul class="entry-body">
+      <li>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
+    </ul>
+    <div class="entry-links">
+      <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
     </div>
+  </div>
+</section>
 
-    <div class="section">
-      <h2>experience</h2>
-
-      <div class="item">
-        <div class="item-title">
-          applied ai intern, chewy
-          <span class="date">internship · summer 2025</span>
-        </div>
-        <div class="item-desc">
-          <p>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</p>
-          <p>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</p>
-          <p>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</p>
-        </div>
-      </div>
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-head"><h2 class="section-title">EDUCATION</h2></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">ms data science and ai</div>
+      <div class="edu-school">sf state</div>
+      <div class="edu-detail">4.0 &middot; may 2026</div>
     </div>
-
-    <div class="section">
-      <h2>projects</h2>
-
-      <div class="item">
-        <div class="item-title">
-          wolfeclick: pokémon rl with grpo
-          <span class="date">personal project · mar 2026</span>
-        </div>
-        <div class="item-desc">
-          <p>i wanted to train LLMs for long-horizon reasoning under hidden information. Pokémon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</p>
-          <p>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</p>
-          <p>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</p>
-          <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a>
-          <span class="separator">·</span>
-          <a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a>
-          <span class="separator">·</span>
-          <a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-title">
-          wanderlust: ai trip planner
-          <span class="date">personal project · 2026</span>
-        </div>
-        <div class="item-desc">
-          <p>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</p>
-          <p>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</p>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="item-title">
-          commentator: real-time ai game caster
-          <span class="date">hackathon · google gemini · dec 2025</span>
-          <span class="highlight">3rd · $20k</span>
-        </div>
-        <div class="item-desc">
-          <p>most ai commentary tools just caption everything. the insight: commentary isn't about describing what happened, it's about knowing what's worth saying. built an event detector that only fires when something meaningful changes, cut redundant output by 60%, concept to working demo in 12 hours.</p>
-        </div>
-      </div>
+    <div class="edu-card">
+      <div class="edu-degree">b.tech electronics and communication</div>
+      <div class="edu-school">pune university</div>
+      <div class="edu-detail">2024</div>
     </div>
+  </div>
+</section>
 
-    <div class="section">
-      <h2>research</h2>
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-head"><h2 class="section-title">CONTACT</h2></div>
+  <div class="contact-card">
+    <div class="contact-h">let's talk.</div>
+    <p class="contact-sub">looking for AI research, applied AI, and MLE roles starting May 2026. also applying to AI safety research fellowships.<br><br>if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.</p>
+    <a class="contact-email" href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
+  </div>
+</section>
 
-      <div class="item">
-        <div class="item-title">
-          pivotrl: pivot-weighted reasoning distillation
-          <span class="date">personal research · ongoing 2026</span>
-        </div>
-        <div class="item-desc">
-          <p>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</p>
-          <p>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</p>
-        </div>
-      </div>
+<!-- FOOTER -->
+<footer>
+  <span>atharva walawalkar &middot; san francisco, ca</span>
+  <span>2026</span>
+</footer>
 
-      <div class="item">
-        <div class="item-title">
-          rppg with adaptive roi selection
-          <span class="date">masters thesis · sf state · 2025–2026</span>
-        </div>
-        <div class="item-desc">
-          <p>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</p>
-          <p>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</p>
-          <p>rebuilt the task as causal streaming control: each ROI choice updates a running heart-rate estimate, so PPO learns from its own rollouts instead of copying oracle labels. final streaming models reached ~7.37 BPM MAE, beating full-face and supervised baselines under a fixed 3-seed protocol with bootstrap confidence intervals.</p>
-          <p>failure analysis showed most remaining error comes from side-view drift and ROI-choice mistakes, not model collapse. the gap between oracle and live control is the honest finding.</p>
-        </div>
-      </div>
+</div>
 
-      <div class="item">
-        <div class="item-title">
-          edge-ai flood alert system
-          <span class="date">bachelors thesis · indian meteorological department · 2024</span>
-          <span class="highlight">provisional patent</span>
-        </div>
-        <div class="item-desc">
-          <p>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</p>
-          <p>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979–2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</p>
-        </div>
-      </div>
+<!-- bottom-right page registration mark -->
+<span class="reg-mark reg-page">&times;</span>
 
-      <div class="item">
-        <div class="item-title">
-          credit card fraud detection on imbalanced data
-          <span class="date">publication · 2023</span>
-          <span class="highlight">published</span>
-        </div>
-        <div class="item-desc">
-          <p>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</p>
-          <a href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
-        </div>
-      </div>
-    </div>
+<script>
+// First visit follows the OS preference; an explicit toggle is remembered.
+const saved = localStorage.getItem('theme-v2');
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+applyTheme(saved || (prefersDark ? 'dark' : 'light'));
 
-    <div class="section">
-      <h2>education</h2>
-      <div class="item">
-        <div class="item-title">
-          ms data science and ai
-          <span class="date">sf state · 4.0 · may 2026</span>
-        </div>
-      </div>
-      <div class="item">
-        <div class="item-title">
-          b.tech electronics and communication
-          <span class="date">pune university · 2024</span>
-        </div>
-      </div>
-    </div>
+function applyTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  document.getElementById('modeBtn').textContent = mode === 'light' ? 'dark' : 'light';
+}
 
-    <div class="section">
-      <h2>contact</h2>
-      <div class="item-desc">
-        looking for AI research, applied AI, and MLE roles starting May 2026. also applying to AI safety research fellowships.<br /><br />
-        if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.<br /><br />
-        <a href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
-      </div>
-    </div>
-
-    <script>
-      // Send desktop visitors to the full layout
-      if (window.innerWidth > 768 && !location.search.includes('force=mobile')) {
-        window.location.href = "index.html";
-      }
-
-      // First visit follows the OS preference; an explicit toggle is remembered.
-      // Shares the "theme-v2" key with index.html so the choice carries across.
-      const saved = localStorage.getItem("theme-v2");
-      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      applyTheme(saved || (prefersDark ? "dark" : "light"));
-
-      function applyTheme(mode) {
-        document.documentElement.setAttribute("data-theme", mode);
-        const btn = document.getElementById("modeBtn");
-        if (btn) btn.textContent = mode === "light" ? "☾ dark" : "☀ light";
-      }
-
-      function toggleMode() {
-        const current = document.documentElement.getAttribute("data-theme");
-        const next = current === "light" ? "dark" : "light";
-        applyTheme(next);
-        localStorage.setItem("theme-v2", next);
-      }
-    </script>
-  </body>
+function toggleMode() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  localStorage.setItem('theme-v2', next);
+}
+</script>
+</body>
 </html>
