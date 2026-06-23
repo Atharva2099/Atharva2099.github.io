@@ -65,6 +65,7 @@ body {
   color: var(--ink-2);
   background: var(--bg);
   position: relative;
+  z-index: 0;
   min-height: 100vh;
   transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
@@ -451,6 +452,71 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
+   BACKGROUND ART — gundam blueprint zigzag
+   behind everything; robots stay quiet.
+═══════════════════════════════════════════ */
+.bg-art {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-art img {
+  position: absolute;
+  height: auto;
+  /* transparent PNGs with baked-in color — no filter tricks needed */
+  width: 340px;
+  opacity: 0.50;
+  transition: opacity 0.3s ease;
+}
+
+/* dark mode: invert baked colors (red→cyan, blue→orange) + screen blend */
+[data-theme="dark"] .bg-art img {
+  opacity: 0.22;
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+/* fade inner edges for a natural compositional merge */
+.bg-art img:nth-child(odd) {
+  -webkit-mask: linear-gradient(to right, black 55%, transparent 92%);
+  mask: linear-gradient(to right, black 55%, transparent 92%);
+}
+.bg-art img:nth-child(even) {
+  -webkit-mask: linear-gradient(to left, black 55%, transparent 92%);
+  mask: linear-gradient(to left, black 55%, transparent 92%);
+}
+
+/* editorial zigzag — slight tilts for poster energy */
+.bg-art img:nth-child(1) { /* bust close-up — top left */
+  top: 2%;
+  left: -80px;
+  transform: rotate(-4deg);
+}
+.bg-art img:nth-child(2) { /* full body front — top right, taller */
+  width: 390px;
+  top: 10%;
+  right: -120px;
+  transform: rotate(3deg);
+}
+.bg-art img:nth-child(3) { /* bust side — mid left */
+  width: 300px;
+  top: 53%;
+  left: -60px;
+  transform: rotate(6deg);
+}
+.bg-art img:nth-child(4) { /* action pose — lower right */
+  width: 370px;
+  top: 65%;
+  right: -80px;
+  transform: rotate(-5deg);
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════ */
 @media (max-width: 540px) {
@@ -461,6 +527,9 @@ footer {
   .top-bar { padding: 22px 0 12px; }
   .section { margin-top: 64px; }
   footer { margin-top: 72px; }
+  .bg-art img { width: 180px; }
+  .bg-art img:nth-child(odd) { right: -20px; }
+  .bg-art img:nth-child(even) { left: -20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -472,6 +541,13 @@ footer {
 </style>
 </head>
 <body>
+
+<div class="bg-art" aria-hidden="true">
+  <img src="assets/gundam_panels/gundam_1_bust_closeup.png" alt="">
+  <img src="assets/gundam_panels/gundam_2_fullbody_front.png" alt="">
+  <img src="assets/gundam_panels/gundam_4_bust_side.png" alt="">
+  <img src="assets/gundam_panels/gundam_5_action_pose.png" alt="">
+</div>
 
 <div class="container">
 
