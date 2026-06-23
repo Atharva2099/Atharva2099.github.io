@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>atharva walawalkar</title>
+<script>
+  if (window.innerWidth <= 768 && !location.search.includes('force=desktop')) {
+    location.replace('mobile.html');
+  }
+</script>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -208,11 +213,11 @@ a { text-decoration: none; color: inherit; }
   animation: sectionIn 0.5s ease both;
 }
 
-.section:nth-of-type(1) { animation-delay: 0.15s; }
-.section:nth-of-type(2) { animation-delay: 0.22s; }
-.section:nth-of-type(3) { animation-delay: 0.29s; }
-.section:nth-of-type(4) { animation-delay: 0.36s; }
-.section:nth-of-type(5) { animation-delay: 0.43s; }
+.section:nth-of-type(2) { animation-delay: 0.15s; }
+.section:nth-of-type(3) { animation-delay: 0.22s; }
+.section:nth-of-type(4) { animation-delay: 0.29s; }
+.section:nth-of-type(5) { animation-delay: 0.36s; }
+.section:nth-of-type(6) { animation-delay: 0.43s; }
 
 .section-head {
   border-top: 2.5px solid var(--accent);

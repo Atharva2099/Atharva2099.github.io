@@ -434,7 +434,7 @@
 
     <script>
       // Send desktop visitors to the full layout
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 768 && !location.search.includes('force=mobile')) {
         window.location.href = "index.html";
       }
 
