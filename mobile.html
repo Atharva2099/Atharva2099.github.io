@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
 /* ═══════════════════════════════════════════
@@ -22,13 +22,13 @@
    rules, and project/research numerals.
 ═══════════════════════════════════════════ */
 :root, [data-theme="light"] {
-  --bg:        #FDE0B4;
-  --ink:       #D8281E;
-  --ink-2:     #228FC2;
-  --ink-3:     #ED961F;
-  --accent:    #D8281E;
-  --rule:      #E9E4C9;
-  --navy:      #16263d;
+  --bg:        #2f6fb0;   /* friendly blue */
+  --ink:       #ff8c42;   /* red — headings/titles */
+  --ink-2:     #ffe08a;   /* warm yellow — body text */
+  --ink-3:     #f0c45a;   /* soft gold — metadata, fine print */
+  --accent:    #ffffff;   /* white — section rules, numerals */
+  --rule:      rgba(255,255,255,0.55); /* soft white — hairlines */
+  --navy:      #163a5f;
 
   --fs-fine:     12px;
   --fs-meta:     13px;
@@ -41,12 +41,12 @@
 }
 
 [data-theme="dark"] {
-  --bg:        #14110b;
-  --ink:       #1a5b34;
-  --ink-2:     #ded2bc;
-  --ink-3:     #cc7733;
-  --accent:    #cc7733;
-  --rule:      #3a2e1f;
+  --bg:        #0d0f13;   /* near-black */
+  --ink:       #ffd54a;   /* yellow — titles */
+  --ink-2:     #f2f0ea;   /* soft white — body */
+  --ink-3:     #6a93c2;   /* muted blue — meta */
+  --accent:    #7fb0e0;   /* bright blue — lines, numerals */
+  --rule:      rgba(127,176,224,0.22); /* blue hairline */
 
   --grain-op: 0.05;
 }
@@ -59,7 +59,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-body);
   line-height: 1.7;
   color: var(--ink-2);
@@ -134,6 +134,10 @@ a { text-decoration: none; color: inherit; }
 
 .toggle:hover { color: var(--ink); }
 
+/* fatten the small mono labels so the fine print reads chunky */
+.top-bar, .toggle, .social-row, .entry-links,
+.entry-meta, .edu-detail, .cred, footer { font-weight: 600; }
+
 /* ═══════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════ */
@@ -144,8 +148,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .display-word {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
   font-size: var(--fs-display);
   line-height: 1;
   color: var(--accent);
@@ -153,38 +157,34 @@ a { text-decoration: none; color: inherit; }
   margin-bottom: 10px;
 }
 
-/* retro 70s/80s Japanese poster treatment — light mode only */
+/* bubbly poster treatment — light mode only */
 [data-theme="light"] .display-word {
-  color: #228FC2;
+  color: #ffe08a;
   text-shadow:
-    1px 1px 0 #D8281E,
-    2px 2px 0 #D8281E,
-    3px 3px 0 #D8281E,
-    4px 4px 0 #D8281E,
-    5px 5px 0 #ED961F,
-    6px 6px 0 #ED961F,
-    7px 7px 0 #ED961F,
-    8px 8px 0 #ED961F;
+    1px 1px 0 #ff8c42,
+    2px 2px 0 #ff8c42,
+    3px 3px 0 #ff8c42,
+    4px 4px 0 #ff8c42,
+    5px 5px 3px rgba(255,255,255,0.45),
+    6px 6px 6px rgba(255,255,255,0.30);
   letter-spacing: 0.02em;
 }
 
-/* dark mode — green text, cream close, orange far */
+/* dark mode — yellow fill, blue 3D shadow, white haze */
 [data-theme="dark"] .display-word {
-  color: #1a5b34;
+  color: #ffd54a;
   text-shadow:
-    1px 1px 0 #ded2bc,
-    2px 2px 0 #ded2bc,
-    3px 3px 0 #ded2bc,
-    4px 4px 0 #ded2bc,
-    5px 5px 0 #cc7733,
-    6px 6px 0 #cc7733,
-    7px 7px 0 #cc7733,
-    8px 8px 0 #cc7733;
+    1px 1px 0 #7fb0e0,
+    2px 2px 0 #7fb0e0,
+    3px 3px 0 #7fb0e0,
+    4px 4px 0 #7fb0e0,
+    5px 5px 3px rgba(255,255,255,0.40),
+    6px 6px 6px rgba(255,255,255,0.25);
   letter-spacing: 0.02em;
 }
 
 .hero-lead {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-entry);
   color: var(--ink-2);
   line-height: 1.4;
@@ -194,7 +194,7 @@ a { text-decoration: none; color: inherit; }
 [data-theme="light"] .hero-lead { color: var(--ink); }
 
 .hero-bio {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-body);
   color: var(--ink-2);
   line-height: 1.75;
@@ -260,8 +260,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .section-title {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
   font-size: var(--fs-section);
   line-height: 1;
   color: var(--ink);
@@ -275,7 +275,7 @@ a { text-decoration: none; color: inherit; }
 .entry:last-child { margin-bottom: 0; }
 
 .entry-title {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-weight: 400;
   font-size: var(--fs-entry);
   color: var(--ink);
@@ -320,7 +320,7 @@ a { text-decoration: none; color: inherit; }
   position: relative;
   padding-left: 18px;
   margin-top: 8px;
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-body);
   color: var(--ink-2);
   line-height: 1.75;
@@ -362,7 +362,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .edu-degree {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-weight: 400;
   font-size: var(--fs-entry);
   color: var(--ink);
@@ -370,7 +370,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .edu-school {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-body);
   color: var(--ink-2);
   margin-top: 6px;
@@ -388,15 +388,15 @@ a { text-decoration: none; color: inherit; }
    CONTACT
 ═══════════════════════════════════════════ */
 .contact-h {
-  font-family: 'DM Serif Display', serif;
-  font-weight: 400;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
   font-size: var(--fs-entry);
   color: var(--ink);
   line-height: 1.3;
 }
 
 .contact-sub {
-  font-family: 'Libre Baskerville', serif;
+  font-family: 'Fredoka', sans-serif;
   font-size: var(--fs-body);
   color: var(--ink-2);
   margin-top: 14px;
@@ -438,74 +438,6 @@ footer {
 }
 
 /* ═══════════════════════════════════════════
-   BACKGROUND ART — gundam blueprint zigzag
-   behind everything; robots stay quiet.
-═══════════════════════════════════════════ */
-.bg-art {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.bg-art img {
-  position: absolute;
-  height: auto;
-  /* transparent colored PNGs — manga splash watermark treatment */
-  opacity: 0.18;
-}
-
-[data-theme="dark"] .bg-art img {
-  opacity: 0.13;
-  filter: invert(1);
-  mix-blend-mode: screen;
-}
-
-/* img 1 — blue bust: top-left corner accent, large */
-.bg-art img:nth-child(1) {
-  width: 300px;
-  top: -10px;
-  left: -60px;
-  transform: rotate(-4deg);
-  -webkit-mask: radial-gradient(ellipse 70% 65% at 25% 30%, black 35%, transparent 75%);
-  mask: radial-gradient(ellipse 70% 65% at 25% 30%, black 35%, transparent 75%);
-}
-
-/* img 2 — red full body: centred hero watermark, the showpiece */
-.bg-art img:nth-child(2) {
-  width: 380px;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-35%) rotate(3deg);
-  opacity: 0.14;
-  -webkit-mask: radial-gradient(ellipse 75% 70% at 50% 42%, black 38%, transparent 78%);
-  mask: radial-gradient(ellipse 75% 70% at 50% 42%, black 38%, transparent 78%);
-}
-
-/* img 3 — blue side bust: mid-right corner */
-.bg-art img:nth-child(3) {
-  width: 270px;
-  top: 55%;
-  right: -50px;
-  transform: rotate(5deg);
-  -webkit-mask: radial-gradient(ellipse 65% 60% at 75% 45%, black 30%, transparent 72%);
-  mask: radial-gradient(ellipse 65% 60% at 75% 45%, black 30%, transparent 72%);
-}
-
-/* img 4 — red action pose: lower-left emergence */
-.bg-art img:nth-child(4) {
-  width: 310px;
-  top: 78%;
-  left: -40px;
-  transform: rotate(-3deg);
-  -webkit-mask: radial-gradient(ellipse 68% 62% at 28% 55%, black 32%, transparent 73%);
-  mask: radial-gradient(ellipse 68% 62% at 28% 55%, black 32%, transparent 73%);
-}
-
-/* ═══════════════════════════════════════════
    ANIMATIONS
 ═══════════════════════════════════════════ */
 @keyframes fadeIn {
@@ -525,15 +457,13 @@ footer {
   }
 }
 </style>
+<link rel="stylesheet" href="assets/film.css">
 </head>
 <body>
 
-<div class="bg-art" aria-hidden="true">
-  <img src="assets/gundam_panels/gundam_1_bust_closeup.png" alt="">
-  <img src="assets/gundam_panels/gundam_2_fullbody_front.png" alt="">
-  <img src="assets/gundam_panels/gundam_4_bust_side.png" alt="">
-  <img src="assets/gundam_panels/gundam_5_action_pose.png" alt="">
-</div>
+<div class="film-leak"  aria-hidden="true"></div>
+<div class="film-flare" aria-hidden="true"></div>
+<div class="film-haze"  aria-hidden="true"></div>
 
 <div class="container">
 
@@ -549,11 +479,8 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <span class="reg-mark reg-hero">&times;</span>
-  <h1 class="display-word">ATHARVA<br>WALAWALKAR</h1>
-  <p class="hero-lead">rl, agents, systems.</p>
-  <p class="hero-bio">i like making models do things they probably should not be able to do.</p>
-  <p class="hero-bio">outside of that i take photos and am currently catching up on One Piece.</p>
+  <h1 class="display-word">About Me</h1>
+  <p class="hero-bio">i like making models do stuff they shouldn't. currently building rl agents for Pokémon TCG and VGC. in my free time i take abstract photos and read fiction — currently catching up on One Piece.</p>
   <nav class="social-row" aria-label="links">
     <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
   </nav>
@@ -587,7 +514,7 @@ footer {
       <li>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</li>
     </ul>
     <div class="entry-links">
-      <a href="https://github.com/Atharva2099/OpenEnv-WolfeClick" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
+      <a href="https://github.com/Atharva2099/Hardread" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
     </div>
   </div>
 
@@ -616,16 +543,7 @@ footer {
   <div class="section-head"><h2 class="section-title">RESEARCH</h2></div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">01</span>pivotrl: pivot-weighted reasoning distillation</h3>
-    <div class="entry-meta">personal research &middot; ongoing 2026</div>
-    <ul class="entry-body">
-      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
-      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
-    </ul>
-  </div>
-
-  <div class="entry">
-    <h3 class="entry-title"><span class="num">02</span>rppg with adaptive roi selection</h3>
+    <h3 class="entry-title"><span class="num">01</span>rppg with adaptive roi selection</h3>
     <div class="entry-meta">masters thesis &middot; sf state &middot; 2025&ndash;2026</div>
     <ul class="entry-body">
       <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
@@ -636,7 +554,7 @@ footer {
   </div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">03</span>edge-ai flood alert system<span class="cred">provisional patent</span></h3>
+    <h3 class="entry-title"><span class="num">02</span>edge-ai flood alert system<span class="cred">provisional patent</span></h3>
     <div class="entry-meta">bachelors thesis &middot; indian meteorological department &middot; 2024</div>
     <ul class="entry-body">
       <li>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
@@ -645,6 +563,15 @@ footer {
     <div class="entry-links">
       <a href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener">paper</a>
     </div>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">03</span>pivotrl: pivot-weighted reasoning distillation</h3>
+    <div class="entry-meta">personal research &middot; ongoing 2026</div>
+    <ul class="entry-body">
+      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
+      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+    </ul>
   </div>
 
   <div class="entry">

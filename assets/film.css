@@ -1,0 +1,179 @@
+/* ═══════════════════════════════════════════
+   FILM LOOK LAYER — 16mm indie still
+   Non-invasive atmospheric overlays. Loads
+   after the inline <style> so it can extend
+   the existing palette without rewriting it.
+   Designed to fail safe: if this file dies,
+   the page just falls back to the original.
+   ═══════════════════════════════════════════ */
+
+/* ── token extension (not replacement) ──
+   gently steer the existing palette toward
+   lonely 16mm: cool navy shadows, warm amber
+   light, cream-not-white text, muted contrast. */
+:root, [data-theme="light"] {
+  --film-wash:   rgba(18, 38, 76, 0.20);   /* deeper cool blue shadow */
+  --film-leak:   rgba(255, 210, 90, 0.45); /* warm yellow light leak    */
+  --film-flare:  rgba(255, 245, 200, 0.45);/* pale lens haze            */
+  --film-vign:   rgba(12, 24, 48, 0.55);   /* edge darkening            */
+  --film-glow:   rgba(255, 220, 120, 0.55);
+}
+
+[data-theme="dark"] {
+  --film-wash:   rgba(8, 16, 40, 0.34);
+  --film-leak:   rgba(255, 210, 90, 0.40);
+  --film-flare:  rgba(255, 245, 200, 0.30);
+  --film-vign:   rgba(0, 0, 0, 0.62);
+  --film-glow:   rgba(255, 220, 120, 0.55);
+}
+
+/* lift content above the wash so text stays
+   first-class even while the page fogs over */
+.container { position: relative; z-index: 2; }
+.reg-mark  { z-index: 3; }
+
+/* ═══════════════════════════════════════════
+   WASH + VIGNETTE — body::before
+   cool blue shadow in the mids, darkening
+   toward the corners. sits behind content,
+   behind the content.
+   ═══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* center cool wash */
+    radial-gradient(120% 90% at 50% 38%, transparent 38%, var(--film-wash) 100%),
+    /* cinematic vignette */
+    radial-gradient(140% 110% at 50% 50%, transparent 52%, var(--film-vign) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+[data-theme="dark"] body::before {
+  mix-blend-mode: normal;   /* dark already; just paint the falloff */
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════
+   GRAIN — already on body::after; here we
+   reuse it as an animated film grain rather
+   than a static overlay. slow, alive, cheap.
+   ═══════════════════════════════════════════ */
+body::after {
+  opacity: var(--grain-op);
+  background-size: 220px 220px;
+  animation: grainShift 1.2s steps(4) infinite;
+}
+
+@keyframes grainShift {
+  0%   { background-position:   0   0; }
+  25%  { background-position: -8px 3px; }
+  50%  { background-position:  6px -5px; }
+  75%  { background-position: -4px 7px; }
+  100% { background-position:   0   0; }
+}
+
+/* ═══════════════════════════════════════════
+   LIGHT LEAK — slow drifting amber haze from
+   the upper edge, the way a bored lens
+   catches a window. above content but very
+   faint; pointer-events none.
+   ═══════════════════════════════════════════ */
+.film-leak {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9990;
+  background:
+    radial-gradient(60% 50% at 18% -8%, var(--film-leak) 0%, transparent 62%),
+    radial-gradient(55% 45% at 88% 12%, var(--film-leak) 0%, transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  animation: leakDrift 26s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .film-leak { mix-blend-mode: screen; opacity: 0.18; }
+
+@keyframes leakDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1);    opacity: 0.18; }
+  50%  { transform: translate3d(2vw, 1vh, 0) scale(1.05); opacity: 0.30; }
+  100% { transform: translate3d(-2vw, 2vh, 0) scale(1.02); opacity: 0.20; }
+}
+
+/* ═══════════════════════════════════════════
+   LENS FLARE — tiny warm shimmer near the
+   hero, the kind you'd crop out in post but
+   keep on purpose here.
+   ═══════════════════════════════════════════ */
+.film-flare {
+  position: fixed;
+  top: 14%; left: 22%;
+  width: 26vw; height: 26vw;
+  pointer-events: none;
+  z-index: 9991;
+  background: radial-gradient(closest-side, var(--film-flare) 0%, transparent 70%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: 0.12;
+  animation: flareShimmer 9s ease-in-out infinite alternate;
+}
+
+@keyframes flareShimmer {
+  0%   { opacity: 0.07; transform: scale(0.95) translate(0, 0); }
+  100% { opacity: 0.18; transform: scale(1.08) translate(1.5vw, -1vh); }
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL HAZE — soft focus pull across the
+   whole frame, not just headings. sits one
+   z-layer above the content and blurs whatever
+   is behind it (content + leak + flare).
+   grain stays crisp on top.
+   ═══════════════════════════════════════════ */
+.film-haze {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  -webkit-backdrop-filter: blur(0.8px);
+  backdrop-filter: blur(0.8px);
+  background: rgba(255, 240, 210, 0.035);
+}
+[data-theme="dark"] .film-haze {
+  background: rgba(255, 235, 200, 0.025);
+}
+
+/* hover links breathe a little warmth */
+.social-row a:hover,
+.entry-links a:hover,
+.contact-email:hover {
+  text-shadow: 0 0 10px var(--film-glow);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE — keep the look, drop the expensive
+   stuff. less blur, no drift, no flare.
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  body::after { animation: none; }
+  .film-leak  { animation: none; opacity: 0.16; }
+  .film-flare { display: none; }
+  .film-haze  { display: none; }
+  .display-word { filter: none; }
+}
+
+/* ═══════════════════════════════════════════
+   REDUCED MOTION — atmosphere stays, motion
+   does not. the still should be a still.
+   ═══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  body::after,
+  .film-leak,
+  .film-flare {
+    animation: none !important;
+  }
+}
