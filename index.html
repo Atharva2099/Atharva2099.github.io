@@ -41,12 +41,14 @@
 }
 
 [data-theme="dark"] {
-  --bg:        #0d0f13;   /* near-black */
-  --ink:       #ffd54a;   /* yellow — titles */
-  --ink-2:     #f2f0ea;   /* soft white — body */
-  --ink-3:     #6a93c2;   /* muted blue — meta */
-  --accent:    #7fb0e0;   /* bright blue — lines, numerals */
-  --rule:      rgba(127,176,224,0.22); /* blue hairline */
+  --bg:        #000000;   /* pure black — background */
+  --ink:       #ff7a18;   /* vivid orange — headings/titles */
+  --ink-2:     #ffffff;   /* pure white — body text */
+  --ink-3:     rgba(255,255,255,0.65); /* silver-white — meta */
+  --accent:    #ff7a18;   /* orange — numerals, accent rules */
+  --rule:      rgba(192,192,192,0.40); /* silver — hairlines */
+  --silver:    #c0c0c0;   /* silver — outlines */
+  --glare:     rgba(255,122,24,0.55);  /* orange — backlight glare */
 
   --grain-op: 0.05;
 }
@@ -170,17 +172,49 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: 0.02em;
 }
 
-/* dark mode — yellow fill, blue 3D shadow, white haze */
+/* dark mode — orange fill, white 3D shadow (dual tone) */
 [data-theme="dark"] .display-word {
-  color: #ffd54a;
+  color: var(--ink);
   text-shadow:
-    1px 1px 0 #7fb0e0,
-    2px 2px 0 #7fb0e0,
-    3px 3px 0 #7fb0e0,
-    4px 4px 0 #7fb0e0,
-    5px 5px 3px rgba(255,255,255,0.40),
-    6px 6px 6px rgba(255,255,255,0.25);
+    1px 1px 0 #ffffff,
+    2px 2px 0 #ffffff,
+    3px 3px 0 #ffffff,
+    4px 4px 0 #ffffff,
+    5px 5px 3px rgba(255,122,24,0.25),
+    6px 6px 6px rgba(255,122,24,0.12);
   letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   DARK GLARE BACKLIGHT — orange screen-bleed
+   behind content; dark mode only.
+   ═══════════════════════════════════════════ */
+.backlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  display: none;
+}
+[data-theme="dark"] .backlight {
+  display: block;
+  background:
+    radial-gradient(55% 45% at 50% 6%,  rgba(220, 230, 245, 0.28) 0%, transparent 62%),
+    radial-gradient(75% 60% at 50% 55%, rgba(200, 215, 235, 0.10) 0%, transparent 72%);
+  mix-blend-mode: screen;
+  animation: glarePulse 9s ease-in-out infinite alternate;
+}
+@keyframes glarePulse {
+  0%   { opacity: 0.65; }
+  100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backlight { animation: none; }
+}
+
+/* silver section rules in dark mode */
+[data-theme="dark"] .section-head {
+  border-color: var(--silver);
 }
 
 .hero-lead {
@@ -477,6 +511,7 @@ footer {
 <div class="film-leak"  aria-hidden="true"></div>
 <div class="film-flare" aria-hidden="true"></div>
 <div class="film-haze"  aria-hidden="true"></div>
+<div class="backlight" aria-hidden="true"></div>
 
 <div class="container">
 
@@ -492,7 +527,7 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <h1 class="display-word">About Me</h1>
-  <p class="hero-bio">i like making models do stuff they shouldn't. currently building rl agents for Pokémon TCG and VGC. in my free time i take abstract photos and read fiction — currently catching up on One Piece.</p>
+  <p class="hero-bio">i like making models do stuff they shouldn't. currently building rl agents for Pokémon TCG and VGC. in my free time i take abstract photos and read fiction.</p>
   <nav class="social-row" aria-label="links">
     <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
   </nav>
@@ -506,7 +541,7 @@ footer {
     <h3 class="entry-title">applied ai intern, chewy</h3>
     <div class="entry-meta">internship &middot; summer 2025</div>
     <ul class="entry-body">
-      <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 100ms instead of re-deriving it from raw logs every time.</li>
+      <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 50ms instead of re-deriving it from raw logs every time.</li>
       <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</li>
       <li>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</li>
     </ul>
@@ -544,7 +579,7 @@ footer {
     <div class="entry-meta">hackathon &middot; google gemini &middot; dec 2025</div>
     <ul class="entry-body">
       <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
-      <li>built an event detector that only fires when something meaningful changes, cutting redundant output by 60%.</li>
+      <li>built an event detector that only fires when something meaningful changes, reduced latency from 15s to 7s.</li>
       <li>concept to working demo in 12 hours.</li>
     </ul>
   </div>
@@ -620,7 +655,7 @@ footer {
   <div class="section-head"><h2 class="section-title">CONTACT</h2></div>
   <div class="contact-card">
     <div class="contact-h">let's talk.</div>
-    <p class="contact-sub">looking for AI research, applied AI, and MLE roles starting May 2026. also applying to AI safety research fellowships.<br><br>if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.</p>
+    <p class="contact-sub">looking for ai research, applied ai, and mle roles starting May 2026. also applying to AI safety research fellowships.<br><br>if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.</p>
     <a class="contact-email" href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
   </div>
 </section>

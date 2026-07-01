@@ -20,11 +20,11 @@
 }
 
 [data-theme="dark"] {
-  --film-wash:   rgba(8, 16, 40, 0.34);
-  --film-leak:   rgba(255, 210, 90, 0.40);
-  --film-flare:  rgba(255, 245, 200, 0.30);
-  --film-vign:   rgba(0, 0, 0, 0.62);
-  --film-glow:   rgba(255, 220, 120, 0.55);
+  --film-wash:   rgba(0, 0, 0, 0);          /* keep black pure */
+  --film-leak:   rgba(210, 222, 240, 0.22); /* silver moonlight leak */
+  --film-flare:  rgba(225, 235, 250, 0.20); /* cool moonlight haze */
+  --film-vign:   rgba(0, 0, 0, 0.70);       /* edge falloff */
+  --film-glow:   rgba(255, 122, 24, 0.55);  /* orange link glow */
 }
 
 /* lift content above the wash so text stays
