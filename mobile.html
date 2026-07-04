@@ -41,14 +41,14 @@
 }
 
 [data-theme="dark"] {
-  --bg:        #000000;   /* pure black — background */
-  --ink:       #ff7a18;   /* vivid orange — headings/titles */
+  --bg:        #141414;   /* lighter black — background */
+  --ink:       #d8b45f;   /* antique gold — headings/titles */
   --ink-2:     #ffffff;   /* pure white — body text */
   --ink-3:     rgba(255,255,255,0.65); /* silver-white — meta */
-  --accent:    #ff7a18;   /* orange — numerals, accent rules */
+  --accent:    #d8b45f;   /* antique gold — numerals, accent rules */
   --rule:      rgba(192,192,192,0.40); /* silver — hairlines */
   --silver:    #c0c0c0;   /* silver — outlines */
-  --glare:     rgba(255,122,24,0.55);  /* orange — backlight glare */
+  --glare:     rgba(216,180,95,0.34); /* antique gold — backlight glare */
 
   --grain-op: 0.05;
 }
@@ -172,7 +172,7 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: 0.02em;
 }
 
-/* dark mode — orange fill, white 3D shadow (dual tone) */
+/* dark mode — gold fill, white 3D shadow (dual tone) */
 [data-theme="dark"] .display-word {
   color: var(--ink);
   text-shadow:
@@ -180,13 +180,13 @@ a { text-decoration: none; color: inherit; }
     2px 2px 0 #ffffff,
     3px 3px 0 #ffffff,
     4px 4px 0 #ffffff,
-    5px 5px 3px rgba(255,122,24,0.25),
-    6px 6px 6px rgba(255,122,24,0.12);
+    5px 5px 3px rgba(216,180,95,0.22),
+    6px 6px 6px rgba(216,180,95,0.11);
   letter-spacing: 0.02em;
 }
 
 /* ═══════════════════════════════════════════
-   DARK GLARE BACKLIGHT — orange screen-bleed
+   DARK GLARE BACKLIGHT — lamplight screen-bleed
    behind content; dark mode only.
    ═══════════════════════════════════════════ */
 .backlight {
@@ -460,7 +460,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 24px 0;
-  margin-top: 72px;
+  margin-top: 40px;
   border-top: 0.5px solid var(--rule);
   font-family: 'IBM Plex Mono', monospace;
   font-size: var(--fs-fine);
@@ -655,9 +655,6 @@ footer {
 </footer>
 
 </div>
-
-<!-- bottom-right page registration mark -->
-<span class="reg-mark reg-page">&times;</span>
 
 <script>
 // First visit follows the OS preference; an explicit toggle is remembered.
