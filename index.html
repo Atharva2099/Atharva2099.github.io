@@ -572,6 +572,7 @@ body::after,
   letter-spacing: 0;
   color: var(--ink);
   display: inline-block;
+  min-width: 11.5rem;
 }
 
 .brand .caret {
@@ -1008,10 +1009,6 @@ function toggleMode() {
     }
   }
 
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.textContent = words[0];
-    return;
-  }
   loop();
 })();
 </script>
