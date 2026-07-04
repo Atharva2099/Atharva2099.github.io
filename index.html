@@ -59,6 +59,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
+html { min-height: 100%; }
 
 body {
   font-family: 'Fredoka', sans-serif;
@@ -530,9 +531,13 @@ footer {
 body {
   font-family: 'Lora', serif;
   color: var(--ink-2);
-  background:
-    radial-gradient(70% 42% at 50% -12%, rgba(36, 75, 53, 0.08), transparent 62%),
-    linear-gradient(180deg, #f8f4ec 0%, var(--bg) 38%, #eee6da 100%);
+  background: var(--bg);
+}
+
+html,
+body {
+  min-height: 100%;
+  background-color: var(--bg);
 }
 
 body::before,
@@ -787,8 +792,10 @@ footer {
 }
 
 [data-theme="dark"] body {
-  background: var(--bg);
+  background-color: var(--bg);
 }
+
+[data-theme="dark"] { background: var(--bg); }
 </style>
 </head>
 <body>
