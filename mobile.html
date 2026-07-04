@@ -12,7 +12,7 @@
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 
 /* ═══════════════════════════════════════════
@@ -490,8 +490,282 @@ footer {
     transition: none !important;
   }
 }
+
+/* quiet favicon-aligned redesign */
+:root,
+[data-theme="light"],
+[data-theme="dark"] {
+  --bg:        #f4efe6;
+  --ink:       #244b35;
+  --ink-2:     #1c211b;
+  --ink-3:     #746f63;
+  --accent:    #244b35;
+  --rule:      #d8d0c2;
+  --silver:    #d8d0c2;
+  --glare:     transparent;
+
+  --fs-fine:     12px;
+  --fs-meta:     13px;
+  --fs-body:     16px;
+  --fs-entry:    20px;
+  --fs-section:  13px;
+  --fs-display:  clamp(42px, 13vw, 72px);
+
+  --grain-op: 0;
+}
+
+body {
+  font-family: 'Lora', serif;
+  color: var(--ink-2);
+  background:
+    radial-gradient(80% 36% at 50% -10%, rgba(36, 75, 53, 0.08), transparent 62%),
+    linear-gradient(180deg, #f8f4ec 0%, var(--bg) 38%, #eee6da 100%);
+}
+
+body::before,
+body::after,
+.film-leak,
+.film-flare,
+.film-haze,
+.backlight,
+.reg-mark {
+  display: none !important;
+}
+
+.container {
+  max-width: 680px;
+  padding: 0 24px 56px;
+}
+
+.top-bar {
+  padding: 28px 0 16px;
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-fine);
+  font-weight: 400;
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+}
+
+.brand {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--ink);
+  display: inline-block;
+}
+
+.brand .caret {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  background: var(--ink);
+  margin-left: 2px;
+  vertical-align: -2px;
+  opacity: 0.7;
+}
+
+.brand .caret.blink { animation: caretBlink 1s steps(1) infinite; }
+
+@keyframes caretBlink {
+  0%, 50%   { opacity: 0.7; }
+  51%, 100% { opacity: 0; }
+}
+
+.toggle { display: none; }
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink-3);
+  background: transparent;
+  font-family: 'DM Mono', monospace;
+  font-size: 0;
+  cursor: pointer;
+}
+
+.toggle::before {
+  content: '☾';
+  font-size: 14px;
+  line-height: 1;
+}
+
+[data-theme="dark"] .toggle::before { content: '☀'; }
+
+.toggle:hover {
+  color: var(--ink);
+}
+
+.hero {
+  margin-top: 42px;
+}
+
+[data-theme="dark"] {
+  --bg:        #14281d;
+  --ink:       #e4dccf;
+  --ink-2:     #e4dccf;
+  --ink-3:     rgba(228,220,207,0.62);
+  --accent:    #e4dccf;
+  --rule:      rgba(228,220,207,0.18);
+  --silver:    rgba(228,220,207,0.18);
+}
+
+[data-theme="dark"] body {
+  background: var(--bg);
+}
+
+.display-word,
+[data-theme="light"] .display-word,
+[data-theme="dark"] .display-word {
+  font-family: 'Fraunces', serif;
+  font-size: var(--fs-display);
+  font-weight: 300;
+  line-height: 0.98;
+  color: var(--ink);
+  letter-spacing: -0.045em;
+  text-shadow: none;
+  margin-bottom: 26px;
+}
+
+.hero-bio,
+.entry-body li,
+.edu-school,
+.contact-sub {
+  font-family: 'Lora', serif;
+  color: var(--ink-2);
+  line-height: 1.82;
+}
+
+.hero-bio {
+  font-size: 17px;
+  max-width: 39rem;
+}
+
+.social-row,
+.entry-links,
+.entry-meta,
+.edu-detail,
+.cred,
+footer {
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.social-row {
+  margin-top: 28px;
+}
+
+.social-row a,
+.entry-links a {
+  color: var(--ink-3);
+  text-decoration: underline;
+  text-decoration-color: rgba(36, 75, 53, 0.22);
+  text-underline-offset: 3px;
+}
+
+.social-row a:hover,
+.entry-links a:hover,
+.contact-email:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+  text-shadow: none;
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section-head {
+  border-top: 1px solid var(--rule);
+  border-bottom: 0;
+  padding: 14px 0 0;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-section);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--ink-3);
+}
+
+.entry { margin-bottom: 32px; }
+
+.entry-title,
+.edu-degree,
+.contact-h {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.26;
+}
+
+.entry-title,
+.edu-degree {
+  font-size: var(--fs-entry);
+}
+
+.contact-h {
+  font-size: 28px;
+  color: var(--ink-2);
+}
+
+.num {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-right: 12px;
+}
+
+.entry-meta,
+.edu-detail {
+  font-size: var(--fs-meta);
+  margin-top: 8px;
+}
+
+.entry-body {
+  margin-top: 14px;
+}
+
+.entry-body li {
+  padding-left: 17px;
+  margin-top: 7px;
+}
+
+.entry-body li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  top: 13px;
+  left: 1px;
+  opacity: 0.55;
+}
+
+.contact-email {
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-meta);
+  color: var(--ink);
+  text-decoration-color: rgba(36, 75, 53, 0.35);
+}
+
+footer {
+  margin-top: 34px;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-fine);
+}
 </style>
-<link rel="stylesheet" href="assets/film.css">
 </head>
 <body>
 
@@ -504,7 +778,7 @@ footer {
 
 <!-- TOP BAR -->
 <header class="top-bar">
-  <span class="brand">atharva walawalkar</span>
+  <span class="brand" id="brandName" data-alt="अथर्व वालावलकर">atharva walawalkar</span>
   <span class="top-right">
     <span class="meta">ms ai &middot; sf state &middot; may 2026</span>
     <button class="toggle" id="modeBtn" onclick="toggleMode()">dark</button>
@@ -673,6 +947,43 @@ function toggleMode() {
   applyTheme(next);
   localStorage.setItem('theme-v2', next);
 }
+
+(function brandType() {
+  const el = document.getElementById('brandName');
+  if (!el) return;
+  const words = ['atharva walawalkar', el.dataset.alt || 'अथर्व वालावलकर'];
+  const speed = 58;
+  let wi = 0;
+
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function render(text, blink) {
+    el.innerHTML = `<span class="brand-text"></span><span class="caret${blink ? ' blink' : ''}"></span>`;
+    el.querySelector('.brand-text').textContent = text;
+  }
+
+  async function loop() {
+    while (true) {
+      const w = words[wi];
+      for (let i = 1; i <= w.length; i++) {
+        render(w.slice(0, i), false);
+        await sleep(speed);
+      }
+      render(w, true);
+      await sleep(2000);
+      for (let i = w.length; i >= 0; i--) {
+        render(w.slice(0, i), false);
+        await sleep(speed / 2);
+      }
+      wi = (wi + 1) % words.length;
+    }
+  }
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = words[0];
+    return;
+  }
+  loop();
+})();
 </script>
 </body>
 </html>
