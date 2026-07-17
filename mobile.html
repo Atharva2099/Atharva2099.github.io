@@ -120,6 +120,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
+  transform: translateX(-8px);
 }
 
 .toggle {
@@ -585,10 +586,10 @@ body::after,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: auto;
-  height: auto;
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: 0;
-  border-radius: 0;
   color: var(--ink-3);
   background: transparent;
   font-family: 'DM Mono', monospace;
@@ -598,7 +599,7 @@ body::after,
 
 .toggle::before {
   content: '☾';
-  font-size: 14px;
+  font-size: 21px;
   line-height: 1;
 }
 
@@ -788,7 +789,7 @@ footer {
 <header class="top-bar">
   <span class="brand" id="brandName" data-alt="अथर्व वालावलकर">atharva walawalkar</span>
   <span class="top-right">
-    <span class="meta">ms ai &middot; sf state &middot; may 2026</span>
+    <span class="meta">ai research &middot; post-training &middot; alignment</span>
     <button class="toggle" id="modeBtn" onclick="toggleMode()">dark</button>
     <a class="toggle" href="index.html?force=desktop">desktop &#8599;</a>
   </span>
@@ -797,7 +798,8 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <h1 class="display-word">About Me</h1>
-  <p class="hero-bio">i like making models do stuff they shouldn't. currently building rl agents for Pokémon TCG and VGC. in my free time i take abstract photos and read fiction.</p>
+  <p class="hero-bio">i'm interested in what training objectives teach models to want, and what happens when that differs from what we intended. my work explores this through reinforcement learning, post-training, and interpretability.</p>
+  <p class="hero-bio">outside research, i take abstract photographs, read fiction, and will argue that One Piece is a masterpiece.</p>
   <nav class="social-row" aria-label="links">
     <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
   </nav>
@@ -925,7 +927,7 @@ footer {
   <div class="section-head"><h2 class="section-title">CONTACT</h2></div>
   <div class="contact-card">
     <div class="contact-h">let's talk.</div>
-    <p class="contact-sub">looking for ai research, applied ai, and mle roles starting May 2026. also applying to AI safety research fellowships.<br><br>if you want to talk about RL, why sparse rewards beat dense ones, or why One Piece is actually a masterpiece, i'm up for it.</p>
+    <p class="contact-sub">i'm looking for research roles in post-training, alignment, interpretability, and reinforcement learning. i'm especially interested in work that makes model behavior more legible, more steerable, and more robust to imperfect objectives.<br><br>if you're working on these questions, i'd be glad to talk.</p>
     <a class="contact-email" href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
   </div>
 </section>
