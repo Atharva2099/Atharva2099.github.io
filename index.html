@@ -4,10 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>atharva walawalkar</title>
+<meta name="description" content="ai research · post-training · alignment — rl, interpretability, and making model behavior more legible and more steerable.">
+<link rel="canonical" href="https://atharva2099.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="atharva walawalkar">
+<meta property="og:description" content="ai research · post-training · alignment — rl, interpretability, and making model behavior more legible and more steerable.">
+<meta property="og:url" content="https://atharva2099.github.io/">
+<meta property="og:site_name" content="atharva walawalkar">
+<meta name="twitter:card" content="summary">
+<!-- theme init before first paint — no light flash for dark-mode users -->
 <script>
-  if (window.innerWidth <= 768 && !location.search.includes('force=desktop')) {
-    location.replace('mobile.html');
-  }
+(function () {
+  var saved = localStorage.getItem('theme-v2');
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+})();
 </script>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,103 +27,86 @@
 <style>
 
 /* ═══════════════════════════════════════════
-   TOKENS — kraft paper meets devotional poster
-   accent: single risograph forest ink.
-   used ONLY on hero display word, section break
-   rules, and project/research numerals.
-═══════════════════════════════════════════ */
-:root, [data-theme="light"] {
-  --bg:        #2f6fb0;   /* friendly blue */
-  --ink:       #ff8c42;   /* red — headings/titles */
-  --ink-2:     #ffe08a;   /* warm yellow — body text */
-  --ink-3:     #f0c45a;   /* soft gold — metadata, fine print */
-  --accent:    #ffffff;   /* white — section rules, numerals */
-  --rule:      rgba(255,255,255,0.55); /* soft white — hairlines */
-  --navy:      #163a5f;
+   TOKENS — quiet green editorial
+   ═══════════════════════════════════════════ */
+:root {
+  --bg:          #f4efe6;
+  --ink:         #244b35;
+  --ink-2:       #1c211b;
+  --ink-3:       #746f63;
+  --accent:      #244b35;
+  --rule:        #d8d0c2;
 
   --fs-fine:     12px;
   --fs-meta:     13px;
   --fs-body:     16px;
-  --fs-entry:    22px;
-  --fs-section:  36px;
-  --fs-display:  72px;
-
-  --grain-op: 0.08;
+  --fs-entry:    20px;
+  --fs-section:  13px;
 }
 
 [data-theme="dark"] {
-  --bg:        #141414;   /* lighter black — background */
-  --ink:       #d8b45f;   /* antique gold — headings/titles */
-  --ink-2:     #ffffff;   /* pure white — body text */
-  --ink-3:     rgba(255,255,255,0.65); /* silver-white — meta */
-  --accent:    #d8b45f;   /* antique gold — numerals, accent rules */
-  --rule:      rgba(192,192,192,0.40); /* silver — hairlines */
-  --silver:    #c0c0c0;   /* silver — outlines */
-  --glare:     rgba(216,180,95,0.34); /* antique gold — backlight glare */
-
-  --grain-op: 0.05;
+  --bg:          #14281d;
+  --ink:         #e4dccf;
+  --ink-2:       #e4dccf;
+  --ink-3:       rgba(228,220,207,0.62);
+  --accent:      #e4dccf;
+  --rule:        rgba(228,220,207,0.18);
 }
 
 /* ═══════════════════════════════════════════
    BASE
-═══════════════════════════════════════════ */
+   ═══════════════════════════════════════════ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
-html { min-height: 100%; }
+html { scroll-behavior: smooth; min-height: 100%; }
 
 body {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Lora', serif;
   font-size: var(--fs-body);
   line-height: 1.7;
   color: var(--ink-2);
-  background: var(--bg);
-  position: relative;
-  z-index: 0;
+  background-color: var(--bg);
   min-height: 100vh;
-  transition: background 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* grain overlay — the soul */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: var(--grain-op);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-}
-
-[data-theme="dark"] body::after { mix-blend-mode: screen; }
-
-.container {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 0 40px 80px;
-}
-
 a { text-decoration: none; color: inherit; }
 
+/* screen-reader-only label behind animated text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 36px 72px;
+}
+
 /* ═══════════════════════════════════════════
-   TOP BAR — fine print top-left + right toggle
-═══════════════════════════════════════════ */
+   TOP BAR
+   ═══════════════════════════════════════════ */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 28px 0 14px;
-  border-bottom: 0.5px solid var(--rule);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-fine);
-  color: var(--ink-3);
-  letter-spacing: 0.04em;
   flex-wrap: wrap;
   gap: 10px;
-  transition: border-color 0.3s ease;
+  padding: 34px 0 18px;
+  border-bottom: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
 }
 
 .top-right {
@@ -121,449 +115,6 @@ a { text-decoration: none; color: inherit; }
   gap: 18px;
   flex-wrap: wrap;
   transform: translateX(-12px);
-}
-
-.toggle {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-fine);
-  letter-spacing: 0.04em;
-  color: var(--ink-3);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: none;
-  transition: color 0.15s ease;
-  white-space: nowrap;
-}
-
-.toggle:hover { color: var(--ink); }
-
-/* fatten the small mono labels so the fine print reads chunky */
-.top-bar, .toggle, .social-row, .entry-links,
-.entry-meta, .edu-detail, .cred, footer { font-weight: 600; }
-
-/* ═══════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════ */
-.hero {
-  position: relative;
-  margin-top: 56px;
-  animation: fadeIn 0.5s ease both;
-}
-
-.display-word {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
-  font-size: var(--fs-display);
-  line-height: 1;
-  color: var(--accent);
-  letter-spacing: -0.01em;
-  margin-bottom: 10px;
-}
-
-/* bubbly poster treatment — light mode only */
-[data-theme="light"] .display-word {
-  color: #ffe08a;
-  text-shadow:
-    1px 1px 0 #ff8c42,
-    2px 2px 0 #ff8c42,
-    3px 3px 0 #ff8c42,
-    4px 4px 0 #ff8c42,
-    5px 5px 3px rgba(255,255,255,0.45),
-    6px 6px 6px rgba(255,255,255,0.30);
-  letter-spacing: 0.02em;
-}
-
-/* dark mode — gold fill, white 3D shadow (dual tone) */
-[data-theme="dark"] .display-word {
-  color: var(--ink);
-  text-shadow:
-    1px 1px 0 #ffffff,
-    2px 2px 0 #ffffff,
-    3px 3px 0 #ffffff,
-    4px 4px 0 #ffffff,
-    5px 5px 3px rgba(216,180,95,0.22),
-    6px 6px 6px rgba(216,180,95,0.11);
-  letter-spacing: 0.02em;
-}
-
-/* ═══════════════════════════════════════════
-   DARK GLARE BACKLIGHT — lamplight screen-bleed
-   behind content; dark mode only.
-   ═══════════════════════════════════════════ */
-.backlight {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  display: none;
-}
-[data-theme="dark"] .backlight {
-  display: block;
-  background:
-    radial-gradient(55% 45% at 50% 6%,  rgba(220, 230, 245, 0.28) 0%, transparent 62%),
-    radial-gradient(75% 60% at 50% 55%, rgba(200, 215, 235, 0.10) 0%, transparent 72%);
-  mix-blend-mode: screen;
-  animation: glarePulse 9s ease-in-out infinite alternate;
-}
-@keyframes glarePulse {
-  0%   { opacity: 0.65; }
-  100% { opacity: 1; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .backlight { animation: none; }
-}
-
-/* silver section rules in dark mode */
-[data-theme="dark"] .section-head {
-  border-color: var(--silver);
-}
-
-.hero-lead {
-  font-family: 'Fredoka', sans-serif;
-  font-size: var(--fs-entry);
-  color: var(--ink-2);
-  line-height: 1.4;
-  margin-bottom: 22px;
-}
-
-[data-theme="light"] .hero-lead { color: var(--ink); }
-
-.hero-bio {
-  font-family: 'Fredoka', sans-serif;
-  font-size: var(--fs-body);
-  color: var(--ink-2);
-  line-height: 1.75;
-  max-width: 42rem;
-}
-
-.hero-bio + .hero-bio { margin-top: 6px; }
-
-.social-row {
-  margin-top: 28px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-fine);
-  color: var(--ink-3);
-  letter-spacing: 0.06em;
-  line-height: 1.9;
-  animation: fadeIn 0.5s ease both;
-  animation-delay: 0.1s;
-}
-
-.social-row a {
-  color: var(--ink-3);
-  transition: color 0.15s ease;
-}
-
-.social-row a:hover { color: var(--ink); }
-
-.social-row .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
-
-/* registration marks */
-.reg-mark {
-  position: absolute;
-  font-family: 'IBM Plex Mono', monospace;
-  color: var(--ink-3);
-  opacity: 0.4;
-  pointer-events: none;
-  user-select: none;
-  font-size: 20px;
-  line-height: 1;
-}
-
-.reg-hero { top: 6px; right: 0; }
-.reg-page { bottom: 22px; right: 22px; }
-
-/* ═══════════════════════════════════════════
-   SECTIONS — printed artifact headers
-═══════════════════════════════════════════ */
-.section {
-  margin-top: 56px;
-  animation: sectionIn 0.5s ease both;
-}
-
-.section:nth-of-type(2) { animation-delay: 0.15s; }
-.section:nth-of-type(3) { animation-delay: 0.22s; }
-.section:nth-of-type(4) { animation-delay: 0.29s; }
-.section:nth-of-type(5) { animation-delay: 0.36s; }
-.section:nth-of-type(6) { animation-delay: 0.43s; }
-
-.section-head {
-  border-top: 2.5px solid var(--accent);
-  border-bottom: 2.5px solid var(--accent);
-  padding: 14px 0;
-  margin-bottom: 40px;
-}
-
-.section-title {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
-  font-size: var(--fs-section);
-  line-height: 1;
-  color: var(--ink);
-  letter-spacing: 0.01em;
-}
-
-/* ═══════════════════════════════════════════
-   ENTRIES
-═══════════════════════════════════════════ */
-.entry { margin-bottom: 48px; }
-.entry:last-child { margin-bottom: 0; }
-
-.entry-title {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 400;
-  font-size: var(--fs-entry);
-  color: var(--ink);
-  line-height: 1.3;
-}
-
-.num {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 500;
-  font-size: var(--fs-entry);
-  color: var(--accent);
-  margin-right: 14px;
-  letter-spacing: 0.02em;
-}
-
-/* inline credibility metadata — plain mono, no pill */
-.cred {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-meta);
-  font-weight: 400;
-  color: var(--ink-3);
-  letter-spacing: 0.02em;
-  margin-left: 8px;
-  white-space: nowrap;
-}
-
-.entry-meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-meta);
-  color: var(--ink-3);
-  margin-top: 6px;
-  letter-spacing: 0.02em;
-}
-
-.entry-body {
-  margin-top: 16px;
-  list-style: none;
-  max-width: 42rem;
-}
-
-.entry-body li {
-  position: relative;
-  padding-left: 18px;
-  margin-top: 8px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: var(--fs-body);
-  color: var(--ink-2);
-  line-height: 1.75;
-}
-
-.entry-body li::before {
-  content: '·';
-  position: absolute;
-  left: 2px;
-  top: -1px;
-  color: var(--ink-3);
-}
-
-.entry-links {
-  margin-top: 16px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-fine);
-  color: var(--ink-3);
-  letter-spacing: 0.04em;
-  line-height: 1.9;
-}
-
-.entry-links a {
-  color: var(--ink-3);
-  transition: color 0.15s ease;
-}
-
-.entry-links a:hover { color: var(--ink); }
-
-.entry-links .sep { color: var(--ink-3); opacity: 0.6; margin: 0 10px; }
-
-/* ═══════════════════════════════════════════
-   EDUCATION
-═══════════════════════════════════════════ */
-.edu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-}
-
-.edu-degree {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 400;
-  font-size: var(--fs-entry);
-  color: var(--ink);
-  line-height: 1.3;
-}
-
-.edu-school {
-  font-family: 'Fredoka', sans-serif;
-  font-size: var(--fs-body);
-  color: var(--ink-2);
-  margin-top: 6px;
-}
-
-.edu-detail {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-meta);
-  color: var(--ink-3);
-  margin-top: 6px;
-  letter-spacing: 0.02em;
-}
-
-/* ═══════════════════════════════════════════
-   CONTACT
-═══════════════════════════════════════════ */
-.contact-h {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
-  font-size: var(--fs-entry);
-  color: var(--ink);
-  line-height: 1.3;
-}
-
-.contact-sub {
-  font-family: 'Fredoka', sans-serif;
-  font-size: var(--fs-body);
-  color: var(--ink-2);
-  margin-top: 14px;
-  line-height: 1.75;
-  max-width: 42rem;
-}
-
-.contact-email {
-  display: inline-block;
-  margin-top: 22px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-body);
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-color: var(--ink-3);
-  text-underline-offset: 4px;
-  transition: text-decoration-color 0.15s ease;
-}
-
-.contact-email:hover { text-decoration-color: var(--ink); }
-
-/* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 0;
-  margin-top: 48px;
-  border-top: 0.5px solid var(--rule);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: var(--fs-fine);
-  color: var(--ink-3);
-  letter-spacing: 0.04em;
-  flex-wrap: wrap;
-  gap: 8px;
-  transition: border-color 0.3s ease;
-}
-
-/* ═══════════════════════════════════════════
-   ANIMATIONS
-═══════════════════════════════════════════ */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes sectionIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
-@media (max-width: 540px) {
-  .container { padding: 0 24px 60px; }
-  .display-word { font-size: clamp(40px, 13vw, 72px); }
-  .section-title { font-size: clamp(28px, 8vw, 36px); }
-  .edu-grid { grid-template-columns: 1fr; gap: 28px; }
-  .top-bar { padding: 22px 0 12px; }
-  .section { margin-top: 64px; }
-  footer { margin-top: 40px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* quiet favicon-aligned redesign */
-:root,
-[data-theme="light"],
-[data-theme="dark"] {
-  --bg:        #f4efe6;
-  --ink:       #244b35;
-  --ink-2:     #1c211b;
-  --ink-3:     #746f63;
-  --accent:    #244b35;
-  --rule:      #d8d0c2;
-  --silver:    #d8d0c2;
-  --glare:     transparent;
-
-  --fs-fine:     12px;
-  --fs-meta:     13px;
-  --fs-body:     16px;
-  --fs-entry:    20px;
-  --fs-section:  13px;
-  --fs-display:  clamp(42px, 7vw, 82px);
-
-  --grain-op: 0;
-}
-
-body {
-  font-family: 'Lora', serif;
-  color: var(--ink-2);
-  background: var(--bg);
-}
-
-html,
-body {
-  min-height: 100%;
-  background-color: var(--bg);
-}
-
-body::before,
-body::after,
-.film-leak,
-.film-flare,
-.film-haze,
-.backlight,
-.reg-mark {
-  display: none !important;
-}
-
-.container {
-  max-width: 760px;
-  padding: 0 36px 72px;
-}
-
-.top-bar {
-  padding: 34px 0 18px;
-  border-bottom: 1px solid var(--rule);
-  font-family: 'DM Mono', monospace;
-  font-size: var(--fs-fine);
-  font-weight: 400;
-  color: var(--ink-3);
-  letter-spacing: 0.06em;
 }
 
 .brand {
@@ -593,8 +144,6 @@ body::after,
   51%, 100% { opacity: 0; }
 }
 
-.toggle { display: none; }
-
 .toggle {
   display: inline-flex;
   align-items: center;
@@ -608,6 +157,7 @@ body::after,
   font-family: 'DM Mono', monospace;
   font-size: 0;
   cursor: pointer;
+  transition: color 0.15s ease;
 }
 
 .toggle::before {
@@ -618,54 +168,35 @@ body::after,
 
 [data-theme="dark"] .toggle::before { content: '☀'; }
 
-.toggle:hover {
-  color: var(--ink);
-}
+.toggle:hover { color: var(--ink); }
 
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
 .hero {
   margin-top: 48px;
-}
-
-.display-word,
-[data-theme="light"] .display-word,
-[data-theme="dark"] .display-word {
-  font-family: 'Fraunces', serif;
-  font-size: var(--fs-display);
-  font-weight: 300;
-  line-height: 0.98;
-  color: var(--ink);
-  letter-spacing: -0.045em;
-  text-shadow: none;
-  margin-bottom: 28px;
-}
-
-.hero-bio,
-.entry-body li,
-.edu-school,
-.contact-sub {
-  font-family: 'Lora', serif;
-  color: var(--ink-2);
-  line-height: 1.82;
+  animation: fadeIn 0.5s ease both;
 }
 
 .hero-bio {
+  font-family: 'Lora', serif;
   font-size: 19px;
+  color: var(--ink-2);
+  line-height: 1.82;
   max-width: 39rem;
 }
 
-.social-row,
-.entry-links,
-.entry-meta,
-.edu-detail,
-.cred,
-footer {
-  font-family: 'DM Mono', monospace;
-  font-weight: 400;
-  color: var(--ink-3);
-}
+.hero-bio + .hero-bio { margin-top: 6px; }
 
 .social-row {
   margin-top: 28px;
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+  animation: fadeIn 0.5s ease both;
+  animation-delay: 0.1s;
 }
 
 .social-row a,
@@ -681,16 +212,27 @@ footer {
 .contact-email:hover {
   color: var(--ink);
   text-decoration-color: var(--ink);
-  text-shadow: none;
 }
 
+.social-row .sep,
+.entry-links .sep { opacity: 0.6; margin: 0 10px; }
+
+/* ═══════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════ */
 .section {
   margin-top: 28px;
+  animation: sectionIn 0.5s ease both;
 }
+
+.section:nth-of-type(2) { animation-delay: 0.15s; }
+.section:nth-of-type(3) { animation-delay: 0.22s; }
+.section:nth-of-type(4) { animation-delay: 0.29s; }
+.section:nth-of-type(5) { animation-delay: 0.36s; }
+.section:nth-of-type(6) { animation-delay: 0.43s; }
 
 .section-head {
   border-top: 1px solid var(--rule);
-  border-bottom: 0;
   padding: 14px 0 0;
   margin-bottom: 26px;
 }
@@ -703,25 +245,19 @@ footer {
   color: var(--ink-3);
 }
 
+/* ═══════════════════════════════════════════
+   ENTRIES
+   ═══════════════════════════════════════════ */
 .entry { margin-bottom: 34px; }
-
-.entry-title,
-.edu-degree,
-.contact-h {
-  font-family: 'Fraunces', serif;
-  font-weight: 400;
-  color: var(--ink);
-  line-height: 1.26;
-}
+.entry:last-child { margin-bottom: 0; }
 
 .entry-title,
 .edu-degree {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
   font-size: var(--fs-entry);
-}
-
-.contact-h {
-  font-size: 30px;
-  color: var(--ink-2);
+  color: var(--ink);
+  line-height: 1.26;
 }
 
 .num {
@@ -732,23 +268,43 @@ footer {
   margin-right: 12px;
 }
 
+.cred {
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
 .entry-meta,
 .edu-detail {
+  font-family: 'DM Mono', monospace;
   font-size: var(--fs-meta);
+  color: var(--ink-3);
   margin-top: 8px;
+  letter-spacing: 0.02em;
 }
 
 .entry-body {
   margin-top: 14px;
+  list-style: none;
+  max-width: 42rem;
 }
 
 .entry-body li {
+  position: relative;
   padding-left: 17px;
   margin-top: 7px;
+  font-family: 'Lora', serif;
+  color: var(--ink-2);
+  line-height: 1.82;
 }
 
 .entry-body li::before {
   content: '';
+  position: absolute;
   width: 4px;
   height: 4px;
   border-radius: 50%;
@@ -758,71 +314,138 @@ footer {
   opacity: 0.55;
 }
 
+.entry-links {
+  margin-top: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+}
+
+/* ═══════════════════════════════════════════
+   EDUCATION
+   ═══════════════════════════════════════════ */
 .edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 52px;
 }
 
+.edu-school {
+  font-family: 'Lora', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
+.contact-h {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 30px;
+  color: var(--ink-2);
+  line-height: 1.3;
+}
+
+.contact-sub {
+  font-family: 'Lora', serif;
+  font-size: var(--fs-body);
+  color: var(--ink-2);
+  margin-top: 14px;
+  line-height: 1.75;
+  max-width: 42rem;
+}
+
 .contact-email {
+  display: inline-block;
+  margin-top: 22px;
   font-family: 'DM Mono', monospace;
   font-size: var(--fs-meta);
   color: var(--ink);
+  text-decoration: underline;
   text-decoration-color: rgba(36, 75, 53, 0.35);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
 }
 
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
 footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 38px;
   padding: 22px 0 0;
   border-top: 1px solid var(--rule);
+  font-family: 'DM Mono', monospace;
   font-size: var(--fs-fine);
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
 }
 
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sectionIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   SMALL SCREENS — merged former mobile page
+   ═══════════════════════════════════════════ */
 @media (max-width: 540px) {
   .container { padding: 0 24px 56px; }
+  .top-bar { padding: 28px 0 16px; }
+  .top-right { transform: none; }
   .hero { margin-top: 42px; }
   .hero-bio { font-size: 17px; }
-  .section { margin-top: 28px; }
+  .section-head { margin-bottom: 24px; }
+  .entry { margin-bottom: 32px; }
+  .contact-h { font-size: 28px; }
+  .edu-grid { grid-template-columns: 1fr; gap: 28px; }
+  footer { margin-top: 34px; }
 }
 
-[data-theme="dark"] {
-  --bg:        #14281d;
-  --ink:       #e4dccf;
-  --ink-2:     #e4dccf;
-  --ink-3:     rgba(228,220,207,0.62);
-  --accent:    #e4dccf;
-  --rule:      rgba(228,220,207,0.18);
-  --silver:    rgba(228,220,207,0.18);
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
-
-[data-theme="dark"] body {
-  background-color: var(--bg);
-}
-
-[data-theme="dark"] { background: var(--bg); }
 </style>
 </head>
 <body>
-
-<div class="film-leak"  aria-hidden="true"></div>
-<div class="film-flare" aria-hidden="true"></div>
-<div class="film-haze"  aria-hidden="true"></div>
-<div class="backlight" aria-hidden="true"></div>
 
 <div class="container">
 
 <!-- TOP BAR -->
 <header class="top-bar">
-  <span class="brand" id="brandName" data-alt="अथर्व वालावलकर">atharva walawalkar</span>
+  <h1 class="brand">
+    <span class="sr-only">atharva walawalkar</span>
+    <span id="brandName" data-alt="अथर्व वालावलकर" aria-hidden="true">atharva walawalkar</span>
+  </h1>
   <span class="top-right">
     <span class="meta">ai research &middot; post-training &middot; alignment</span>
-    <button class="toggle" id="modeBtn" onclick="toggleMode()">dark</button>
+    <button class="toggle" id="modeBtn" type="button" onclick="toggleMode()" aria-label="toggle dark mode">dark</button>
   </span>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <h1 class="display-word">About Me</h1>
   <p class="hero-bio">i'm interested in what training objectives teach models to want, and what happens when that differs from what we intended. my work explores this through reinforcement learning, post-training, and interpretability.</p>
-  <p class="hero-bio">outside research, i take abstract photographs, read fiction, and will argue that One Piece is a masterpiece.</p>
+  <p class="hero-bio">outside research, i take abstract photographs, read manga and light sci-fi novels, and will argue that One Piece is a masterpiece.</p>
   <nav class="social-row" aria-label="links">
     <a href="mailto:atharvawal27@gmail.com">email</a><span class="sep">&middot;</span><a href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a><span class="sep">&middot;</span><a href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a><span class="sep">&middot;</span><a href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a><span class="sep">&middot;</span><a href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a><span class="sep">&middot;</span><a href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a><span class="sep">&middot;</span><a href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
   </nav>
@@ -964,39 +587,36 @@ footer {
 </div>
 
 <script>
-// First visit follows the OS preference; an explicit toggle is remembered.
-const saved = localStorage.getItem('theme-v2');
-const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-applyTheme(saved || (prefersDark ? 'dark' : 'light'));
-
-function applyTheme(mode) {
-  document.documentElement.setAttribute('data-theme', mode);
-  document.getElementById('modeBtn').textContent = mode === 'light' ? 'dark' : 'light';
-}
+// Toggle is remembered; first visit follows OS preference (set in <head>).
+var modeBtn = document.getElementById('modeBtn');
+modeBtn.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
 
 function toggleMode() {
-  const current = document.documentElement.getAttribute('data-theme');
-  const next = current === 'light' ? 'dark' : 'light';
-  applyTheme(next);
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('theme-v2', next);
+  modeBtn.textContent = next === 'light' ? 'dark' : 'light';
 }
 
 (function brandType() {
-  const el = document.getElementById('brandName');
+  var el = document.getElementById('brandName');
   if (!el) return;
-  const words = ['atharva walawalkar', el.dataset.alt || 'अथर्व वालावलकर'];
-  const speed = 58;
-  let wi = 0;
+  // respect prefers-reduced-motion: leave the static name in place
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var words = ['atharva walawalkar', el.dataset.alt || 'अथर्व वालावलकर'];
+  var speed = 58;
+  var wi = 0;
 
   function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   function render(text, blink) {
-    el.innerHTML = `<span class="brand-text"></span><span class="caret${blink ? ' blink' : ''}"></span>`;
+    el.innerHTML = '<span class="brand-text"></span><span class="caret' + (blink ? ' blink' : '') + '"></span>';
     el.querySelector('.brand-text').textContent = text;
   }
 
   async function loop() {
     while (true) {
-      const w = words[wi];
+      var w = words[wi];
       for (let i = 1; i <= w.length; i++) {
         render(w.slice(0, i), false);
         await sleep(speed);
