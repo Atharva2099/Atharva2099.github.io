@@ -478,7 +478,17 @@ footer {
   <div class="section-head"><h2 class="section-title">PROJECTS</h2></div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">01</span>wolfeclick: pok&eacute;mon rl with grpo</h3>
+    <h3 class="entry-title"><span class="num">01</span>cross-lingual representation geometry and layerwise probing</h3>
+    <div class="entry-meta">mechanistic interpretability &middot; multilingual nlp &middot; linear probing &middot; 2026</div>
+    <ul class="entry-body">
+      <li>curated matched declarative policy statements with balanced polarities across seven languages to study where abstract stance representations emerge across transformer depth.</li>
+      <li>extracted final-token residual-stream hidden states across five open-weight architectures and trained linear probes using five-fold grouped cross-validation. stance decodability peaked at 38%&ndash;63% relative depth across architectures, reaching approximately 85%&ndash;86% accuracy.</li>
+      <li>built zero-shot cross-lingual probe-transfer matrices and computed layerwise cosine similarities across learned direction vectors to measure cross-language representational alignment.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">02</span>wolfeclick: pok&eacute;mon rl with grpo</h3>
     <div class="entry-meta">personal project &middot; mar 2026</div>
     <ul class="entry-body">
       <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pok&eacute;mon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
@@ -491,21 +501,21 @@ footer {
   </div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">02</span>wanderlust: ai trip planner</h3>
-    <div class="entry-meta">personal project &middot; 2026</div>
-    <ul class="entry-body">
-      <li>built for people who don't want to land in a new city and see the same ten things every travel blog lists. feed it a destination and budget; it surfaces neighborhood-level spots, clusters them geographically so you aren't commuting across town between stops, and estimates real costs from a live index.</li>
-      <li>LLMs default to the obvious. getting genuinely local recommendations meant building explicit novelty and geographic pressure into the prompt stack, plus hard constraints on real lat/lng coordinates and no duplicate venues. runs serverless on Cloudflare Workers with D1 SQLite at the edge.</li>
-    </ul>
-  </div>
-
-  <div class="entry">
     <h3 class="entry-title"><span class="num">03</span>commentator: real-time ai game caster<span class="cred">3rd &middot; $20k</span></h3>
     <div class="entry-meta">hackathon &middot; google gemini &middot; dec 2025</div>
     <ul class="entry-body">
       <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
       <li>built an event detector that only fires when something meaningful changes, reduced latency from 15s to 7s.</li>
       <li>concept to working demo in 12 hours.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <h3 class="entry-title"><span class="num">04</span>pivotrl: pivot-weighted reasoning distillation</h3>
+    <div class="entry-meta">personal project &middot; ongoing 2026</div>
+    <ul class="entry-body">
+      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
+      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
     </ul>
   </div>
 </section>
@@ -515,8 +525,8 @@ footer {
   <div class="section-head"><h2 class="section-title">RESEARCH</h2></div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">01</span>rppg with adaptive roi selection</h3>
-    <div class="entry-meta">masters thesis &middot; sf state &middot; 2025&ndash;2026</div>
+    <h3 class="entry-title"><span class="num">01</span>adaptive rl for rppg roi selection</h3>
+    <div class="entry-meta">masters thesis &middot; BIDAL lab, sf state &middot; aug 2025&ndash;present</div>
     <ul class="entry-body">
       <li>rPPG reads heart rate from facial video by tracking subtle color changes in skin. most pipelines fix the region to the full face or a static patch, but signal quality shifts across facial regions with motion, lighting, and camera angle.</li>
       <li>built oracle, supervised (DAgger), and PPO pipelines to test whether adaptive ROI selection actually helps. oracle hindsight showed strong headroom: the right region exists. the problem is you can't use it live because it requires knowing the future.</li>
@@ -538,16 +548,7 @@ footer {
   </div>
 
   <div class="entry">
-    <h3 class="entry-title"><span class="num">03</span>pivotrl: pivot-weighted reasoning distillation</h3>
-    <div class="entry-meta">personal research &middot; ongoing 2026</div>
-    <ul class="entry-body">
-      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
-      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
-    </ul>
-  </div>
-
-  <div class="entry">
-    <h3 class="entry-title"><span class="num">04</span>credit card fraud detection on imbalanced data<span class="cred">published</span></h3>
+    <h3 class="entry-title"><span class="num">03</span>credit card fraud detection on imbalanced data<span class="cred">published</span></h3>
     <div class="entry-meta">publication &middot; 2023</div>
     <ul class="entry-body">
       <li>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
