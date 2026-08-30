@@ -479,11 +479,11 @@ footer {
 
   <div class="entry">
     <h3 class="entry-title"><span class="num">01</span>cross-lingual representation geometry and layerwise probing</h3>
-    <div class="entry-meta">mechanistic interpretability &middot; multilingual nlp &middot; linear probing &middot; 2026</div>
+    <div class="entry-meta">mechanistic interpretability &middot; 2026</div>
     <ul class="entry-body">
-      <li>curated matched declarative policy statements with balanced polarities across seven languages to study where abstract stance representations emerge across transformer depth.</li>
-      <li>extracted final-token residual-stream hidden states across five open-weight architectures and trained linear probes using five-fold grouped cross-validation. stance decodability peaked at 38%&ndash;63% relative depth across architectures, reaching approximately 85%&ndash;86% accuracy.</li>
-      <li>built zero-shot cross-lingual probe-transfer matrices and computed layerwise cosine similarities across learned direction vectors to measure cross-language representational alignment.</li>
+      <li>if a model holds a political stance, does that stance live in a shared abstract concept space or does each language build its own silo? to test this, i curated matched policy statements with balanced polarities across seven languages and probed hidden states across transformer depth.</li>
+      <li>trained linear probes on residual streams across five open-weight architectures (5-fold grouped CV). stance decodability is near chance early on, peaks sharply in middle layers (38%&ndash;63% depth) at ~85%&ndash;86% accuracy, and plateaus—the model forms its abstract stance well before generating output tokens.</li>
+      <li>evaluating zero-shot probe transfer across languages showed that learned direction vectors align tightly in those middle layers: a probe trained purely on english hidden states successfully decodes stances in french or hindi without retraining.</li>
     </ul>
   </div>
 
