@@ -314,6 +314,12 @@ a { text-decoration: none; color: inherit; }
   opacity: 0.55;
 }
 
+.entry-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .entry-links {
   margin-top: 16px;
   font-family: 'DM Mono', monospace;
@@ -482,7 +488,7 @@ footer {
     <div class="entry-meta">mechanistic interpretability &middot; 2026</div>
     <ul class="entry-body">
       <li>i wanted to explore whether models have a shared representation for political ideas across different architectures, languages, and layers.</li>
-      <li>curated a multilingual dataset from Anthropic's <a href="https://huggingface.co/datasets/Anthropic/llm_global_opinions" target="_blank" rel="noopener"><code>llm_global_opinions</code></a>, filtered 2,556 questions down to 580 suitable for probing, converted them into labelled statements, and translated them into English, Hindi, Marathi, German, Spanish, and Mandarin using Gemini 3.5 Flash Lite.</li>
+      <li>curated a multilingual dataset from Anthropic's <a href="https://huggingface.co/datasets/Anthropic/llm_global_opinions" target="_blank" rel="noopener">llm_global_opinions</a>, filtered 2,556 questions down to 580 suitable for probing, converted them into labelled statements, and translated them into English, Hindi, Marathi, German, Spanish, and Mandarin using Gemini 3.5 Flash Lite.</li>
       <li>ran five models from different families on these statements, captured residual stream activations across layers, and trained linear probes. best within-language accuracies ranged from 81.03% to 86.55%, usually peaking around the middle layers depending on the model.</li>
       <li>trained probes in one language and tested them on the other five: average cross-language accuracy was 68.89% for OLMo 3, 67.72% for Ministral, 81.45% for Gemma 2, and 78.24% for Qwen 3.5. Gemma and Qwen showed much stronger transfer than OLMo and Ministral—representations appear to be shared across languages, but the alignment varies significantly across architectures.</li>
     </ul>
@@ -490,7 +496,7 @@ footer {
 
   <div class="entry">
     <h3 class="entry-title"><span class="num">02</span>wolfeclick: pok&eacute;mon rl with grpo</h3>
-    <div class="entry-meta">personal project &middot; mar 2026</div>
+    <div class="entry-meta">rl for games &middot; mar 2026</div>
     <ul class="entry-body">
       <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pok&eacute;mon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
       <li>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</li>
@@ -503,7 +509,7 @@ footer {
 
   <div class="entry">
     <h3 class="entry-title"><span class="num">03</span>commentator: real-time ai game caster<span class="cred">3rd &middot; $20k</span></h3>
-    <div class="entry-meta">hackathon &middot; google gemini &middot; dec 2025</div>
+    <div class="entry-meta">multimodal voice agent &middot; google gemini &middot; dec 2025</div>
     <ul class="entry-body">
       <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
       <li>built an event detector that only fires when something meaningful changes, reduced latency from 15s to 7s.</li>
@@ -513,7 +519,7 @@ footer {
 
   <div class="entry">
     <h3 class="entry-title"><span class="num">04</span>pivotrl: pivot-weighted reasoning distillation</h3>
-    <div class="entry-meta">personal project &middot; ongoing 2026</div>
+    <div class="entry-meta">reasoning post-training &middot; ongoing 2026</div>
     <ul class="entry-body">
       <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
       <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
