@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>atharva walawalkar</title>
+<meta name="description" content="ai research · post-training · alignment — rl, interpretability, and making model behavior more legible and more steerable.">
+<link rel="canonical" href="https://atharva2099.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="atharva walawalkar">
+<meta property="og:description" content="ai research · post-training · alignment — rl, interpretability, and making model behavior more legible and more steerable.">
+<meta property="og:url" content="https://atharva2099.github.io/">
+<meta property="og:site_name" content="atharva walawalkar">
+<meta name="twitter:card" content="summary">
+<!-- theme init before first paint — no light flash for dark-mode users -->
+<script>
+(function () {
+  /*SEASON-FN-START*/
+  var SOUTH_ASIA = ['Asia/Kolkata', 'Asia/Calcutta', 'Asia/Colombo', 'Asia/Dhaka', 'Asia/Dacca', 'Asia/Kathmandu', 'Asia/Katmandu', 'Asia/Thimphu', 'Asia/Karachi'];
+  var SOUTHERN = ['Pacific/Auckland', 'Pacific/Chatham', 'Pacific/Fiji', 'Pacific/Noumea', 'America/Buenos_Aires', 'America/Santiago', 'America/Sao_Paulo', 'America/Montevideo', 'America/Asuncion', 'America/Punta_Arenas', 'Africa/Johannesburg', 'Africa/Maputo', 'Africa/Windhoek', 'Africa/Harare', 'Africa/Lusaka', 'Africa/Gaborone', 'Africa/Maseru', 'Africa/Mbabane', 'Indian/Mauritius', 'Indian/Reunion', 'Indian/Antananarivo'];
+  var SOUTH_PREFIX = ['Australia/', 'Antarctica/', 'America/Argentina/'];
+  // pure function of (month 0-11, IANA timezone) -> spring|summer|monsoon|autumn|winter
+  function seasonFor(month, tz) {
+    tz = tz || '';
+    var i;
+    if (SOUTH_ASIA.indexOf(tz) !== -1) {
+      if (month >= 2 && month <= 4) return 'summer';
+      if (month >= 5 && month <= 8) return 'monsoon';
+      if (month >= 9 && month <= 10) return 'autumn';
+      return 'winter';
+    }
+    var south = SOUTHERN.indexOf(tz) !== -1;
+    for (i = 0; !south && i < SOUTH_PREFIX.length; i++) south = tz.indexOf(SOUTH_PREFIX[i]) === 0;
+    if (south) month = (month + 6) % 12;
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+  }
+  /*SEASON-FN-END*/
+
+  var root = document.documentElement, SEASONS = ['spring', 'summer', 'monsoon', 'autumn', 'winter'];
+  var tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  var real = seasonFor(new Date().getMonth(), tz);
+
+  // ?issue=<season>[-day|-night] forces season (+theme) for this load only
+  var issue = null;
+  try {
+    var q = new URLSearchParams(location.search).get('issue');
+    var m = q && /^(spring|summer|monsoon|autumn|fall|winter)(?:-(day|night))?$/i.exec(q.trim());
+    if (m) issue = { season: m[1].toLowerCase() === 'fall' ? 'autumn' : m[1].toLowerCase(), theme: m[2] ? (m[2].toLowerCase() === 'night' ? 'dark' : 'light') : null };
+  } catch (e) {}
+
+  var stored = null;
+  try { stored = sessionStorage.getItem('season-v1'); } catch (e) {}
+  if (SEASONS.indexOf(stored) === -1) stored = null;
+
+  var saved = null;
+  try { saved = localStorage.getItem('theme-v2'); } catch (e) {}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  root.setAttribute('data-theme', (issue && issue.theme) || saved || (prefersDark ? 'dark' : 'light'));
+  root.setAttribute('data-season', (issue && issue.season) || stored || real);
+  root.setAttribute('data-real-season', real);
+})();
+</script>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   TOKENS — showa postage / risograph print
+   ═══════════════════════════════════════════ */
+/* Spot-ink tokens are registered so a season change cross-fades (~300ms).
+   Where @property is unsupported the swap is simply instant. */
+@property --red     { syntax: '<color>'; inherits: true; initial-value: #D9412B; }
+@property --red-ink { syntax: '<color>'; inherits: true; initial-value: #BF3420; }
+@property --ochre   { syntax: '<color>'; inherits: true; initial-value: #E0A93B; }
+@property --on-b    { syntax: '<color>'; inherits: true; initial-value: #1E1B18; }
+html { transition: --red .3s ease, --red-ink .3s ease, --ochre .3s ease, --on-b .3s ease; }
+
+/* Fixed tokens: identical in every printing */
+:root {
+  --sq: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='7'%3E%3Cpath d='M0 3.5 C2.5 0.6 5.5 0.6 8 3.5 S13.5 6.4 16 3.5' fill='none' stroke='%23D9412B' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+  --ink:     #1E1B18;
+  --ink-3:   #6B6255;
+  --indigo:  #23395B;   /* entry stamps + denomination: never season-dependent */
+  --moss:    #7A8B3A;
+  --stamp-red: #D9412B; /* experience badge on mobile: fixed */
+  --on:      var(--paper);  /* text colour on an accent block */
+  --blend:   multiply;      /* ink-on-ink overprint */
+
+  --f-display: 'Dela Gothic One', 'Hiragino Sans', sans-serif;
+  --f-serif:   'Fraunces', Georgia, serif;
+  --f-body:    'Lora', Georgia, serif;
+  --f-mono:    'IBM Plex Mono', ui-monospace, monospace;
+  --f-deva:    'Tiro Devanagari Hindi', serif;
+
+  /* default = summer day (also the no-JS look) */
+  --paper:   #F1E6CF;
+  --paper-2: #E9DCBF;
+  --red:     #D9412B;
+  --red-ink: #BF3420;   /* darker accent for small text (AA on paper) */
+  --ochre:   #E0A93B;
+  --on-b:    #1E1B18;   /* text on a secondary-ink block */
+}
+
+/* night print — fixed tokens */
+[data-theme="dark"] {
+  --ink:     #EDE3CC;
+  --ink-3:   rgba(237,227,204,.6);
+  --indigo:  #7F9BD1;
+  --moss:    #A3B55A;
+  --stamp-red: #E5553F;
+  --blend:   normal;
+}
+
+/* ── the ten printings: per season only paper tint + two spot inks change.
+   (--red = accent / ink-a, --ochre = secondary / ink-b)
+   Selectors are bare attributes so a hidden probe element can read any combination. */
+[data-season="spring"]  { --paper:#F3E5D0; --paper-2:#EBDBC0; --red:#C2566B; --red-ink:#A8405A; --ochre:#6E8B3D; --on-b:#1E1B18; }
+[data-season="summer"]  { --paper:#F1E6CF; --paper-2:#E9DCBF; --red:#D9412B; --red-ink:#BF3420; --ochre:#E0A93B; --on-b:#1E1B18; }
+[data-season="monsoon"] { --paper:#ECE6D4; --paper-2:#E4DCC4; --red:#1F5E63; --red-ink:#1F5E63; --ochre:#E0A93B; --on-b:#1E1B18; }
+[data-season="autumn"]  { --paper:#F3E5CB; --paper-2:#EBDBB9; --red:#C8501E; --red-ink:#AC4017; --ochre:#D49B2A; --on-b:#1E1B18; }
+[data-season="winter"]  { --paper:#EFE8D6; --paper-2:#E7DEC5; --red:#23395B; --red-ink:#23395B; --ochre:#B5473A; --on-b:#EFE8D6; }
+
+[data-theme="dark"][data-season="spring"]  { --paper:#1D1917; --paper-2:#26211F; --red:#E58A9C; --red-ink:#E58A9C; --ochre:#8FAE5A; --on-b:#1D1917; }
+[data-theme="dark"][data-season="summer"]  { --paper:#1B1915; --paper-2:#24211C; --red:#E5553F; --red-ink:#E5553F; --ochre:#EDB94A; --on-b:#1B1915; }
+[data-theme="dark"][data-season="monsoon"] { --paper:#171A1A; --paper-2:#202324; --red:#4FA3A5; --red-ink:#4FA3A5; --ochre:#E8B54A; --on-b:#171A1A; }
+[data-theme="dark"][data-season="autumn"]  { --paper:#1E1913; --paper-2:#28211A; --red:#E06A35; --red-ink:#E06A35; --ochre:#E0AE45; --on-b:#1E1913; }
+[data-theme="dark"][data-season="winter"]  { --paper:#181A1D; --paper-2:#212328; --red:#8FA6C8; --red-ink:#8FA6C8; --ochre:#D06455; --on-b:#181A1D; }
+
+/* dark default (no data-season) keeps the summer night look */
+[data-theme="dark"]:not([data-season]) { --paper:#1B1915; --paper-2:#24211C; --red:#E5553F; --red-ink:#E5553F; --ochre:#EDB94A; --on-b:#1B1915; }
+
+/* ═══════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; min-height: 100%; }
+
+body {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+  background-color: var(--paper);
+  min-height: 100vh;
+  overflow-x: clip; /* last-resort guard against stray art overflow */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { text-decoration: none; color: inherit; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 36px 80px;
+}
+
+/* decorative SVG art never takes pointer events */
+svg[aria-hidden="true"], .art-layer { pointer-events: none; }
+
+/* ═══════════════════════════════════════════
+   PAPER — grain + vignette overlays (filled by JS)
+   ═══════════════════════════════════════════ */
+.grain, .vignette {
+  position: fixed; inset: 0; z-index: 50; pointer-events: none;
+}
+.grain {
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: multiply;
+  opacity: .07;
+}
+[data-theme="dark"] .grain { mix-blend-mode: screen; opacity: .045; }
+.vignette {
+  background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(150,110,40,.14) 100%);
+  mix-blend-mode: multiply;
+}
+[data-theme="dark"] .vignette {
+  background: radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(0,0,0,.35) 100%);
+  mix-blend-mode: normal;
+}
+
+/* ═══════════════════════════════════════════
+   PERFORATION — stamp edges via mask (holes on all 4 sides)
+   ═══════════════════════════════════════════ */
+.perf {
+  --hr: 4px; --hs: 12px;
+  -webkit-mask:
+    radial-gradient(circle var(--hr) at 50% 0,    #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+    radial-gradient(circle var(--hr) at 50% 100%, #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+    radial-gradient(circle var(--hr) at 0 50%,    #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y,
+    radial-gradient(circle var(--hr) at 100% 50%, #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y;
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle var(--hr) at 50% 0,    #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+    radial-gradient(circle var(--hr) at 50% 100%, #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+    radial-gradient(circle var(--hr) at 0 50%,    #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y,
+    radial-gradient(circle var(--hr) at 100% 50%, #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y;
+  mask-composite: intersect;
+}
+
+/* stamp press: tiny thunk on hover (disabled by reduced-motion rule below) */
+@keyframes press {
+  0%   { transform: rotate(var(--rot, 0deg)) scale(1.03); }
+  55%  { transform: rotate(calc(var(--rot, 0deg) + .6deg)) scale(.97); }
+  100% { transform: rotate(var(--rot, 0deg)) scale(1); }
+}
+
+/* ═══════════════════════════════════════════
+   HOVER POSTMARK — drawn ring around links (no boxes)
+   ═══════════════════════════════════════════ */
+[data-pm] { position: relative; display: inline-block; }
+svg.pm {
+  position: absolute; z-index: 1; overflow: visible;
+  opacity: 0; transition: opacity .12s ease;
+}
+[data-pm]:hover > svg.pm,
+[data-pm]:focus-visible > svg.pm { opacity: 1; }
+/* no-JS / no-rough fallback focus indicator */
+html:not(.rough) a:focus-visible,
+html:not(.rough) button:focus-visible { outline: 2px dashed var(--red); outline-offset: 3px; }
+html.rough [data-pm]:focus-visible { outline: none; }
+/* the secret season button gets Kirby krackle instead of a ring: pops in, then fizzes */
+svg.pm.krackle { transform: scale(.7); transition: opacity .12s ease, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+[data-pm]:hover > svg.pm.krackle,
+[data-pm]:focus-visible > svg.pm.krackle { transform: scale(1); animation: fizz .36s steps(2) infinite; }
+@keyframes fizz { 50% { transform: scale(1.03) rotate(1.5deg); } }
+
+/* ═══════════════════════════════════════════
+   TOP BAR
+   ═══════════════════════════════════════════ */
+.top-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px 14px;
+  padding: 30px 0 18px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: .06em;
+}
+.top-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+.brand {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink);
+  display: inline-block;
+  min-width: min(100%, 15.5em);
+  min-height: 1.6em;
+}
+.brand .deva { font-family: var(--f-deva); font-size: 1.12em; }
+.brand .caret {
+  display: inline-block; width: 2px; height: 1.05em;
+  background: var(--red); margin-left: 2px; vertical-align: -2px; opacity: .8;
+}
+.brand .caret.blink { animation: caretBlink 1s steps(1) infinite; }
+@keyframes caretBlink { 0%,50% { opacity: .8; } 51%,100% { opacity: 0; } }
+
+.toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; padding: 0; border: 0; background: transparent;
+  cursor: pointer; color: var(--ink);
+}
+.toggle svg.glyph { width: 28px; height: 28px; overflow: visible; display: block; }
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero { position: relative; margin-top: 44px; animation: fadeIn .5s ease both; }
+
+.hero-text { position: relative; z-index: 2; max-width: 36rem; }
+
+.hero-bio { font-size: 19px; line-height: 1.8; color: var(--ink); }
+.hero-bio + .hero-bio { margin-top: 8px; }
+
+.social-row {
+  margin-top: 26px;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: .04em;
+  line-height: 2.1;
+  color: var(--ink);
+}
+.social-row .sep, .entry-links .sep { color: var(--red-ink); margin: 0 9px; }
+
+/* hero art — rising sun stamp, misregistered ochre underlay */
+.hero-art {
+  position: absolute; z-index: 0; top: -22px; right: 40px;
+  width: 280px; aspect-ratio: 1;
+}
+.hero-art svg.sun { width: 100%; height: 100%; display: block; overflow: visible; }
+.hero-art.pressing { --rot: 0deg; animation: press .4s ease-out; }
+.denom {
+  position: absolute; right: -8px; bottom: -10px;
+  font-family: var(--f-display); font-size: 104px; line-height: .8;
+  color: var(--indigo); mix-blend-mode: var(--blend);
+  letter-spacing: -.02em; opacity: .92;
+}
+.vstrip {
+  position: absolute; z-index: 1; top: 0; right: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: .16em; white-space: nowrap;
+  color: var(--ink-3);
+  border-left: 1px dashed var(--ink-3);
+  padding-left: 9px;
+}
+/* name stays horizontal (rotated Devanagari reads badly), tagline runs vertically beneath */
+.vstrip .deva {
+  font-family: var(--f-deva); font-size: 14px; letter-spacing: .02em; line-height: 1.2;
+  writing-mode: horizontal-tb; padding-bottom: 8px; border-bottom: 1px dashed var(--ink-3);
+}
+.vstrip .vtext { writing-mode: vertical-rl; }
+
+/* ═══════════════════════════════════════════
+   SECTIONS + STAMP HEADERS
+   ═══════════════════════════════════════════ */
+.section { margin-top: 64px; animation: sectionIn .5s ease both; }
+.section:nth-of-type(2) { animation-delay: .15s; }
+.section:nth-of-type(3) { animation-delay: .22s; }
+.section:nth-of-type(4) { animation-delay: .29s; }
+.section:nth-of-type(5) { animation-delay: .36s; }
+.section:nth-of-type(6) { animation-delay: .43s; }
+
+/* section stamps rotate through the season's two spot inks (a, b, a, b, a);
+   --ec is the fixed entry-stamp colour (never season-dependent) */
+#experience { --sc: var(--red);   --rot: -1.4deg; --ec: var(--stamp-red); }
+#projects   { --sc: var(--ochre); --rot:  1.2deg; --on: var(--on-b); --ec: var(--indigo); }
+#research   { --sc: var(--red);   --rot: -1deg;   --ec: var(--moss); }
+#education  { --sc: var(--ochre); --rot:  1.5deg; --on: var(--on-b); }
+#contact    { --sc: var(--red);   --rot: -1.2deg; }
+
+.section-head { margin-bottom: 34px; }
+.stamp-wrap { position: relative; display: inline-block; max-width: 100%; }
+
+.stamp {
+  --hr: 4.5px; --hs: 13px;
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 22px;
+  padding: 18px 26px;
+  background-color: var(--sc);
+  background-image: var(--speck, none);
+  color: var(--on);
+  transform: rotate(var(--rot, 0deg));
+}
+.stamp:hover { animation: press .35s ease-out; }
+.stamp-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stamp-label {
+  font-family: var(--f-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: .18em; line-height: 1.2; opacity: .9;
+}
+.section-title {
+  font-family: var(--f-display); font-weight: 400;
+  font-size: 28px; line-height: 1.1; letter-spacing: .01em; color: var(--on);
+}
+.stamp-val {
+  font-family: var(--f-display); font-size: 40px; line-height: 1; opacity: .92;
+}
+svg.pm-corner {
+  position: absolute; z-index: 0; top: -26px; right: -34px;
+  width: 116px; height: 116px; overflow: visible; opacity: .6;
+}
+
+/* ═══════════════════════════════════════════
+   ENTRIES
+   ═══════════════════════════════════════════ */
+.entry { margin-bottom: 44px; }
+.entry:last-child { margin-bottom: 0; }
+.entry-main { min-width: 0; }
+
+.entry.has-stamp { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 0 26px; }
+
+.entry-stamp {
+  --hr: 3.5px; --hs: 10px; --rot: -1.5deg;
+  position: relative; width: 84px; height: 100px;
+  background-color: var(--paper-2);
+  transform: rotate(var(--rot));
+  margin-top: 2px;
+}
+.entry:nth-child(even) .entry-stamp { --rot: 1.2deg; }
+.entry-stamp:hover { animation: press .35s ease-out; }
+.entry-stamp svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stamp-num {
+  position: absolute; left: 0; right: 0; bottom: 11px; text-align: center;
+  font-family: var(--f-display); font-size: 25px; line-height: 1; color: var(--ec, var(--sc));
+}
+
+.entry-title {
+  font-family: var(--f-serif); font-weight: 600;
+  font-size: 22px; line-height: 1.28; color: var(--ink);
+}
+/* the number lives in the stamp on desktop; keep it for screen readers */
+.num {
+  position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* rubber-stamp badge (not a link) */
+.cred {
+  position: relative; display: inline-block; vertical-align: middle;
+  margin-left: 12px; padding: 3px 10px;
+  font-family: var(--f-mono); font-size: 12px; font-weight: 500;
+  letter-spacing: .06em; line-height: 1.5; white-space: nowrap;
+  color: var(--red-ink); transform: rotate(-3deg); opacity: .9;
+}
+.entry:nth-child(3) .cred { transform: rotate(2.5deg); opacity: .84; }
+.entry:nth-child(4) .cred { transform: rotate(-1.5deg); opacity: .94; }
+.cred svg { position: absolute; left: 0; top: 0; overflow: visible; }
+
+.entry-meta {
+  font-family: var(--f-mono); font-size: 13px; color: var(--ink-3);
+  margin-top: 8px; letter-spacing: .02em; line-height: 1.6;
+}
+
+.entry-body { margin-top: 14px; list-style: none; max-width: 42rem; }
+.entry-body li {
+  position: relative; padding-left: 21px; margin-top: 8px;
+  color: var(--ink); line-height: 1.78; overflow-wrap: anywhere;
+}
+.entry-body li::before {
+  content: ''; position: absolute; left: 1px; top: .86em;
+  width: 8px; height: 3px; border-radius: 2px;
+  background: var(--red); transform: rotate(-24deg); opacity: .9;
+}
+
+/* inline links: ink text, hand-drawn red underline (CSS fallback if no rough.js) */
+.entry-body a {
+  position: relative; color: var(--ink);
+  text-decoration: underline; text-decoration-color: var(--red);
+  text-decoration-thickness: 2px; text-underline-offset: 3px;
+}
+html.rough .entry-body a { text-decoration: none; }
+.entry-body a svg.ul { position: absolute; left: 0; bottom: -5px; overflow: visible; }
+
+/* entry title doubles as the main link: arrow says "more here";
+   hover draws a squiggle underline left→right (paper bar slides off it; wraps per line) */
+.entry-title a.tl {
+  color: inherit; text-decoration: none; padding-bottom: 8px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  background: linear-gradient(var(--paper), var(--paper)) right -2px bottom / calc(100% + 4px) 9px no-repeat,
+              var(--sq) left bottom / 16px 7px repeat-x;
+  transition: background-size .5s cubic-bezier(.6, .1, .3, 1);
+}
+.entry-title a.tl:hover, .entry-title a.tl:focus-visible { background-size: 0% 9px, 16px 7px; outline: none; }
+.arr { display: inline-block; margin-left: .22em; font-family: var(--f-body); font-size: .78em; font-weight: 400; color: var(--red-ink); vertical-align: .2em; transition: transform .15s ease; }
+.entry-title a.tl:hover .arr, .entry-title a.tl:focus-visible .arr { transform: translate(2px, -2px); }
+a.entry-stamp { cursor: pointer; }
+
+.entry-links {
+  margin-top: 16px; font-family: var(--f-mono); font-size: 13px;
+  color: var(--ink); letter-spacing: .04em; line-height: 2.1;
+}
+
+/* ═══════════════════════════════════════════
+   EDUCATION — ticket stub with dashed perforation
+   ═══════════════════════════════════════════ */
+.edu-grid {
+  --hr: 5px; --hs: 16px;
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  background: var(--paper-2);
+  background-image: var(--speck, none);
+}
+.edu-card { padding: 30px 30px 28px; min-width: 0; }
+.edu-card + .edu-card { border-left: 2px dashed var(--ink-3); }
+
+.edu-degree {
+  font-family: var(--f-serif); font-weight: 600;
+  font-size: 22px; line-height: 1.28; color: var(--ink);
+}
+.edu-school { color: var(--ink); margin-top: 6px; }
+.edu-detail {
+  font-family: var(--f-mono); font-size: 13px; color: var(--ink-3);
+  margin-top: 8px; letter-spacing: .02em;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
+.contact-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; }
+.contact-h {
+  font-family: var(--f-display); font-size: 44px; line-height: 1.15; color: var(--ink);
+}
+.contact-pm {
+  flex: 0 0 auto; width: clamp(120px, 26vw, 190px); height: auto; aspect-ratio: 1;
+  overflow: visible; transform: rotate(-11deg); opacity: .85;
+}
+.contact-pm text { font-family: var(--f-mono); font-size: 18px; font-weight: 500; fill: var(--red); }
+.contact-sub { margin-top: 10px; line-height: 1.78; max-width: 42rem; }
+.contact-email {
+  margin-top: 22px; padding: 2px 0;
+  font-family: var(--f-mono); font-size: 14px; color: var(--ink); letter-spacing: .02em;
+  overflow-wrap: anywhere;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+footer {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+  gap: 8px; margin-top: 56px; padding: 22px 0 0;
+  border-top: 1px dashed var(--ink-3);
+  font-family: var(--f-mono); font-size: 12px; color: var(--ink-3); letter-spacing: .04em;
+}
+/* hidden season control: looks exactly like the surrounding mono footer text */
+button.issue {
+  border: 0; background: none; padding: 0; margin: 0; border-radius: 0;
+  font: inherit; letter-spacing: inherit; color: inherit; text-decoration: none;
+  cursor: pointer; -webkit-appearance: none; appearance: none;
+}
+.issue-tail .deva { font-family: var(--f-deva); font-size: 1.1em; letter-spacing: 0; }
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeIn    { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes sectionIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ═══════════════════════════════════════════
+   NARROW LAYOUTS
+   ═══════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .hero-art { width: 250px; right: 38px; }
+  .denom { font-size: 90px; }
+}
+
+@media (min-width: 720px) {
+  .hero-text { max-width: min(36rem, calc(100% - 300px)); }
+}
+
+@media (max-width: 719px) {
+  .container { padding: 0 22px 64px; }
+
+  /* sun shrinks and sits faintly behind the top of the bio */
+  .hero-art { top: -14px; right: -2px; width: 190px; opacity: .22; }
+  .denom { font-size: 60px; right: -2px; bottom: -4px; }
+  .vstrip { display: none; }
+  .hero-text { max-width: none; }
+  .hero-bio { font-size: 17px; }
+
+  .entry.has-stamp { display: block; }
+  .entry-stamp { display: none; }
+  /* number becomes a small perforated badge above the title */
+  .num {
+    position: relative; display: block; width: fit-content; height: auto; margin: 0 0 10px;
+    overflow: visible; clip: auto;
+    --hr: 2.5px; --hs: 8px;
+    padding: 5px 13px;
+    background-color: var(--ec, var(--sc)); background-image: var(--speck, none); color: var(--paper);
+    font-family: var(--f-display); font-size: 13px; line-height: 1.2; font-weight: 400;
+    -webkit-mask:
+      radial-gradient(circle var(--hr) at 50% 0,    #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+      radial-gradient(circle var(--hr) at 50% 100%, #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+      radial-gradient(circle var(--hr) at 0 50%,    #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y,
+      radial-gradient(circle var(--hr) at 100% 50%, #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y;
+    -webkit-mask-composite: source-in;
+    mask:
+      radial-gradient(circle var(--hr) at 50% 0,    #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+      radial-gradient(circle var(--hr) at 50% 100%, #0000 98%, #000) 0 0 / var(--hs) 100% repeat-x,
+      radial-gradient(circle var(--hr) at 0 50%,    #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y,
+      radial-gradient(circle var(--hr) at 100% 50%, #0000 98%, #000) 0 0 / 100% var(--hs) repeat-y;
+    mask-composite: intersect;
+  }
+  .entry { margin-bottom: 38px; }
+  .section { margin-top: 54px; }
+
+  .edu-grid { grid-template-columns: 1fr; }
+  .edu-card + .edu-card { border-left: 0; border-top: 2px dashed var(--ink-3); }
+  .edu-card { padding: 24px 22px; }
+
+  .contact-h { font-size: 34px; }
+}
+
+@media (max-width: 540px) {
+  .container { padding: 0 20px 56px; }
+  .brand { font-size: 16px; min-width: 0; }
+  /* brand + toggle share one row; tagline wraps beneath */
+  .top-bar {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand toggle" "meta meta";
+    align-items: center; gap: 2px 12px; padding-top: 24px;
+  }
+  .top-right { display: contents; }
+  .top-bar .brand  { grid-area: brand; }
+  .top-bar .toggle { grid-area: toggle; }
+  .top-bar .meta   { grid-area: meta; }
+  .stamp { padding: 13px 16px; gap: 12px; }
+  .section-title { font-size: 20px; }
+  .stamp-val { font-size: 26px; }
+  .stamp-label { font-size: 9px; letter-spacing: .14em; }
+  svg.pm-corner { right: -12px; top: -22px; width: 92px; height: 92px; }
+  .entry-title, .edu-degree { font-size: 20px; }
+  .contact-h { font-size: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- paper grain + vignette (image generated once in JS) -->
+<div class="grain" id="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<div class="container">
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <h1 class="brand">
+    <span class="sr-only">atharva walawalkar</span>
+    <span id="brandName" data-alt="अथर्व वालावलकर" aria-hidden="true">atharva walawalkar</span>
+  </h1>
+  <span class="top-right">
+    <span class="meta">ai research &middot; post-training &middot; alignment</span>
+    <button class="toggle" id="modeBtn" type="button" data-pm aria-label="toggle dark mode"><svg class="glyph" viewBox="0 0 28 28" aria-hidden="true"></svg></button>
+  </span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-art" aria-hidden="true">
+    <svg class="sun" id="sunSvg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="denom" id="denom">26</div>
+  </div>
+  <div class="vstrip" aria-hidden="true"><span class="deva" lang="hi">अथर्व</span><span class="vtext">ai research &middot; post-training &middot; alignment</span></div>
+  <div class="hero-text">
+    <p class="hero-bio">I am really curious about why models inherit human flaws like sycophancy, political bias, and lying. I spend my time tinkering with mechanistic interpretability and post-training to figure out how these habits form internally and how we can detect when a model is just telling us what we want to hear.</p>
+    <p class="hero-bio">Outside of projects, I take abstract photographs, read manga and light sci-fi novels, and will argue that One Piece is a masterpiece.</p>
+    <nav class="social-row" aria-label="links">
+      <a data-pm href="mailto:atharvawal27@gmail.com">email</a> <span class="sep">&middot;</span> <a data-pm href="https://github.com/Atharva2099/" target="_blank" rel="noopener">github</a> <span class="sep">&middot;</span> <a data-pm href="https://www.linkedin.com/in/atharva-w-b0035b214/" target="_blank" rel="noopener">linkedin</a> <span class="sep">&middot;</span> <a data-pm href="https://huggingface.co/Atharva2099" target="_blank" rel="noopener">hf</a> <span class="sep">&middot;</span> <a data-pm href="https://scholar.google.com/citations?user=GWK_97AAAAAJ&amp;hl=en" target="_blank" rel="noopener">scholar</a> <span class="sep">&middot;</span> <a data-pm href="https://atharva2099.github.io/280CharsArentEnough/" target="_blank" rel="noopener">blog</a> <span class="sep">&middot;</span> <a data-pm href="https://www.goodreads.com/user/show/200715372-reader" target="_blank" rel="noopener">goodreads</a>
+    </nav>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-head"><div class="stamp-wrap">
+    <svg class="pm-corner" viewBox="0 0 120 120" aria-hidden="true" data-seed="experience"></svg>
+    <div class="stamp perf"><div class="stamp-text"><h2 class="section-title">EXPERIENCE</h2></div></div>
+  </div></div>
+
+  <div class="entry">
+    <h3 class="entry-title">applied ai intern, chewy</h3>
+    <div class="entry-meta">internship &middot; summer 2025</div>
+    <ul class="entry-body">
+      <li>built a Neo4j graph memory layer over 4.5B clickstream events so downstream agents could retrieve user context in under 50ms instead of re-deriving it from raw logs every time.</li>
+      <li>built an autonomous diagnostic agent that detected ad campaign anomalies and pushed root causes into marketing workflows.</li>
+      <li>shipped a hybrid personalization engine for the homepage with sub-50ms rerank latency.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-head"><div class="stamp-wrap">
+    <svg class="pm-corner" viewBox="0 0 120 120" aria-hidden="true" data-seed="projects"></svg>
+    <div class="stamp perf"><div class="stamp-text"><h2 class="section-title">PROJECTS</h2></div></div>
+  </div></div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://medium.com/@atharva2099/are-political-probes-polyglots-58c1fe462183" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="indigo" data-seed="cross-lingual representation geometry and layerwise probing"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">01</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">01</span><a class="tl" href="https://medium.com/@atharva2099/are-political-probes-polyglots-58c1fe462183" target="_blank" rel="noopener">cross-lingual representation geometry and layerwise probing<span class="arr" aria-hidden="true">&#8599;</span></a></h3>
+    <div class="entry-meta">mechanistic interpretability &middot; 2026</div>
+    <ul class="entry-body">
+      <li>i wanted to explore whether models have a shared representation for political ideas across different architectures, languages, and layers.</li>
+      <li>curated a multilingual dataset from Anthropic's <a href="https://huggingface.co/datasets/Anthropic/llm_global_opinions" target="_blank" rel="noopener">llm_global_opinions</a>, filtered 2,556 questions down to 580 suitable for probing, converted them into labelled statements, and translated them into English, Hindi, Marathi, German, Spanish, and Mandarin using Gemini 3.5 Flash Lite.</li>
+      <li>ran five models from different families on these statements, captured residual stream activations across layers, and trained linear probes. best within-language accuracies ranged from 81.03% to 86.55%, usually peaking around the middle layers depending on the model.</li>
+      <li>trained probes in one language and tested them on the other five: average cross-language accuracy was 68.89% for OLMo 3, 67.72% for Ministral, 81.45% for Gemma 2, and 78.24% for Qwen 3.5. Gemma and Qwen showed much stronger transfer than OLMo and Ministral—representations appear to be shared across languages, but the alignment varies significantly across architectures.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://medium.com/@atharva2099/are-political-probes-polyglots-58c1fe462183" target="_blank" rel="noopener">writeup</a>
+    </div>
+    </div>
+  </div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://medium.com/@atharva2099/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-176cdf40b010" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="indigo" data-seed="wolfeclick: pokémon rl with grpo"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">02</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">02</span><a class="tl" href="https://medium.com/@atharva2099/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-176cdf40b010" target="_blank" rel="noopener">wolfeclick: pok&eacute;mon rl with grpo<span class="arr" aria-hidden="true">&#8599;</span></a></h3>
+    <div class="entry-meta">rl for games &middot; mar 2026</div>
+    <ul class="entry-body">
+      <li>i wanted to train LLMs for long-horizon reasoning under hidden information. Pok&eacute;mon fits: you don't see the full opponent team, and a decision on turn two still matters at turn fifteen.</li>
+      <li>wrapped Smogon's API for real-time rollouts and tried GRPO. the model immediately spat invalid JSON, which taught me why labs SFT before RL. after stabilizing Qwen3-4B, reward shaping changed the policy entirely: attack-heavy made it hyper-aggressive, defense-heavy made it stall forever. same model, completely different emergent behavior from one scalar.</li>
+      <li>it still loses often. but watching one number determine whether it rushes or cowers was the clearest lesson i've had in how objectives shape behavior.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://medium.com/@atharva2099/how-i-turned-competitive-pokemon-into-an-rl-environment-for-llms-176cdf40b010" target="_blank" rel="noopener">writeup</a> <span class="sep">&middot;</span> <a data-pm href="https://github.com/Atharva2099/Hardread" target="_blank" rel="noopener">code</a> <span class="sep">&middot;</span> <a data-pm href="https://huggingface.co/spaces/Atharva2099/WolfeClick" target="_blank" rel="noopener">hf space</a> <span class="sep">&middot;</span> <a data-pm href="https://huggingface.co/Atharva2099/openenv-smogon-rl" target="_blank" rel="noopener">model</a>
+    </div>
+    </div>
+  </div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://github.com/Shreyas-Yadav/Live-Caster" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="indigo" data-seed="commentator: real-time ai game caster"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">03</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">03</span><a class="tl" href="https://github.com/Shreyas-Yadav/Live-Caster" target="_blank" rel="noopener">commentator: real-time ai game caster<span class="arr" aria-hidden="true">&#8599;</span></a><span class="cred">3rd &middot; $20k</span></h3>
+    <div class="entry-meta">multimodal voice agent &middot; google gemini &middot; dec 2025</div>
+    <ul class="entry-body">
+      <li>most ai commentary tools just caption everything. the real job is knowing what's worth saying, not describing what happened.</li>
+      <li>built an event detector that only fires when something meaningful changes, reduced latency from 15s to 7s.</li>
+      <li>concept to working demo in 12 hours.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://github.com/Shreyas-Yadav/Live-Caster" target="_blank" rel="noopener">code</a>
+    </div>
+    </div>
+  </div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://github.com/Atharva2099/PivotRL" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="indigo" data-seed="pivotrl: pivot-weighted reasoning distillation"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">04</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">04</span><a class="tl" href="https://github.com/Atharva2099/PivotRL" target="_blank" rel="noopener">pivotrl: pivot-weighted reasoning distillation<span class="arr" aria-hidden="true">&#8599;</span></a></h3>
+    <div class="entry-meta">reasoning post-training &middot; ongoing 2026</div>
+    <ul class="entry-body">
+      <li>not all tokens in a reasoning trace are equally worth learning from. i detect high-loss pivot points in Kimi K2.5 traces and up-weight them when distilling into Gemma 4.</li>
+      <li>uniform SFT on reasoning traces dropped GSM8K from 85.5% to 74.5%. pivot-weighted SFT recovered it to 80%. the null result is the point: naive distillation on reasoning traces actively hurts, which isn't obvious from the literature.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://github.com/Atharva2099/PivotRL" target="_blank" rel="noopener">code</a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section" id="research">
+  <div class="section-head"><div class="stamp-wrap">
+    <svg class="pm-corner" viewBox="0 0 120 120" aria-hidden="true" data-seed="research"></svg>
+    <div class="stamp perf"><div class="stamp-text"><h2 class="section-title">RESEARCH</h2></div></div>
+  </div></div>
+
+  <div class="entry has-stamp">
+    <div class="entry-stamp perf" aria-hidden="true" data-c="moss" data-seed="adaptive roi selection"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">01</span></div>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">01</span>adaptive roi selection for remote heart-rate sensing<span class="cred">in progress</span></h3>
+    <div class="entry-meta">masters thesis &middot; BIDAL lab, sf state &middot; aug 2025&ndash;present</div>
+    <ul class="entry-body">
+      <li>can a learned policy choose <em>where</em> on the face to read heart rate from as motion and lighting change, instead of relying on a fixed region? details and results after publication.</li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="moss" data-seed="edge-ai flood alert system"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">02</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">02</span><a class="tl" href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener">edge-ai flood alert system<span class="arr" aria-hidden="true">&#8599;</span></a><span class="cred">provisional patent</span></h3>
+    <div class="entry-meta">bachelors thesis &middot; indian meteorological department &middot; 2024</div>
+    <ul class="entry-body">
+      <li>flood-prone areas in India often don't have reliable internet, so a cloud-dependent alert system is useless to the people who need it most. the whole thing had to run offline.</li>
+      <li>trained an encoder-decoder LSTM on 45 years of hourly rainfall data (1979&ndash;2024) across three Mumbai neighborhoods (Matunga East, Byculla, Dahisar), ~400k records each. MAE around 0.17 across all three. deployed as TFLite on a Raspberry Pi 4 behind a FastAPI backend; a Flutter app uses haversine on GPS to route users to the nearest model. alerts go out over local WLAN, no internet required.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://pubs.aip.org/aip/acp/article-abstract/3475/1/030004/3388136/Rainfall-data-assisted-flood-alert-system-using" target="_blank" rel="noopener">paper</a>
+    </div>
+    </div>
+  </div>
+
+  <div class="entry has-stamp">
+    <a class="entry-stamp perf" href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-c="moss" data-seed="credit card fraud detection on imbalanced data"><svg viewBox="0 0 84 100"></svg><span class="stamp-num">03</span></a>
+    <div class="entry-main">
+    <h3 class="entry-title"><span class="num">03</span><a class="tl" href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">credit card fraud detection on imbalanced data<span class="arr" aria-hidden="true">&#8599;</span></a><span class="cred">published</span></h3>
+    <div class="entry-meta">publication &middot; 2023</div>
+    <ul class="entry-body">
+      <li>compared XGBoost, random forest, SVM, and logistic regression on highly imbalanced transaction datasets. the result that actually mattered wasn't which algorithm won. it was that the class-imbalance handling strategy created larger performance swings across method families than the model choice itself.</li>
+    </ul>
+    <div class="entry-links">
+      <a data-pm href="https://ijisae.org/index.php/IJISAE/article/view/5232" target="_blank" rel="noopener">paper</a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="section" id="education">
+  <div class="section-head"><div class="stamp-wrap">
+    <svg class="pm-corner" viewBox="0 0 120 120" aria-hidden="true" data-seed="education"></svg>
+    <div class="stamp perf"><div class="stamp-text"><h2 class="section-title">EDUCATION</h2></div></div>
+  </div></div>
+  <div class="edu-grid perf">
+    <div class="edu-card">
+      <div class="edu-degree">ms data science and ai</div>
+      <div class="edu-school">sf state</div>
+      <div class="edu-detail">4.0 &middot; dec 2026</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">b.tech electronics and communication</div>
+      <div class="edu-school">pune university</div>
+      <div class="edu-detail">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-head"><div class="stamp-wrap">
+    <svg class="pm-corner" viewBox="0 0 120 120" aria-hidden="true" data-seed="contact"></svg>
+    <div class="stamp perf"><div class="stamp-text"><h2 class="section-title">CONTACT</h2></div></div>
+  </div></div>
+  <div class="contact-card">
+    <div class="contact-top">
+      <div class="contact-h">let's talk.</div>
+      <svg class="contact-pm" id="contactPm" viewBox="0 0 200 200" aria-hidden="true">
+        <defs><path id="pmCircle" d="M 26,100 a 74,74 0 1,1 148,0 a 74,74 0 1,1 -148,0"/></defs>
+        <text><textPath id="pmText" href="#pmCircle" textLength="460" lengthAdjust="spacing">SAN FRANCISCO · CA · 2026 ·</textPath></text>
+      </svg>
+    </div>
+    <p class="contact-sub">i'm looking for research roles in post-training, alignment, interpretability, and reinforcement learning. i'm especially interested in work that makes model behavior more legible, more steerable, and more robust to imperfect objectives.<br><br>if you're working on these questions, i'd be glad to talk.</p>
+    <a class="contact-email" data-pm href="mailto:atharvawal27@gmail.com">atharvawal27@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>atharva walawalkar &middot; san francisco, ca</span>
+  <span class="issue-line"><button class="issue" id="issueBtn" type="button" data-pm aria-label="change season (currently summer)">summer issue</button><span class="issue-tail" id="issueTail"> &middot; day printing</span> &middot; <span id="yr">2026</span></span>
+</footer>
+<i id="probe" hidden aria-hidden="true"></i>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var root = document.documentElement;
+  var hasRough = typeof rough !== 'undefined';
+  if (hasRough) root.classList.add('rough');
+
+  /* ── helpers ─────────────────────────────── */
+  function $(s, c) { return (c || document).querySelector(s); }
+  function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
+
+  // FNV-1a string hash -> positive int seed (rough.js treats 0 as "random")
+  function hash(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 2147483646) + 1;
+  }
+  // mulberry32 seeded PRNG
+  function rng(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function S(tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  // empty (or create) the redrawable <g class="art"> inside an svg
+  function layer(svg) {
+    var g = svg.querySelector('g.art');
+    if (!g) { g = S('g', { 'class': 'art' }); svg.appendChild(g); }
+    while (g.firstChild) g.removeChild(g.firstChild);
+    return g;
+  }
+  // read the *target* tokens for the current season+theme. A probe element carries the same
+  // data attributes, so it resolves final values even while <html> is mid cross-fade.
+  function palette() {
+    var pr = $('#probe');
+    pr.setAttribute('data-season', root.getAttribute('data-season'));
+    pr.setAttribute('data-theme', root.getAttribute('data-theme'));
+    var cs = getComputedStyle(pr);
+    function g(n) { return cs.getPropertyValue(n).trim(); }
+    return {
+      paper: g('--paper'), paper2: g('--paper-2'), ink: g('--ink'), ink3: g('--ink-3'),
+      red: g('--red'), redInk: g('--red-ink'), indigo: g('--indigo'), ochre: g('--ochre'),
+      moss: g('--moss'), blend: g('--blend') || 'normal'
+    };
+  }
+  function wave(x0, x1, y, amp, step) {
+    var pts = [], i = 0;
+    for (var x = x0; x <= x1; x += step, i++) pts.push([x, y + (i % 2 ? -amp : amp)]);
+    return pts;
+  }
+
+  /* ── paper grain: one noise tile + one crayon-speck tile, generated once ── */
+  function makeGrain() {
+    var c = document.createElement('canvas'); c.width = c.height = 256;
+    var x = c.getContext('2d'); if (!x) return;
+    var r = rng(20260101), i, v;
+    var d = x.createImageData(256, 256);
+    for (i = 0; i < d.data.length; i += 4) {
+      v = (r() * 255) | 0;
+      d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255;
+    }
+    x.putImageData(d, 0, 0);
+    var g = $('#grain');
+    if (g) g.style.backgroundImage = 'url(' + c.toDataURL('image/png') + ')';
+
+    // sparse pale specks over colour blocks = waxy crayon / riso drop-out
+    var d2 = x.createImageData(256, 256), q;
+    for (i = 0; i < d2.data.length; i += 4) {
+      q = r();
+      d2.data[i] = 250; d2.data[i + 1] = 243; d2.data[i + 2] = 225;
+      d2.data[i + 3] = q > 0.8 ? ((q - 0.8) * 5 * 120) | 0 : 0;
+    }
+    x.putImageData(d2, 0, 0);
+    root.style.setProperty('--speck', 'url(' + c.toDataURL('image/png') + ')');
+  }
+
+  /* ── theme toggle glyph (sun / moon) ─────── */
+  function drawToggle(P) {
+    var svg = $('#modeBtn svg.glyph'); if (!svg) return;
+    var g = layer(svg), rc = rough.svg(svg);
+    if (root.getAttribute('data-theme') === 'dark') {
+      g.appendChild(rc.circle(14, 14, 11, { fill: P.ochre, fillStyle: 'hachure', hachureGap: 2.5, stroke: P.ochre, strokeWidth: 1.3, roughness: 1, seed: 11 }));
+      for (var i = 0; i < 8; i++) {
+        var a = i * Math.PI / 4;
+        g.appendChild(rc.line(14 + Math.cos(a) * 9, 14 + Math.sin(a) * 9, 14 + Math.cos(a) * 13, 14 + Math.sin(a) * 13, { stroke: P.ochre, strokeWidth: 1.6, roughness: 1, seed: 20 + i }));
+      }
+    } else {
+      g.appendChild(rc.circle(13, 15, 18, { fill: P.indigo, fillStyle: 'hachure', hachureGap: 2.5, stroke: P.indigo, strokeWidth: 1.3, roughness: 1, seed: 12 }));
+      // bite out of the disc leaves a crescent (header background is flat paper)
+      g.appendChild(rc.circle(20, 9, 15, { fill: P.paper, fillStyle: 'solid', stroke: 'none', roughness: 0.6, seed: 13 }));
+    }
+  }
+
+  /* ── hero: one stamp series, ten printings.
+     Anchor (sun by day / moon by night) is identical everywhere; each season adds ONE motif.
+     Fixed seeds per season+mode; secondary-ink copy sits misregistered underneath. ── */
+  function crescentPath(cx, cy, R, dx, dy, r2) {
+    // outer arc of the disc + inner arc of an offset "bite" circle -> true crescent path
+    var d = Math.sqrt(dx * dx + dy * dy), a = (R * R - r2 * r2 + d * d) / (2 * d), h = Math.sqrt(R * R - a * a);
+    var ux = dx / d, uy = dy / d, px = cx + a * ux, py = cy + a * uy;
+    var ax = px - h * uy, ay = py + h * ux, bx = px + h * uy, by = py - h * ux;
+    function f(n) { return n.toFixed(1); }
+    return 'M' + f(ax) + ' ' + f(ay) + ' A' + R + ' ' + R + ' 0 1 1 ' + f(bx) + ' ' + f(by) +
+           ' A' + r2 + ' ' + r2 + ' 0 ' + (a > d ? 1 : 0) + ' 0 ' + f(ax) + ' ' + f(ay) + ' Z';
+  }
+  var LEAF = [[0,-30],[5,-17],[15,-23],[12,-7],[29,-11],[19,4],[23,16],[7,12],[2,17],[1.5,32],
+              [-1.5,32],[-2,17],[-7,12],[-23,16],[-19,4],[-29,-11],[-12,-7],[-15,-23],[-5,-17]];
+  function xform(pts, x, y, rot, sc) {
+    var c = Math.cos(rot * Math.PI / 180), s = Math.sin(rot * Math.PI / 180);
+    return pts.map(function (p) { return [x + (p[0] * c - p[1] * s) * sc, y + (p[0] * s + p[1] * c) * sc]; });
+  }
+  function inside(pt, poly) { // ray-cast point-in-polygon
+    var c = false;
+    for (var i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      if ((poly[i][1] > pt[1]) !== (poly[j][1] > pt[1]) &&
+          pt[0] < (poly[j][0] - poly[i][0]) * (pt[1] - poly[i][1]) / (poly[j][1] - poly[i][1]) + poly[i][0]) c = !c;
+    }
+    return c;
+  }
+
+  function drawHero(P) {
+    var svg = $('#sunSvg'); if (!svg) return;
+    var season = root.getAttribute('data-season') || 'summer';
+    var night = root.getAttribute('data-theme') === 'dark';
+    var g = layer(svg), rc = rough.svg(svg), cx = 200, cy = 205, R = 118, i, a;
+    var seed = hash('printing-' + season + '-' + (night ? 'night' : 'day'));
+    var rnd = rng(seed);
+    var A = P.red, B = P.ochre, INK = P.ink;
+    var swap = season === 'monsoon' || season === 'autumn' || season === 'winter';
+    var top = swap ? B : A, under = swap ? A : B;       // anchor inks
+    var harvest = night && season === 'autumn';
+    if (harvest) { top = INK; under = B; }               // pale cream crayon over gold reads as moon, not sun
+
+    // crayon block that knocks out whatever is behind it, then fills with hachure + ink linework
+    function knock(shape, col, k, o) {
+      o = o || {};
+      var fillO = { fill: P.paper, fillStyle: 'solid', stroke: 'none', roughness: 1.1, seed: seed + k };
+      var inkO = { fill: col, fillStyle: o.style || 'hachure', hachureAngle: o.angle === undefined ? -40 : o.angle, hachureGap: o.gap || 4.5,
+                   fillWeight: 2, stroke: o.line || INK, strokeWidth: o.w || 2.2, roughness: o.r || 1.3, seed: seed + k };
+      var f = shape.poly ? rc.polygon(shape.poly, fillO) : rc.path(shape.path, fillO);
+      var e = shape.poly ? rc.polygon(shape.poly, inkO) : rc.path(shape.path, inkO);
+      if (!o.noKnock) g.appendChild(f);
+      g.appendChild(e);
+    }
+    function line(pts, w, k, col, op) {
+      var e = rc.curve(pts, { stroke: col || INK, strokeWidth: w, roughness: 1.2, seed: seed + k });
+      if (op) e.setAttribute('opacity', op);
+      g.appendChild(e);
+    }
+
+    /* ── anchor: sun (day) / crescent (night) / harvest disc ── */
+    var crescent = crescentPath(cx, cy, R, 38, -34, 104);
+    var layers = [
+      { grp: S('g', { transform: 'translate(-3 2.5)', style: 'mix-blend-mode:' + P.blend }), col: under, solid: true, rw: 5, sw: 3 },
+      { grp: S('g', { opacity: season === 'winter' ? '0.8' : '0.92' }), col: top, solid: false, rw: 3, sw: 2.4 }
+    ];
+    layers.forEach(function (L) {
+      var o = L.solid
+        ? { fill: L.col, fillStyle: 'solid', stroke: L.col, strokeWidth: L.sw, roughness: 1.4, seed: seed }
+        : { fill: L.col, fillStyle: 'hachure', hachureAngle: -35, hachureGap: season === 'winter' ? 7 : 5.5, fillWeight: 2.4, stroke: L.col, strokeWidth: L.sw, roughness: 1.4, seed: seed };
+      if (night && !harvest) L.grp.appendChild(rc.path(crescent, o));
+      else {
+        L.grp.appendChild(rc.circle(cx, cy, 236, o));
+        if (!night) for (i = 0; i < 16; i++) {
+          a = i * Math.PI / 8 + 0.1;
+          L.grp.appendChild(rc.line(cx + Math.cos(a) * 128, cy + Math.sin(a) * 128, cx + Math.cos(a) * (i % 2 ? 172 : 188), cy + Math.sin(a) * (i % 2 ? 172 : 188), { stroke: L.col, strokeWidth: L.rw, roughness: 1.2, seed: seed + i }));
+        }
+      }
+      g.appendChild(L.grp);
+    });
+
+    /* ── the season's single added motif ── */
+    var k = 100;
+    if (season === 'spring') {
+      line([[10, 312], [80, 280], [150, 236], [215, 192], [290, 150], [385, 118]], 4.2, k++);
+      line([[150, 236], [160, 178], [186, 120], [196, 82]], 3, k++);
+      line([[290, 150], [310, 108], [338, 70]], 2.6, k++);
+      line([[80, 280], [60, 250], [34, 238]], 2.4, k++);
+      [[118, 262], [206, 196], [162, 158], [256, 164], [324, 98], [190, 108]].forEach(function (b, n) {
+        for (var p = 0; p < 5; p++) { // five-petal blossom
+          var ang = p * Math.PI * 2 / 5 + n, px = b[0] + Math.cos(ang) * 9, py = b[1] + Math.sin(ang) * 9;
+          knock({ path: 'M' + b[0] + ' ' + b[1] + ' L' + (px + Math.cos(ang - 1.1) * 7).toFixed(1) + ' ' + (py + Math.sin(ang - 1.1) * 7).toFixed(1) + ' L' + (b[0] + Math.cos(ang) * 17).toFixed(1) + ' ' + (b[1] + Math.sin(ang) * 17).toFixed(1) + ' L' + (px + Math.cos(ang + 1.1) * 7).toFixed(1) + ' ' + (py + Math.sin(ang + 1.1) * 7).toFixed(1) + ' Z' },
+                A, k++, { w: 1.2, gap: 3, r: 0.9 });
+        }
+        g.appendChild(rc.circle(b[0], b[1], 5, { fill: INK, fillStyle: 'solid', stroke: INK, strokeWidth: 1, roughness: 0.6, seed: seed + k++ }));
+      });
+      if (night) [[88, 120, 30], [336, 262, -50], [58, 214, 80]].forEach(function (pt) { // loose falling petals
+        knock({ poly: xform([[0, -11], [7, -2], [4, 9], [0, 6], [-4, 9], [-7, -2]], pt[0], pt[1], pt[2], 1) }, A, k++, { w: 1.3, gap: 3, r: 0.9 });
+      });
+    } else if (season === 'summer') {
+      [[330, 7, 0], [348, 6, 1], [366, 5, 2]].forEach(function (w) {
+        line(wave(24, 376, w[0], w[1], 32), 2.6 - w[2] * 0.4, k++);
+      });
+      // one curling crest (Hokusai-ish hook), accent-filled
+      knock({ path: 'M120 330 C122 300 160 290 176 306 C166 306 158 314 160 326 C150 316 136 316 120 330 Z' }, A, k++, { w: 2.4, gap: 3.5 });
+      knock({ path: 'M270 348 C272 322 304 314 318 328 C310 328 303 334 304 345 C296 337 284 338 270 348 Z' }, A, k++, { w: 2.2, gap: 3.5 });
+      if (night) for (i = 0; i < 6; i++) {
+        g.appendChild(rc.circle(60 + rnd() * 280, 150 + rnd() * 190, 5, { fill: B, fillStyle: 'solid', stroke: B, strokeWidth: 1.2, roughness: 0.6, seed: seed + 200 + i }));
+      }
+    } else if (season === 'monsoon') {
+      // rough cloud half-hiding the sun
+      knock({ path: 'M110 215 a38 38 0 0 1 22 -66 a52 52 0 0 1 96 -22 a44 44 0 0 1 62 46 a34 34 0 0 1 -6 42 Z' }, A, k++, { gap: 4, w: 2.6 });
+      var boat = [[162, 290], [238, 290], [220, 322], [180, 322]];
+      for (i = 0; i < 3; i++) line(wave(80 + i * 14, 320 - i * 14, 334 + i * 14, 3, 20), 2, k++);
+      knock({ poly: [[168, 288], [200, 226], [234, 288]] }, B, k++, { gap: 3.5, w: 2.2, angle: 30 });
+      knock({ poly: boat }, B, k++, { gap: 3.5, w: 2.4, angle: -30 });
+      g.appendChild(rc.line(200, 226, 200, 288, { stroke: INK, strokeWidth: 1.4, roughness: 0.8, seed: seed + k++ }));
+      g.appendChild(rc.line(168, 288, 200, 306, { stroke: INK, strokeWidth: 1.2, roughness: 0.8, seed: seed + k++ }));
+      g.appendChild(rc.line(234, 288, 200, 306, { stroke: INK, strokeWidth: 1.2, roughness: 0.8, seed: seed + k++ }));
+      // diagonal rain, kept clear of the boat
+      var rain = 0, tries = 0, x, y;
+      while (rain < 16 && tries++ < 200) {
+        x = 70 + rnd() * 280; y = 150 + rnd() * 150;
+        if (x > 150 && x < 250 && y > 215) continue;
+        if (y < 218 && x > 100 && x < 295) continue; // under the cloud only
+        g.appendChild(rc.line(x, y, x - 9, y + 24, { stroke: rain % 3 ? A : INK, strokeWidth: 2, roughness: 1, seed: seed + 300 + rain }));
+        rain++;
+      }
+      if (night) [[56, 56], [340, 72], [300, 36]].forEach(function (s, n) {
+        g.appendChild(rc.line(s[0] - 5, s[1], s[0] + 5, s[1], { stroke: INK, strokeWidth: 1.4, roughness: 0.5, seed: seed + 400 + n }));
+        g.appendChild(rc.line(s[0], s[1] - 5, s[0], s[1] + 5, { stroke: INK, strokeWidth: 1.4, roughness: 0.5, seed: seed + 410 + n }));
+      });
+    } else if (season === 'autumn') {
+      if (!night) {
+        var cancel = S('g', { opacity: '0.45', transform: 'rotate(-9 200 205)' });
+        for (i = 0; i < 4; i++) cancel.appendChild(rc.curve(wave(10, 390, 150 + i * 28, 7, 38), { stroke: INK, strokeWidth: 2, roughness: 0.7, seed: seed + 50 + i }));
+        g.appendChild(cancel);
+        [[150, 262, -25, 1.0], [228, 298, 35, 1.1], [300, 236, 70, 0.85], [92, 168, -60, 0.8]].forEach(function (l) {
+          knock({ poly: xform(LEAF, l[0], l[1], l[2], l[3]) }, A, k++, { gap: 3.5, w: 2 });
+        });
+      } else {
+        var halo = rc.circle(cx, cy, 300, { stroke: B, strokeWidth: 1.6, roughness: 1.6, seed: seed + 40 });
+        halo.setAttribute('opacity', '0.35'); g.insertBefore(halo, g.firstChild);
+        [[158, 168, 30], [236, 150, 18], [250, 238, 38], [176, 262, 16], [128, 222, 12]].forEach(function (c, n) { // craters
+          var e = rc.circle(c[0], c[1], c[2], { fill: B, fillStyle: 'solid', stroke: 'none', roughness: 1.2, seed: seed + 60 + n });
+          e.setAttribute('opacity', '0.55'); g.appendChild(e);
+        });
+        for (i = 0; i < 7; i++) { // V of geese, silhouetted across the moon
+          var side = i === 0 ? 0 : (i % 2 ? 1 : -1), step = Math.ceil(i / 2), gx = 268 - step * 22, gy = 186 + side * step * 16;
+          g.appendChild(rc.linearPath([[gx - 10, gy - 6], [gx, gy], [gx + 10, gy - 6]], { stroke: P.paper, strokeWidth: 3.4, roughness: 0.8, seed: seed + 500 + i }));
+        }
+      }
+    } else if (season === 'winter') {
+      var mtn = [[30, 335], [95, 275], [140, 222], [168, 195], [232, 195], [260, 222], [305, 275], [370, 335]];
+      knock({ poly: mtn }, A, k++, { gap: 4.5, w: 2.6, angle: -50 });
+      var cap = [[168, 195], [232, 195], [251, 214], [240, 212], [232, 226], [220, 214], [208, 234], [198, 216], [186, 230], [176, 214], [160, 224], [149, 214]];
+      g.appendChild(rc.polygon(cap, { fill: night ? INK : '#FBF7EC', fillStyle: 'solid', stroke: INK, strokeWidth: 2.2, roughness: 1.2, seed: seed + k++ }));
+      if (night) {
+        var flakes = 0, tries2 = 0, fx, fy;
+        while (flakes < 16 && tries2++ < 300) {
+          fx = 24 + rnd() * 352; fy = 30 + rnd() * 300;
+          if (inside([fx, fy], mtn)) continue;
+          if (flakes % 2) { // tiny crosshatch snow mark
+            g.appendChild(rc.line(fx - 4, fy - 4, fx + 4, fy + 4, { stroke: INK, strokeWidth: 1.2, roughness: 0.6, seed: seed + 600 + flakes }));
+            g.appendChild(rc.line(fx - 4, fy + 4, fx + 4, fy - 4, { stroke: INK, strokeWidth: 1.2, roughness: 0.6, seed: seed + 650 + flakes }));
+          } else {
+            g.appendChild(rc.circle(fx, fy, 4, { fill: INK, fillStyle: 'solid', stroke: INK, strokeWidth: 1, roughness: 0.5, seed: seed + 700 + flakes }));
+          }
+          flakes++;
+        }
+      }
+    }
+  }
+
+  /* ── section stamp: rough postmark peeking behind a corner ── */
+  function drawCornerMarks(P) {
+    $$('svg.pm-corner').forEach(function (svg) {
+      var g = layer(svg), rc = rough.svg(svg), s = hash(svg.getAttribute('data-seed') || 'pm');
+      var grp = S('g', { opacity: '0.85' });
+      grp.appendChild(rc.circle(60, 60, 84, { stroke: P.ink, strokeWidth: 2, roughness: 1.3, seed: s }));
+      grp.appendChild(rc.circle(60, 60, 62, { stroke: P.ink, strokeWidth: 1.3, roughness: 1.3, seed: s + 1 }));
+      for (var i = 0; i < 3; i++) {
+        grp.appendChild(rc.curve(wave(6, 114, 44 + i * 16, 4, 27), { stroke: P.ink, strokeWidth: 1.5, roughness: 0.8, seed: s + 2 + i }));
+      }
+      g.appendChild(grp);
+    });
+  }
+
+  /* ── entry stamps: unique, stable motif per title ── */
+  function drawEntryStamps(P) {
+    $$('.entry-stamp').forEach(function (box) {
+      var svg = $('svg', box), g = layer(svg), rc = rough.svg(svg);
+      var s = hash(box.getAttribute('data-seed')), r = rng(s), col = P[box.getAttribute('data-c')] || P.ink;
+      var o = { stroke: col, strokeWidth: 1.4, roughness: 1.2, seed: s, fill: col, fillStyle: 'hachure', hachureGap: 3.5, hachureAngle: Math.round(r() * 90) - 45, fillWeight: 1.5 };
+      g.appendChild(rc.rectangle(6, 6, 72, 88, { stroke: col, strokeWidth: 1, roughness: 0.8, seed: s + 1 }));
+      var kind = s % 3;
+      if (kind === 0) g.appendChild(rc.circle(42, 37, 36, o));
+      else if (kind === 1) g.appendChild(rc.polygon([[42, 14], [66, 58], [18, 58]], o));
+      else { o.fillStyle = 'cross-hatch'; g.appendChild(rc.rectangle(20, 16, 44, 42, o)); }
+      for (var i = 0; i < 3; i++) {
+        var y = 62 + i * 3.5 - 3;
+        g.appendChild(rc.line(14 + r() * 8, y + r() * 2, 70 - r() * 8, y + r() * 2, { stroke: col, strokeWidth: 0.9, roughness: 1.4, seed: s + 10 + i }));
+      }
+      g.setAttribute('opacity', '0.9');
+    });
+  }
+
+  /* ── rubber-stamp cred badges ── */
+  function drawCreds(P) {
+    $$('.cred').forEach(function (el) {
+      var old = $('svg', el); if (old) el.removeChild(old);
+      var w = el.offsetWidth, h = el.offsetHeight; if (!w || !h) return;
+      var svg = S('svg', { width: w, height: h, viewBox: '0 0 ' + w + ' ' + h, 'aria-hidden': 'true' });
+      var rc = rough.svg(svg), s = hash(el.textContent);
+      svg.appendChild(rc.rectangle(1.5, 1.5, w - 3, h - 3, { stroke: P.redInk, strokeWidth: 1.8, roughness: 1.3, seed: s }));
+      svg.appendChild(rc.rectangle(4.5, 4.5, w - 9, h - 9, { stroke: P.redInk, strokeWidth: 0.8, roughness: 1.5, seed: s + 1 }));
+      el.appendChild(svg);
+    });
+  }
+
+  /* ── hand-drawn red underline for inline links ── */
+  function drawUnderlines(P) {
+    $$('.entry-body a').forEach(function (a) {
+      var old = $('svg.ul', a); if (old) a.removeChild(old);
+      var w = a.offsetWidth; if (!w) return;
+      var svg = S('svg', { 'class': 'ul', width: w, height: 8, viewBox: '0 0 ' + w + ' 8', 'aria-hidden': 'true' });
+      var rc = rough.svg(svg);
+      svg.appendChild(rc.line(0, 4, w, 3, { stroke: P.red, strokeWidth: 2, roughness: 1.3, seed: hash(a.textContent) }));
+      a.appendChild(svg);
+    });
+  }
+
+  /* ── squiggle tile for title links, recoloured with the season's accent ── */
+  function setSquiggle(P) {
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='7'><path d='M0 3.5 C2.5 0.6 5.5 0.6 8 3.5 S13.5 6.4 16 3.5' fill='none' stroke='" + P.red + "' stroke-width='1.8' stroke-linecap='round'/></svg>";
+    root.style.setProperty('--sq', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+  }
+
+  /* ── contact postmark ── */
+  function drawContact(P) {
+    var svg = $('#contactPm'); if (!svg) return;
+    var g = layer(svg), rc = rough.svg(svg), s = hash('postmark-sf');
+    g.appendChild(rc.circle(100, 100, 190, { stroke: P.red, strokeWidth: 2.4, roughness: 1.2, seed: s }));
+    g.appendChild(rc.circle(100, 100, 130, { stroke: P.red, strokeWidth: 1.8, roughness: 1.2, seed: s + 1 }));
+    for (var i = 0; i < 3; i++) {
+      g.appendChild(rc.curve(wave(52, 148, 82 + i * 18, 4, 24), { stroke: P.red, strokeWidth: 1.8, roughness: 0.8, seed: s + 2 + i }));
+    }
+  }
+
+  /* ── hover / focus postmark ring (created lazily, cached) ── */
+  function buildPM(el) {
+    if (!hasRough || el._pm) return;
+    var w = el.offsetWidth, h = el.offsetHeight; if (!w || !h) return;
+    var padX = 14, padY = 8, W = w + padX * 2, H = h + padY * 2;
+    var svg = S('svg', { 'class': 'pm', width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, 'aria-hidden': 'true' });
+    svg.style.left = -padX + 'px'; svg.style.top = -padY + 'px'; svg.style.pointerEvents = 'none';
+    var rc = rough.svg(svg);
+    if (el.id === 'issueBtn') { krackle(svg, el, w, h); return; }
+    svg.appendChild(rc.ellipse(W / 2, H / 2, W - 4, H - 3, { stroke: palette().red, strokeWidth: 1.8, roughness: 1.8, seed: hash(el.textContent + el.getAttribute('aria-label')) }));
+    el.appendChild(svg);
+    el._pm = true;
+  }
+  // Kirby krackle: clumps of ink blobs scattered round the text, seeded so it's stable
+  function krackle(svg, el, w, h) {
+    var pad = 22, W = w + pad * 2, H = h + pad * 2, ink = palette().ink, r = rng(hash('krackle' + el.textContent));
+    svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.style.left = -pad + 'px'; svg.style.top = -pad + 'px';
+    svg.classList.add('krackle'); svg.style.transformOrigin = '50% 50%';
+    for (var c = 0; c < 16; c++) {
+      var a = c / 16 * Math.PI * 2 + r() * 0.3;
+      var cx = W / 2 + Math.cos(a) * (w / 2 + 9 + r() * 8), cy = H / 2 + Math.sin(a) * (h / 2 + 7 + r() * 6);
+      var n = 1 + Math.floor(r() * 4);
+      for (var d = 0; d < n; d++) {
+        var e = S('circle', { cx: (cx + (r() - .5) * 9).toFixed(1), cy: (cy + (r() - .5) * 7).toFixed(1), r: (d ? 0.8 + r() * 1.8 : 2 + r() * 3.2).toFixed(1), fill: ink });
+        svg.appendChild(e);
+      }
+    }
+    el.appendChild(svg);
+    el._pm = true;
+  }
+  function resetPM() {
+    $$('svg.pm').forEach(function (n) { n.parentNode.removeChild(n); });
+    $$('[data-pm]').forEach(function (el) { el._pm = false; });
+  }
+  function bindPM() {
+    $$('[data-pm]').forEach(function (el) {
+      var f = function () { buildPM(el); };
+      el.addEventListener('mouseenter', f);
+      el.addEventListener('focus', f);
+      el.addEventListener('touchstart', f, { passive: true });
+    });
+  }
+
+  /* ── orchestration ── */
+  function drawAll() {
+    if (!hasRough) return;
+    var P = palette();
+    [drawToggle, drawHero, drawCornerMarks, drawEntryStamps, drawCreds, drawUnderlines, setSquiggle, drawContact].forEach(function (fn) {
+      try { fn(P); } catch (e) { if (window.console) console.warn(fn.name, e); }
+    });
+    resetPM();
+  }
+  var timer;
+  function scheduleRedraw() { clearTimeout(timer); timer = setTimeout(drawAll, 150); }
+
+  /* ── year: hero denomination, contact postmark, footer (static HTML keeps 2026 as no-JS fallback) ── */
+  var year = new Date().getFullYear();
+  (function () {
+    var d = $('#denom'), pm = $('#pmText'), yr = $('#yr');
+    if (d) d.textContent = ('0' + (year % 100)).slice(-2);
+    if (pm) pm.textContent = 'SAN FRANCISCO \u00B7 CA \u00B7 ' + year + ' \u00B7';
+    if (yr) yr.textContent = year;
+  })();
+
+  /* ── footer issue label + hidden season cycler ── */
+  var SEASONS = ['spring', 'summer', 'monsoon', 'autumn', 'winter'];
+  var issueBtn = $('#issueBtn'), issueTail = $('#issueTail');
+  function updateIssue() {
+    if (!issueBtn) return;
+    var s = root.getAttribute('data-season'), night = root.getAttribute('data-theme') === 'dark';
+    issueBtn.textContent = s + ' issue';
+    issueBtn.setAttribute('aria-label', 'change season (currently ' + s + ')');
+    issueTail.textContent = ' \u00B7 ' + (night ? 'night' : 'day') + ' printing';
+    if (s === 'monsoon') {
+      var h = document.createElement('span'); h.className = 'deva'; h.setAttribute('lang', 'hi'); h.textContent = '\u0935\u0930\u094D\u0937\u093E';
+      issueTail.appendChild(document.createTextNode(' \u00B7 ')); issueTail.appendChild(h);
+    }
+    if (s !== root.getAttribute('data-real-season')) issueTail.appendChild(document.createTextNode(' (out of season)'));
+    issueBtn._pm = false;
+    var old = $('svg.pm', issueBtn); if (old) issueBtn.removeChild(old);
+  }
+  function pressHero() {
+    var h = $('.hero-art'); if (!h) return;
+    h.classList.remove('pressing'); void h.offsetWidth; h.classList.add('pressing');
+    setTimeout(function () { h.classList.remove('pressing'); }, 450);
+  }
+  function setSeason(s) {
+    root.setAttribute('data-season', s);
+    try { sessionStorage.setItem('season-v1', s); } catch (e) {}
+    updateIssue();
+    drawAll();
+    if (issueBtn && (document.activeElement === issueBtn || issueBtn.matches(':hover'))) buildPM(issueBtn);
+    pressHero();
+  }
+  if (issueBtn) {
+    issueBtn.addEventListener('click', function () {
+      var i = SEASONS.indexOf(root.getAttribute('data-season'));
+      setSeason(SEASONS[(i + 1) % SEASONS.length]);
+    });
+  }
+  updateIssue();
+
+  makeGrain();
+  bindPM();
+  drawAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll); // text metrics change once fonts land
+  if (window.ResizeObserver) {
+    var lastW = 0;
+    new ResizeObserver(function (entries) {
+      var w = Math.round(entries[0].contentRect.width);
+      if (w !== lastW) { lastW = w; scheduleRedraw(); }
+    }).observe($('.container'));
+  } else {
+    window.addEventListener('resize', scheduleRedraw);
+  }
+
+  /* ── theme toggle (same mechanics as the main site) ── */
+  $('#modeBtn').addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme-v2', next); } catch (e) {}
+    updateIssue();
+    drawAll();
+  });
+
+  /* ── brand typing animation (alternates latin / devanagari) ── */
+  (function brandType() {
+    var el = document.getElementById('brandName');
+    if (!el) return;
+    // respect prefers-reduced-motion: leave the static name in place
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var words = ['atharva walawalkar', el.dataset.alt || 'अथर्व वालावलकर'];
+    var speed = 58;
+    var wi = 0;
+
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    function render(text, blink) {
+      el.innerHTML = '<span class="brand-text' + (wi ? ' deva' : '') + '"' + (wi ? ' lang="hi"' : '') + '></span><span class="caret' + (blink ? ' blink' : '') + '"></span>';
+      el.querySelector('.brand-text').textContent = text;
+    }
+
+    async function loop() {
+      while (true) {
+        var w = words[wi];
+        for (let i = 1; i <= w.length; i++) { render(w.slice(0, i), false); await sleep(speed); }
+        render(w, true);
+        await sleep(2000);
+        for (let i = w.length; i >= 0; i--) { render(w.slice(0, i), false); await sleep(speed / 2); }
+        wi = (wi + 1) % words.length;
+      }
+    }
+    loop();
+  })();
+})();
+</script>
+</body>
+</html>
