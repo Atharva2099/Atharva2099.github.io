@@ -1229,11 +1229,34 @@ button.issue {
     });
   }
 
+  /* ── favicon: a tiny perforated stamp in the season's ink, sun by day / crescent by night ── */
+  function drawFavicon(P) {
+    var c = document.createElement('canvas'); c.width = c.height = 64;
+    var x = c.getContext('2d'), night = root.getAttribute('data-theme') === 'dark', i, t;
+    if (!x) return;
+    x.fillStyle = P.red; x.fillRect(4, 4, 56, 56);
+    x.globalCompositeOperation = 'destination-out';            // punch the perforations
+    for (i = 0; i < 7; i++) {
+      t = 4 + i * (56 / 6);
+      [[t, 4], [t, 60], [4, t], [60, t]].forEach(function (p) { x.beginPath(); x.arc(p[0], p[1], 3.4, 0, Math.PI * 2); x.fill(); });
+    }
+    x.globalCompositeOperation = 'source-over';
+    function disc(cx, cy, r, col) { x.fillStyle = col; x.beginPath(); x.arc(cx, cy, r, 0, Math.PI * 2); x.fill(); }
+    disc(30, 34, 16, P.ochre);                                  // misregistered under-copy
+    disc(32, 32, 16, night ? P.ink : P.paper);                 // cream moon at night, paper sun by day
+    if (night) disc(40, 25, 14, P.red);                         // bite out a crescent
+    var r = rng(hash('favicon')), d = x.getImageData(0, 0, 64, 64), px = d.data;
+    for (i = 0; i < px.length; i += 4) if (px[i + 3] && r() < 0.18) { px[i] *= 0.88; px[i + 1] *= 0.88; px[i + 2] *= 0.88; } // ink grain
+    x.putImageData(d, 0, 0);
+    var link = document.querySelector('link[rel="icon"]');
+    if (link) { link.type = 'image/png'; link.href = c.toDataURL('image/png'); }
+  }
+
   /* ── orchestration ── */
   function drawAll() {
     if (!hasRough) return;
     var P = palette();
-    [drawToggle, drawHero, drawCornerMarks, drawEntryStamps, drawCreds, drawUnderlines, setSquiggle, drawContact].forEach(function (fn) {
+    [drawToggle, drawHero, drawCornerMarks, drawEntryStamps, drawCreds, drawUnderlines, setSquiggle, drawContact, drawFavicon].forEach(function (fn) {
       try { fn(P); } catch (e) { if (window.console) console.warn(fn.name, e); }
     });
     resetPM();
