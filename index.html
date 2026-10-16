@@ -40,6 +40,8 @@
   --red-ink: #BF3420;   /* darker accent for small text (AA on paper) */
   --ochre:   #E0A93B;
   --indigo:  #23395B;
+  /* toggle bulb glow: warm ochre light, strongest at the centre */
+  --glow-core: rgba(240, 146, 36, .8); --glow-mid: rgba(240, 150, 40, .45); --glow-edge: rgba(240, 160, 50, .16); /* day: golden orange */
 
   /* watercolor highlighter strokes (two overlapping translucent washes) */
   --hl:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24' preserveAspectRatio='none'%3E%3Cpath d='M1 8 C18 4 38 7 58 4 S88 5 99 7 L98 18 C80 21 61 17 41 20 S12 19 2 18 Z' fill='%23E0A93B' fill-opacity='.38'/%3E%3Cpath d='M3 10 C24 7 44 10 66 7 S90 9 97 10 L96 17 C74 19 52 16 32 19 S10 18 4 17 Z' fill='%23D9412B' fill-opacity='.16'/%3E%3C/svg%3E");
@@ -61,6 +63,7 @@
   --red-ink: #EE7A66;
   --ochre:   #EDB94A;
   --indigo:  #7F9BD1;
+  --glow-core: rgba(238, 242, 250, .6); --glow-mid: rgba(206, 214, 230, .3); --glow-edge: rgba(190, 200, 222, .1); /* night: silvery white */
 
   --hl:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24' preserveAspectRatio='none'%3E%3Cpath d='M1 8 C18 4 38 7 58 4 S88 5 99 7 L98 18 C80 21 61 17 41 20 S12 19 2 18 Z' fill='%23EDB94A' fill-opacity='.28'/%3E%3Cpath d='M3 10 C24 7 44 10 66 7 S90 9 97 10 L96 17 C74 19 52 16 32 19 S10 18 4 17 Z' fill='%23E5553F' fill-opacity='.2'/%3E%3C/svg%3E");
   --hl2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24' preserveAspectRatio='none'%3E%3Cpath d='M1 8 C18 4 38 7 58 4 S88 5 99 7 L98 18 C80 21 61 17 41 20 S12 19 2 18 Z' fill='%237F9BD1' fill-opacity='.25'/%3E%3Cpath d='M3 10 C24 7 44 10 66 7 S90 9 97 10 L96 17 C74 19 52 16 32 19 S10 18 4 17 Z' fill='%23E5553F' fill-opacity='.15'/%3E%3C/svg%3E");
@@ -161,14 +164,25 @@ a:focus-visible, button:focus-visible { outline: 2px dashed var(--red); outline-
 .toggle {
   position: absolute; top: 8px; right: -11px; z-index: 1;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; padding: 0; border: 0; color: var(--ink-3);
-  background-color: transparent; background-image: var(--hl); background-repeat: no-repeat;
-  background-position: 50% 60%; background-size: 0% 100%; cursor: pointer;
-  transition: background-size .38s cubic-bezier(.3, .7, .3, 1), color .2s ease;
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--ink-3);
+  background: transparent; cursor: pointer; isolation: isolate;
+  transition: color .2s ease;
 }
-@media (hover: hover) { .toggle:hover { background-size: 100% 100%; color: var(--ink); } }
-.toggle:focus-visible { background-size: 100% 100%; color: var(--ink); outline: none; }
-.toggle:active { background-size: 100% 100%; }
+/* hover / focus / press: the icon lights up like a bulb. The glow is brightest at the centre and
+   weakens with distance (radial gradient), and is speckled with the page's paper grain (--grain-mask,
+   an alpha-noise tile made in makeGrain) so it reads as light falling on paper, not a smooth gradient. */
+.toggle::before {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  left: 50%; top: 50%; width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-core) 0%, var(--glow-mid) 22%, var(--glow-edge) 45%, transparent 70%);
+  -webkit-mask: var(--grain-mask, linear-gradient(#000, #000)) 0 0 / 128px 128px repeat;
+          mask: var(--grain-mask, linear-gradient(#000, #000)) 0 0 / 128px 128px repeat;
+  opacity: 0; transform: scale(.55);
+  transition: opacity .3s ease, transform .45s cubic-bezier(.2, .7, .2, 1);
+}
+@media (hover: hover) { .toggle:hover { color: var(--ink); } .toggle:hover::before { opacity: 1; transform: none; } }
+.toggle:focus-visible, .toggle:active { color: var(--ink); outline: none; }
+.toggle:focus-visible::before, .toggle:active::before { opacity: 1; transform: none; }
 .toggle svg { width: 22px; height: 22px; display: block; }
 
 /* switching theme: the new theme sweeps down the page over one second with a soft, feathered edge.
@@ -876,6 +890,13 @@ function initWatercolor(opts) {
     x.putImageData(d, 0, 0);
     var g = $('#grain');
     if (g) g.style.backgroundImage = 'url(' + c.toDataURL('image/png') + ')';
+    // the same noise as an alpha mask (white, opacity 45-100%) so the toggle's glow is grainy like the paper
+    var m = x.createImageData(256, 256);
+    for (i = 0; i < m.data.length; i += 4) {
+      m.data[i] = m.data[i + 1] = m.data[i + 2] = 255; m.data[i + 3] = (115 + d.data[i] * 0.55) | 0;
+    }
+    x.putImageData(m, 0, 0);
+    root.style.setProperty('--grain-mask', 'url(' + c.toDataURL('image/png') + ')');
   }
   makeGrain();
 
