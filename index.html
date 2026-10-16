@@ -153,24 +153,40 @@ a:focus-visible, button:focus-visible { outline: 2px dashed var(--red); outline-
 .banner-wrap { position: relative; }
 .banner { display: block; width: 100%; aspect-ratio: 3.2 / 1; }
 
-/* theme switch: sits at the end of the tagline row and reads like it (mono, ink-3),
-   with the same watercolor wash as links on hover/focus; label names the mode it switches to */
-.tag-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 16px; margin-top: 2px; }
+.tag-row { margin-top: 2px; }
+
+/* theme switch: icon only, just under the banner at the reading column's right edge.
+   The row has no height, so it never pushes the overlapping portrait down. */
+.toggle-row { position: relative; height: 0; }
 .toggle {
-  display: inline-flex; align-items: center; gap: 6px;
-  min-height: 44px; padding: 0 6px; margin-right: -6px; border: 0;
-  font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; color: var(--ink-3);
+  position: absolute; top: 8px; right: -11px; z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; border: 0; color: var(--ink-3);
   background-color: transparent; background-image: var(--hl); background-repeat: no-repeat;
-  background-position: 0 60%; background-size: 0% 100%; cursor: pointer;
+  background-position: 50% 60%; background-size: 0% 100%; cursor: pointer;
   transition: background-size .38s cubic-bezier(.3, .7, .3, 1), color .2s ease;
 }
 @media (hover: hover) { .toggle:hover { background-size: 100% 100%; color: var(--ink); } }
 .toggle:focus-visible { background-size: 100% 100%; color: var(--ink); outline: none; }
 .toggle:active { background-size: 100% 100%; }
-.toggle svg { width: 14px; height: 14px; display: block; }
-.toggle .sun, .toggle .to-day { display: none; }
-[data-theme="dark"] .toggle .moon, [data-theme="dark"] .toggle .to-night { display: none; }
-[data-theme="dark"] .toggle .sun, [data-theme="dark"] .toggle .to-day { display: inline; }
+.toggle svg { width: 22px; height: 22px; display: block; }
+
+/* switching theme: the new theme sweeps down the page over one second with a soft, feathered edge.
+   The mask is a tall gradient (opaque top, fade, transparent bottom) that slides from bottom-aligned
+   (new theme hidden) to top-aligned (fully shown). */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) {
+  -webkit-mask: linear-gradient(to bottom, #000 40%, transparent 60%) 0 100% / 100% 250% no-repeat;
+          mask: linear-gradient(to bottom, #000 40%, transparent 60%) 0 100% / 100% 250% no-repeat;
+  animation: themeSweep 1s cubic-bezier(.65, 0, .35, 1) both;
+}
+@keyframes themeSweep {
+  from { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+  to   { -webkit-mask-position: 0 0;    mask-position: 0 0; }
+}
+.toggle .sun { display: none; }
+[data-theme="dark"] .toggle .moon { display: none; }
+[data-theme="dark"] .toggle .sun { display: block; }
 
 .face {
   --size: clamp(104px, 25vw, 168px);
@@ -351,7 +367,7 @@ footer {
    READING COLUMN — comfortable line length, centred under the wider banner
    (equal gap on both sides); the portrait lines up with the column's left edge
    ═══════════════════════════════════════════ */
-.name, .tag-row, .hero-text, .social-row, .section, footer { max-width: 42rem; margin-left: auto; margin-right: auto; }
+.name, .tag-row, .toggle-row, .hero-text, .social-row, .section, footer { max-width: 42rem; margin-left: auto; margin-right: auto; }
 .face { margin-left: max(8px, calc((100% - 42rem) / 2)); }
 
 /* ═══════════════════════════════════════════
@@ -406,6 +422,12 @@ footer {
   <div class="banner-wrap">
     <canvas class="banner" id="banner" role="img" aria-label="A painted impression of Mt. Tam at sunset: tree-covered and golden hills above a sea of fog"></canvas>
   </div>
+  <div class="toggle-row">
+    <button class="toggle" id="modeBtn" type="button" aria-label="toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="currentColor"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+    </button>
+  </div>
   <div class="face"><canvas id="face" role="img" aria-label="A painted portrait of Atharva"></canvas></div>
   <h1 class="name">
     <span class="sr-only">atharva walawalkar</span>
@@ -413,11 +435,6 @@ footer {
   </h1>
   <div class="tag-row">
     <div class="tag">ai research &middot; post-training &middot; alignment</div>
-    <button class="toggle" id="modeBtn" type="button" aria-label="toggle dark mode">
-      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="currentColor"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
-      <span class="to-night">night</span><span class="to-day">day</span>
-    </button>
   </div>
 </header>
 
@@ -872,9 +889,14 @@ function initWatercolor(opts) {
   modeBtn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
   modeBtn.addEventListener('click', function () {
     var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme-v2', next); } catch (e) {}
-    modeBtn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+    function apply() {
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme-v2', next); } catch (e) {}
+      modeBtn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+    }
+    // the new theme sweeps down from the top (see ::view-transition-new); instant where unsupported or motion is off
+    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !still) document.startViewTransition(apply); else apply();
   });
 
   /* ── footer year ── */
